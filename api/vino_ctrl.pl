@@ -1,8 +1,10 @@
 % Export vino predicats
 :- module(vino_ctrl,[
-    list/3,
-    create/3,
-    delete/2,
+	list_appellations/1,
+    list_vino/2,
+    create_vino/2,
+    update_vino/2,
+    delete_vino/2,
 	init_vino_db/1
 ]).
 
@@ -11,21 +13,7 @@
 :- use_module(library(persistency)).
 
 
-
-/****************************************
-*	Base de Connaissance
-****************************************/
-
-appellation(bordeaux).
-appellation('Vallée du rhone et de Languedoc').
-appellation(beaujolais).
-appellation(bourgogne).
-appellation('Val de Loire').
-appellation('vins Blanc').
-appellation('Champagne').
-appellation(cognac).
-
-
+:-ensure_loaded(appellation).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,7 +30,7 @@ appellation(cognac).
 %
 
 :- persistent
-		vino(id:string,
+		vino(id:atom,
 			nom:string,
 			description:string,
 			annee:integer,
@@ -59,15 +47,24 @@ init_vino_db(Dir) :-
 	db_attach(DB, []).
 
 
+%	list(appellations)
+%
+%	Donne tous les appellations.
+%
+list_appellations(List) :-
+	findall(Appel,appellation(Appel),List).
+
+
 
 %	get(+Vino.Id, -Vino)
 %
 %	Donne le vino correspondant à l'ID.
 %
-
-get(Id, Location, _{id:Id, nom:Nom, url:Url
-				 description:Descr, annee:An}) :-
-	vino(Id, Nom, Descr, An, Orig, Appel,Htva,Tvac),		% Recup le vino
+get(Id, Location, _{id:Id, nom:Nom, url:Url,
+				 description:Descr, annee:An, origin:Orig,
+				 appelation:Appel,htva:Htva,tvac:Tvac}) :-
+	% spy(vino),
+	vino(Id, Nom, Descr, An, Orig, Appel,Htva,Tvac),		% Recup le vino dynamikement
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 
@@ -75,18 +72,22 @@ get(Id, Location, _{id:Id, nom:Nom, url:Url
 %
 %	Donne tout les vinos correspondants à l'ID.
 %
-list(Id, Location, Vino) :-
-	nonvar(Id), !, get(Id, Location, Vino).
+list_vino(Params, Vino) :-
+	nonvar(Params.id), !, get(Params.id, Params.url, Vino).
 
-list(Id, Location, List) :-
-	findall(Vino, get(Id, Location, Vino), List).
+list_vino(Params, List) :-
+	findall(Vino, get(Params.id, Params.url, Vino), List).
 
 
-
-create(Dict, Location, Vino) :-
+%	create(+Dict,+Location, -Vino)
+%
+%	Ajoute un nouveau Vino dans la 'DB'.
+%
+create_vino(Params, Vino) :-
 	uuid(Uuid), 						% Genere un Uuid
-	split_string(Uuid,"-","",[Id|_]),	% Garde ke la 1er partie de l'Uuid
-	Dict >:< _{id:Id, nom:Nom, description:Descr, 
+	split_string(Uuid,"-","",[First|_]),	% Garde ke la 1er partie de l'Uuid
+	atom_string(Id,First),
+	Params >:< _{nom:Nom, description:Descr, 
 				annee:An,		origine:Orig,
 				htva:Htva,		tvac:Tvac,
 				appellation:Appel}, % Unification partielle
@@ -99,18 +100,18 @@ create(Dict, Location, Vino) :-
 	set_def_value(Tvac, 0.0),
 	set_def_value(Appel, ""),
 	assert_vino(Id, Nom, Descr, An, Orig, Appel,Htva,Tvac),   % Cree && Persiste le Vino
-	get(Id, Location, Vino).
+	get(Id, Params.url, Vino).
 
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
 set_def_value(_, _).
 
 
-update(Dict, NVino) :-
-	delete(Dict.Id, DVino),
-	NVino = DVino.put(Dict),
-	create_vino(New, Vino).
+update_vino(Params, NVino) :-
+	delete_vino(Params, DVino),
+	New = DVino.put(Params),
+	create_vino(New, NVino).
 
 
-delete(Dict, DVino) :-
-	get(Dict.Id, DVino),
-	retractall_vino(Dict.id, _, _, _).
+delete_vino(Params, DVino) :-
+	get(Params.id, Params.url ,DVino),
+	retractall_vino(Params.id,_,_,_,_,_,_,_).
