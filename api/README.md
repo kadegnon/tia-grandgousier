@@ -8,8 +8,8 @@ Petit API écrit en Prolog permettant de gerer les vins en DB et de dialoguer av
 - ``/api/**/*``     : Les datas envoyées/recues sont au format **JSON**.
 - ``/api/appellation`` : **GET** - Liste toutes les appellations de vins disponibles.
 - ``/api/bot/`` : **POST** - Questionne Grandgousier
-- /api/vino/ : 
-    1. **GET** - Liste toutes les vins en DB disponibles.
+- ``/api/vino/`` : 
+    1. **GET** - Liste tous les vins en DB disponibles.
     2. **GET** - /api/vino/*<vin_id>* Detaille le vin avec l'ID correspondant.
     3. **POST** - /api/vino/*<vin_id>* Ajoute un nouveau vin dans la DB. Les attributs modifiables sont : 
      - *nom[string]* :Nom du vin
