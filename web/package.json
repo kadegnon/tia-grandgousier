@@ -1,0 +1,39 @@
+{
+  "name": "tia-grandgousier-app",
+  "version": "0.0.1",
+  "description": "Web app pour le projet de T.I.A",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && NODE_ENV=production webpack -p",
+    "watch:build": "webpack --watch",
+    "test:unit": "mocha --require babel-core/register ./test/unit/*.spec.js",
+    "watch:test:unit": "mocha --require babel-core/register --watch ./test/unit/**/*.spec.js",
+    "test": "NODE_ENV=test npm run test:unit"
+  },
+  "keywords": [
+    "tia",
+    "vue.js",
+    "localstorage"
+  ],
+  "author": "kadegnon",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "chai": "^4.1.2",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.4",
+    "img-loader": "^2.0.1",
+    "mocha": "^5.0.1",
+    "sinon": "^4.4.2",
+    "style-loader": "^0.20.2",
+    "url-loader": "^1.0.1",
+    "vue": "^2.5.13",
+    "vue-loader": "^14.1.1",
+    "webpack": "^4.1.0",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
