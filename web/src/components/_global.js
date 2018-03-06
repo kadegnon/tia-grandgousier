@@ -12,5 +12,6 @@ const NavLinks = require('./NavLinks.vue');
 export default {
   chatMsg,
   userChoice,
-  autoComplete
+  autoComplete,
+  NavLinks
 };

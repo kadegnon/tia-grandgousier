@@ -1,27 +1,22 @@
 <template>
   <div id="app">
- //   <img src="./assets/logo.png">
-    <NavLinks />
-    <HelloWorld/>
-    <Chat/>
-    <Vins/>
+    <!-- <img src="./assets/logo.png"> -->
+    <NavLinks>
+    </NavLinks>
+
+    <router-view> </router-view>
+
   </div>
 </template>
 
 <script>
-  import HelloWorld from './pages/HelloWorld';
-  import Chat from './pages/Chat';
-  import Vins from './pages/Vins';
-  import About from './pages/About';
+  import NavLinks from './components/NavLinks';
 
 
   export default {
     name: 'App',
     components: {
-      HelloWorld,
-      Chat,
-      Vins,
-      About,
+      NavLinks
     },
   };
 </script>
