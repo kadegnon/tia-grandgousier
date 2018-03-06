@@ -6,6 +6,8 @@
 const chatMsg = require('./ChatMsg.vue');
 const userChoice = require('./UserChoice.vue');
 const autoComplete = require('./AutoComplete.vue');
+const NavLinks = require('./NavLinks.vue');
+
 
 export default {
   chatMsg,
