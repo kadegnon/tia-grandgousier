@@ -1,34 +1,39 @@
 <template>
-  <div class="chat">
-    <h1></h1>
-    <h2>Essential Links</h2>
-    <ul >
-      <chat-msg :msg="m.content" :type="m.type"> </chat-msg>
-    </ul>
-    <user-choice>
+  <section class="vins">
+    <h1>Liste des vins</h1>
+    <vin-list :vins="list">
 
-    </user-choice>
-  </div>
+    </vin-list>
+  </section>
 </template>
 
 <script>
+import VinList from '../components/VinList';
+
 export default {
+  name: "vins",
+  components : {
+    VinList,
+  },
   data() {
     return {
-    };
+      list : [
+        { "id" : "mocky123", nom:"Bordeaux", annee:"2017"}
+      ]
+    }
   },
+
+  methods : {
+    remove(id){
+      console.log("[Vins] Remove vin#"+id);
+    }
+  }
 };
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .chat {
-    max-width: 640px;
-    margin: 0 auto
-  }
 
-  .chat ul {
-    padding: 20px 50px
-  }
+
 </style>

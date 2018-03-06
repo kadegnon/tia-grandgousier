@@ -9,6 +9,8 @@ export default [
   { name: 'home', path: '/', component: HelloWord},
   { name: 'chat', path: '/chat', component: Chat },
   { name: 'vins', path: '/vins',component: Vins },
+  { name: 'vinNew', path: '/vins/new',component: Vins },
+  { name: 'vinDetails', path: '/vins/:id',component: Vins },
   { name: 'about', path: '/about',component: About },
 
 ]
