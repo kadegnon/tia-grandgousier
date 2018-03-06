@@ -2,7 +2,7 @@
   <div class="chat">
     <h1></h1>
     <h2>Essential Links</h2>
-    <ul v-model:"m in messages"> 
+    <ul >
       <chat-msg :msg="m.content" :type="m.type"> </chat-msg>
     </ul>
     <user-choice>
