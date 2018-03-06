@@ -9,6 +9,7 @@ const autoComplete = require('./AutoComplete.vue');
 const NavLinks = require('./NavLinks.vue');
 
 const VinList = require('./VinList.vue');
+const VinDetails = require('./VinDetails.vue');
 
 export default {
   chatMsg,
@@ -16,4 +17,5 @@ export default {
   autoComplete,
   NavLinks,
   VinList,
+  VinDetails
 };
