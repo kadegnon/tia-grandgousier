@@ -1,11 +1,11 @@
 
-import Chat from '../pages/Chat.vue';
-import Vins from '../pages/Vins.vue';
-import VinList from '../components/VinList';
-import VinDetails from '../components/VinDetails';
+import Chat from '@/pages/Chat.vue';
+import Vins from '@/pages/Vins.vue';
+import VinList from '@/components/VinList';
+import VinDetails from '@/components/VinDetails';
 
-import About from '../pages/About.vue';
-import HelloWord from '../pages/HelloWord.vue';
+import About from '@/pages/About.vue';
+import HelloWord from '@/pages/HelloWord.vue';
 
 
 export default [

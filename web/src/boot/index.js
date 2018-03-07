@@ -2,14 +2,14 @@ import Vue from 'vue';
 import VueResource from "vue-resource";
 
 
-import components from '../components/_global';
+import components from '@/components/_global';
 
 // import * as filters from './filters'
 import router from './router';
-// import store from '../store/'
+// import store from './store/'
 
-const appel = require('../mocks/appellations.json');
-const vino = require('../mocks/vino.json');
+const appel = require('@/mocks/appellations.json');
+const vino = require('@/mocks/vino.json');
 
 
 
