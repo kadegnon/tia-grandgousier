@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import VueResource from "vue-resource";
+
 
 import components from '../components/_global';
 
@@ -7,30 +9,38 @@ import router from './router';
 // import store from '../store/'
 
 
-//
-// Plugins : All externed plugins
-//
+
+
+/**************************************
+ * Vue Resource to handle HTTP Request
+ */
+Vue.use(VueResource);
+Vue.url.options.root = process.env.API_URL;
+
+
+/**************************************
+ * Plugins : All externed plugins
+ */
 // require('./plugins')
 
 
-//
-// Global Event Bus
-//
 
+/**************************************
+ * Global Event Bus
+ */
 require('./event-bus');
 
 
-/**
+/**************************************
  * Register Global Components
- *
  */
 Object.keys(components)
-  .forEach(tag => Vue.component(tag, components[tag]));
+.forEach(tag => Vue.component(tag, components[tag]));
 
 
-/**
+
+/**************************************
  * Register Global Filters
- *
  */
 // Object.keys(filters)
 //   .forEach(name => Vue.filter(name, filters[name]));
