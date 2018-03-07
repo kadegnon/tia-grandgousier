@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env');
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_URL : 'http://dell-optiplex-g:3030/api'
+  API_URL : '"http://192.168.1.42:3030/api"'
 });
