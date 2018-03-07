@@ -1,5 +1,5 @@
 :- module(server,[
-        server/0,
+			server/0,
 	    server/1				% ?Port
     ]).
 :- use_module(library(http/thread_httpd)).
@@ -16,7 +16,7 @@
 
 
 
-server :-server(8080).
+server :-server(3030).
 server(Port) :-
 	broadcast(http(pre_server_start)),
 	http_server(http_dispatch,[ 
