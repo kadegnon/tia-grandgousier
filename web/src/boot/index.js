@@ -8,6 +8,8 @@ import components from '../components/_global';
 import router from './router';
 // import store from '../store/'
 
+const appel = require('../mocks/appellations.json');
+const vino = require('../mocks/vino.json');
 
 
 
@@ -16,6 +18,24 @@ import router from './router';
  */
 Vue.use(VueResource);
 Vue.url.options.root = process.env.API_URL;
+
+if(process.env.NODE_ENV !== 'production'){
+  const routes = [...appel.routes, ...vino.routes];
+
+    // Intercept all Http request to API
+    Vue.http.interceptors.unshift((req, next) => {
+      const rt = routes.find((rt) => {
+        return (req.method === rt.method && req.url === rt.url);
+      });
+
+      if (!rt) {
+        // we're just going to return a 404 here, since we don't want our test suite making a real HTTP request
+        next(req.respondWith({status: 404, statusText: 'Oh no! Not found!'}));
+      } else {
+        next(req.respondWith(rt.response,{status: 200}));
+      }
+    });
+}
 
 
 /**************************************
