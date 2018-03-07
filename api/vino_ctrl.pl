@@ -47,7 +47,7 @@ init_vino_db(Dir) :-
 	db_attach(DB, []).
 
 
-%	list(appellations)
+%	list(-Appellations)
 %
 %	Donne tous les appellations.
 %
@@ -61,10 +61,20 @@ list_appellations(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,
-				 description:Descr, annee:An, origin:Orig,
-				 appelation:Appel,htva:Htva,tvac:Tvac}) :-
+				 description:Descr, annee:An, origine:Orig,
+				 appellation:Appel,htva:Htva,tvac:Tvac}) :-
 	% spy(vino),
 	vino(Id, Nom, Descr, An, Orig, Appel,Htva,Tvac),		% Recup le vino dynamikement
+	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
+
+
+%	get_short(+Vino.Id, -Vino)
+%
+%	Donne un version court du vino correspondant à l'ID.
+%
+get_short(Id, Location, _{id:Id, nom:Nom, url:Url,
+						annee:An, origin:Orig,appellation:Appel}) :-
+	vino(Id, Nom, _, An, Orig, Appel,_,_),		% Recup le vino dynamikement
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 
@@ -76,7 +86,7 @@ list_vino(Params, Vino) :-
 	nonvar(Params.id), !, get(Params.id, Params.url, Vino).
 
 list_vino(Params, List) :-
-	findall(Vino, get(Params.id, Params.url, Vino), List).
+	findall(Vino, get_short(Params.id, Params.url, Vino), List).
 
 
 %	create(+Dict,+Location, -Vino)
@@ -101,6 +111,7 @@ create_vino(Params, Vino) :-
 	set_def_value(Appel, ""),
 	assert_vino(Id, Nom, Descr, An, Orig, Appel,Htva,Tvac),   % Cree && Persiste le Vino
 	get(Id, Params.url, Vino).
+
 
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
 set_def_value(_, _).
