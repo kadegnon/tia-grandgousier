@@ -24,9 +24,9 @@
 <script>
 export default {
   name: "vinList",
+  props : ['vins'],
   data() {
     return {
-      vins : [],
       searchInput: ""
     };
   },

@@ -32,7 +32,6 @@ if(process.env.NODE_ENV !== 'production'){
   // Intercept all Http request to API
   Vue.http.interceptors.unshift((req, next) => {
     const rt = routes.find((rt) => {
-      console.log(rt);
       return (req.method === rt.method && req.url === rt.url);
     });
 

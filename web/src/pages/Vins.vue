@@ -1,17 +1,12 @@
 <template>
   <section class="vins">
-    <vin-list class="view list">
+
+    <vin-list class="view list" :vins="list">
     </vin-list>
-    <!-- test -->
+
     <router-view name="details" class="view details" >
-      Test
     </router-view>
 
-    <!--
-      <vin-list :vins="list">
-    </vin-list>
-    <vin-details>
-    </vin-details> -->
   </section>
 </template>
 
@@ -25,15 +20,21 @@ export default {
   },
   data() {
     return {
-      list : [
-        { "id" : "mocky123", nom:"Bordeaux", annee:"2017"}
-      ]
+      list : [ ]
     }
   },
 
+  created() {
+    this.getListVins();
+  },
   methods : {
     remove(id){
       console.log("[Vins] Remove vin#"+id);
+    },
+
+    getListVins () {
+      this.$http.get('vino/')
+            .then(res => this.list = res.data);
     }
   }
 };
