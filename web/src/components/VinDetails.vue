@@ -92,6 +92,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: "vinDetails",
   data() {
@@ -109,10 +111,18 @@ export default {
       }
     };
     },
+    created () {
+      this.getListAppellations();
+
+    },
     beforeUpdate()  {
       this.id = this.$route.params.id;
     },
     methods : {
+      getListAppellations(){
+        this.$http.get('appellation')
+            .then(res => this.appellations = res.data);
+      },
       saveVin () {
         console.log(this.errors);
         this.$emit('save-vin', this.id, this.vin)
