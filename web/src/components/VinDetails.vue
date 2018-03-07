@@ -4,6 +4,19 @@
     <form :method="id ? 'PUT' : 'POST'" @submit.prevent="saveVin">
       <div class="form-group">
         <div class="col-25">
+          <label for="appels">Appellation</label>
+        </div>
+        <div class="col-65">
+          <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
+          <select  :class="{'form-control': true, 'error': errors.has('vappel') }" id="vappel" name="vappel">
+            <template v-for="(appel,index) in appellations" >
+              <option :key="index" :value="appel" :selected="appel == vin.appellation">{{appel}}</option>
+            </template>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-25">
           <label for="vnom">Nom</label>
         </div>
         <div class="col-65">
@@ -58,19 +71,6 @@
                 v-model="vin.tvac" v-validate="'required'"
                 :class="{'form-control': true, 'error': errors.has('vtvac') }"
           >
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-25">
-          <label for="appels">Appellation</label>
-        </div>
-        <div class="col-65">
-          <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
-          <select  :class="{'form-control': true, 'error': errors.has('vappel') }" id="vappel" name="vappel">
-            <template v-for="(appel,index) in appellations" >
-              <option :key="index" :value="appel" :selected="appel == vin.appellation">{{appel}}</option>
-            </template>
-          </select>
         </div>
       </div>
       <div class="form-group">
