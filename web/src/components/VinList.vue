@@ -1,5 +1,6 @@
 <template>
   <article class="vinos">
+    <h2>Catalogue de vins</h2>
     <input v-model.trim="searchInput"
         type="text" class="vin-search-input"
         placeholder="Chercher un vin" title="Entrer un nom de vin">
@@ -14,7 +15,7 @@
       </template>
     </ul>
       <template v-else>
-        <router-link to="/vins/new">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
+        <router-link to="/vins/new"  style="display:block;">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
       </template>
   </article>
 </template>
@@ -22,9 +23,9 @@
 <script>
 export default {
   name: "vinList",
-  props: ["vins"],
   data() {
     return {
+      vins : [],
       searchInput: ""
     };
   },

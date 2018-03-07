@@ -1,22 +1,27 @@
 <template>
   <section class="vins">
-    <h1>Liste des vins</h1>
-    <vin-list :vins="list" style="float:left">
+    <vin-list class="view list">
     </vin-list>
-    <vin-details style="float:right">
-    </vin-details>
+    <!-- test -->
+    <router-view name="details" class="view details" >
+      Test
+    </router-view>
+
+    <!--
+      <vin-list :vins="list">
+    </vin-list>
+    <vin-details>
+    </vin-details> -->
   </section>
 </template>
 
 <script>
 import VinList from '../components/VinList';
-import VinDetails from '../components/VinDetails';
 
 export default {
   name: "vins",
   components : {
     VinList,
-    VinDetails,
   },
   data() {
     return {
@@ -37,6 +42,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.view {
 
+}
+
+.view.list{
+  float: left;
+}
+
+.view.details{
+  float: right;
+}
 
 </style>

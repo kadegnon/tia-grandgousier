@@ -1,70 +1,71 @@
 <template>
   <article class="vino-details">
-      <form action="#" :method="id ? 'PUT' : 'POST'">
-    <div class="row">
-      <div class="col-25">
-        <label for="vnom">Nom</label>
+    <h2>{{$route.params.id ? 'Mise à jour ' : 'Ajout'}} de vin</h2>
+    <form action="#" :method="id ? 'PUT' : 'POST'">
+      <div class="row">
+        <div class="col-25">
+          <label for="vnom">Nom</label>
+        </div>
+        <div class="col-65">
+          <input v-model="vin.nom" type="text" name="vnom" placeholder="Nom de vin">
+        </div>
       </div>
-      <div class="col-65">
-        <input v-model="vin.nom" type="text" name="vnom" placeholder="Nom de vin">
+      <div class="row">
+        <div class="col-25">
+          <label for="vorigine">Origine</label>
+        </div>
+        <div class="col-65">
+          <input v-model="vin.origine" type="text" name="vorigine" placeholder="Origine de vin">
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="vorigine">Origine</label>
+      <div class="row">
+        <div class="col-25">
+          <label for="vannee">Année d'embouteillage</label>
+        </div>
+        <div class="col-65">
+          <input v-model="vin.annee" type="number" name="vannee" placeholder="Annee d'embouteillage du vin">
+        </div>
       </div>
-      <div class="col-65">
-        <input v-model="vin.origine" type="text" name="vorigine" placeholder="Origine de vin">
+      <div class="row">
+        <div class="col-25">
+          <label for="vhtva">H.T.V.A</label>
+        </div>
+        <div class="col-65">
+          <input v-model="vin.htva" type="number" step="0.1" name="vhtva" placeholder="Prix H.T.V.A">
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="vannee">Année d'embouteillage</label>
+      <div class="row">
+        <div class="col-25">
+          <label for="vtvac">T.V.A.C</label>
+        </div>
+        <div class="col-65">
+          <input v-model="vin.tvac" type="number" step="0.1" name="vtvac" placeholder="Prix T.V.A.C">
+        </div>
       </div>
-      <div class="col-65">
-        <input v-model="vin.annee" type="number" name="vannee" placeholder="Annee d'embouteillage du vin">
+      <div class="row">
+        <div class="col-25">
+          <label for="appels">Appellation</label>
+        </div>
+        <div class="col-65">
+          <select name="appels">
+            <option value="australia" selected>Champagnes</option>
+            <option value="canada">Cognac</option>
+            <option value="usa">Bordeaux</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="vhtva">H.T.V.A</label>
+      <div class="row">
+        <div class="col-25">
+          <label for="vdescription">Description</label>
+        </div>
+        <div class="col-65">
+          <textarea v-model="vin.description" name="vdescription" placeholder="Description du vin" style="height:200px"></textarea>
+        </div>
       </div>
-      <div class="col-65">
-        <input v-model="vin.htva" type="number" step="0.1" name="vhtva" placeholder="Prix H.T.V.A">
+      <div class="row">
+        <input type="submit" :value="id ? 'Modifier' :'Sauvegarder'">
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="vtvac">T.V.A.C</label>
-      </div>
-      <div class="col-65">
-        <input v-model="vin.tvac" type="number" step="0.1" name="vtvac" placeholder="Prix T.V.A.C">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="appels">Appellation</label>
-      </div>
-      <div class="col-65">
-        <select name="appels">
-          <option value="australia" selected>Champagnes</option>
-          <option value="canada">Cognac</option>
-          <option value="usa">Bordeaux</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="vdescription">Description</label>
-      </div>
-      <div class="col-65">
-        <textarea v-model="vin.description" name="vdescription" placeholder="Description du vin" style="height:200px"></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <input type="submit" :value="id ? 'Modifier' :'Sauvegarder'">
-    </div>
-  </form>
+    </form>
   </article>
 </template>
 
@@ -73,7 +74,7 @@ export default {
   name: "vinDetails",
   data() {
     return {
-      id: "",
+      id: this.$route.params.id,
       vin: {
         nom: "",
         annee: 2017,
@@ -85,7 +86,10 @@ export default {
     };
   },
   computed: {
-    filteredList() {}
+
+  },
+  beforeUpdate()  {
+    this.id = this.$route.params.id;
   }
 };
 </script>
@@ -97,7 +101,7 @@ export default {
 .vino-details {
   width: 65%;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   padding: 20px;
 }
 
@@ -160,8 +164,9 @@ input[type="submit"] {
   color: white;
   padding: 12px 20px;
   border: none;
-  border-radius: 4px;
-  margin-left: 15%;
+  border-radius: 5px;
+  margin-left: 25%;
+  margin-top : 10px;
   cursor: pointer;
   float: left;
 }
