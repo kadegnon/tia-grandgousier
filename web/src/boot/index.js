@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueResource from "vue-resource";
+import VeeValidate from 'vee-validate'
 
 
 import components from '@/components/_global';
@@ -14,7 +15,13 @@ const vino = require('@/mocks/vino.json');
 
 
 /**************************************
- * Vue Resource to handle HTTP Request
+ * VeeValidate for the form validation.
+ */
+Vue.use(VeeValidate)
+
+
+/**************************************
+ * Vue Resource to handle HTTP Request.
  */
 Vue.use(VueResource);
 Vue.url.options.root = process.env.API_URL;
@@ -39,7 +46,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 
 /**************************************
- * Plugins : All externed plugins
+ * Plugins : All externed plugins.
  */
 // require('./plugins')
 
