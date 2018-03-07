@@ -49,8 +49,7 @@
   {
     "method": "GET",
     "url": "vino/a39631a8",
-    "response": [
-      {
+    "response": {
         "annee":2017,
         "appellation":"",
         "description":"",
@@ -61,13 +60,11 @@
         "tvac":0.0,
         "url":"http://192.168.1.42:3030/api/vino/a39631a8"
       }
-    ]
   },
   {
     "method": "GET",
     "url": "vino/b224d6f6",
-    "response": [
-      {
+    "response": {
         "annee":1817,
         "appellation":"bordeaux",
         "description":"",
@@ -78,6 +75,5 @@
         "tvac":0.0,
         "url":"http://192.168.1.42:3030/api/vino/b224d6f6"
       }
-    ]
   }
 ]}
