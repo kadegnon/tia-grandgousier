@@ -7,16 +7,17 @@
     <ul class="vinos-list" v-if="filteredList.length > 0">
       <template v-for="vin in filteredList">
         <li :key="vin.id">
-          <router-link :to="{ name: 'vinDetails', params: {id: vin.id }}">
+          <router-link @click="selectVin(vin.id)" :to="{ name: 'vinDetails', params: {id: vin.id }}">
             <span class="badge">{{vin.annee}}</span>
             <span class="nom">{{vin.nom.trim()}} </span>
           </router-link>
+
         </li>
       </template>
     </ul>
       <template v-else>
         <router-link style="display:block"
-            v-show="this.searchInput"  :to="{name : 'vinNew'}">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
+            v-show="this.searchInput" @click="addVin" :to="{name : 'vinNew'}">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
       </template>
   </article>
 </template>
@@ -42,6 +43,12 @@ export default {
         return found;
       });
     }
+  },
+
+  methods : {
+    selectVin(id){ this.$emit('select-vin',id)},
+    addVin(){ this.$emit('add-vin')},
+    removeVin(){ this.$emit('remove-vin')},
   }
 };
 </script>

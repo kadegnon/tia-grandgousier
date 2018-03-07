@@ -29,8 +29,8 @@
           <label for="vannee">Année</label>
         </div>
         <div class="col-65">
-          <span class="text-danger" v-show="errors.has('vnom')">L'année est requis</span>
-          <input type="number" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
+          <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
+          <input type="number" max="2025" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
                 v-model="vin.annee" v-validate="'required'"
                 :class="{'form-control': true, 'error': errors.has('vannee') }"
           >
@@ -41,7 +41,7 @@
           <label for="vhtva">H.T.V.A</label>
         </div>
         <div class="col-65">
-          <span class="text-danger" v-show="errors.has('vnom')">Le prix HTVA est requis</span>
+          <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
           <input type="number" id="vhtva" name="vhtva"  step="0.1" placeholder="Prix H.T.V.A"
                 v-model="vin.htva" v-validate="'required'"
                 :class="{'form-control': true, 'error': errors.has('vhtva') }"
@@ -53,7 +53,7 @@
           <label for="vtvac">T.V.A.C</label>
         </div>
         <div class="col-65">
-          <span class="text-danger" v-show="errors.has('vnom')">Le prix TVAC est requis</span>
+          <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
           <input type="number" id="vtvac" name="vtvac"  step="0.1" placeholder="Prix H.T.V.A"
                 v-model="vin.tvac" v-validate="'required'"
                 :class="{'form-control': true, 'error': errors.has('vtvac') }"
@@ -107,7 +107,7 @@ export default {
         description: '',
         appellation : '',
         htva: 0.1,
-        tvac: 0.1
+        tvac: 0.2
       }
     };
     },
@@ -117,11 +117,18 @@ export default {
     },
     beforeUpdate()  {
       this.id = this.$route.params.id;
+      this.getVin();
     },
     methods : {
       getListAppellations(){
         this.$http.get('appellation')
             .then(res => this.appellations = res.data);
+      },
+      getVin() {
+        if(this.id){
+          this.$http.get('vino/'+this.id)
+              .then(res => this.vin = res.data);
+        }
       },
       saveVin () {
         console.log(this.errors);

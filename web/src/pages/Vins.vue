@@ -26,6 +26,9 @@ export default {
 
   created() {
     this.getListVins();
+    this.$on('select-vin',this.remove);
+    // this.$on('add-vin',)
+    this.$on('remove-vin',this.remove);
   },
   methods : {
     remove(id){
