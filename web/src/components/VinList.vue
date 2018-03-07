@@ -15,7 +15,8 @@
       </template>
     </ul>
       <template v-else>
-        <router-link to="/vins/new"  style="display:block;">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
+        <router-link style="display:block"
+            v-show="this.searchInput"  :to="{name : 'vinNew'}">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
       </template>
   </article>
 </template>
