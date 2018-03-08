@@ -22,7 +22,6 @@ window.SpeechGrammarList = (window.SpeechGrammarList || window.webkitSpeechGramm
 
 export default {
   name: "speech2Text",
-  props : ['lang'],
   data() {
     return {
       speech2Text : null,
@@ -47,7 +46,7 @@ export default {
       this.speech2Text = new window.SpeechRecognition();
       this.speech2Text.grammars = speechCommands;
       this.speech2Text.interimResults = false;
-      this.speech2Text.lang = this.lang;
+      this.speech2Text.lang = 'fr-FR';
 
       // this.speech2Text.onresult = ({results}) => {
       //   console.log(results);
@@ -63,12 +62,9 @@ export default {
       }
 
       this.speech2Text.addEventListener('end', _ => {
-        if (this.text !== '') {
-          if(!this.isCommand()){
-            this.$emit('s2t-text', this.text + ' ');
-          }
+        if (this.text !== '' && !this.isCommand()){
+          this.$emit('s2t-text', this.text + ' ');
         }
-        this.text = '';
         if(this.isRecording){
           this.speech2Text.start();
         }

@@ -19,7 +19,7 @@
         @keyup.enter="sendMsg"
       > </textarea>
 
-      <s2t lang="fr-FR" @s2t-text="handleS2Text"/>
+      <s2t @s2t-text="handleS2Text"/>
 
     </div>
 
