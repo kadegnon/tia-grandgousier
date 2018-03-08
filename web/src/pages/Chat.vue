@@ -1,14 +1,18 @@
 <template>
   <section class="chat">
-    <h1>Chat Page</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <chat-msg :msg="m.content" :type="m.type"> </chat-msg>
-      <user-choice></user-choice>
-    </ul>
+    <h1>Bot Chat</h1>
+    <transition-group name="msg-list" tag="ul">
+      <chat-msg
+        v-for="m in msgs"
+        v-bind:key="m.time"
+        :msg="m"
+        class="msg"
+      />
+        <!-- <user-choice v-bind:key="index*100+1"  ></user-choice> -->
+    </transition-group>
 
-    <textarea name="chat-input-msg" id="chat-input-msg" cols="30" rows="10"
-      placeholder="Enter votre message !"
+    <textarea name="chat-input-msg" id="chat-input-msg" cols="50" rows="5"
+      placeholder="Entrer votre message !"
       v-model.lazy.trim="chatInputMsg"
     ></textarea>
 
@@ -17,22 +21,91 @@
 </template>
 
 <script>
+import ChatMsg from "@/components/ChatMsg.vue";
+
 export default {
-  data : {
-    chatInputMsg : ''
+  components: {
+    ChatMsg
   },
+  data() {
+    return {
+      isLoading: true,
+      msgs: [
+        {
+          time: 1520499515666,
+          type: "bot",
+          msg: "Bonjour, Je suis GrandGousier, un bot conseiller en vin."
+        },
+        {
+          time: 1520499515676,
+          type: "bot",
+          msg: "Du Bordeaux Rouge au Champagnes Grand cru, je m'y connais !"
+        },
+        {
+          time: 1520499759040,
+          type: "bot",
+          msg: "Puis-vous conseiller un bon vin ?"
+        },
+        { time: 1520499769993, type: "user", msg: "Okay, Je suis Pierrot, " },
+        {
+          time: 1520499787440,
+          type: "bot",
+          msg: "Cool, mucho encantado Pierrot !."
+        },
+        {
+          time: 1520499790184,
+          type: "bot",
+          msg: "I'm the BEST bot in the World ! :-D"
+        }
+      ],
+      isUserTyping: false,
+      chatInputMsg: "",
+      hasChoices: false
+    };
+  }
 };
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .xchat {
-    max-width: 640px;
-    margin: 0 auto
-  }
+.chat {
+  max-width: 640px;
+  margin: 0 auto;
+}
 
-  .xchat ul {
-    padding: 20px 50px
-  }
+.chat ul {
+  padding: 10px 40px;
+}
+
+.msg {
+  transition: all 3500ms;
+}
+.msg-loading {
+  text-align: left;
+  margin-left: 40px;
+}
+
+.msg-list-enter {
+  opacity: 0;
+}
+
+.msg-list-leave-active {
+  opacity: 0;
+}
+
+
+/* .msg-list-enter .msg-list-container,
+.msg-list-leave-active .msg-list-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+} */
+
+
+/* .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+} */
 </style>
