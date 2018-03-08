@@ -32,8 +32,7 @@ if(process.env.NODE_ENV !== 'production'){
   // Intercept all Http request to API
   Vue.http.interceptors.unshift((req, next) => {
     let rt = null;
-    console.log(req);
-    if(req.url == 'bot/'){
+    if(req.url === 'bot/'){
       const nbBotRoutes = bot.routes.length;
       const randNb = Math.floor((Math.random() * nbBotRoutes));
       rt = bot.routes[randNb];
