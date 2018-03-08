@@ -27,6 +27,14 @@
 import ChatMsg from "@/components/ChatMsg.vue";
 import UserChoice from "@/components/UserChoice.vue";
 
+const createMsg = (msg,type) => {
+  return {
+    time : Date.now(),
+    type,
+    msg,
+  }
+};
+
 export default {
   components: {
     ChatMsg,
@@ -82,14 +90,24 @@ export default {
     },
 
     sendMsg(){
-      const msg = {
-        type : 'user',
-        time : Date.now(),
-        msg : this.chatInputMsg
-      };
+      const msg = createMsg(this.chatInputMsg,'user');
       this.msgs.push(msg);
+      this.$http.post('bot/',{'demande':this.chatInputMsg})
+          .then(res => this.handleBotResponse(res.data));
      this.chatInputMsg ='';
+    },
+
+    handleBotResponse(response){
+      if(Array.isArray(response)){
+        response.forEach(res => {
+          const msg = createMsg(res,'bot');
+          this.msgs.push(msg);
+        });
+      }else{
+        this.msgs.push(createMsg(response,'bot'));
+      }
     }
+
 
   }
 };
