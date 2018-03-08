@@ -8,8 +8,8 @@
         :msg="m"
         class="msg"
       />
-        <!-- <user-choice v-bind:key="index*100+1"  ></user-choice> -->
     </transition-group>
+    <user-choice  :choice="choice"  @select-response="userChoiceResponse"></user-choice>
 
     <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
       placeholder="Entrer votre message !"
@@ -22,10 +22,12 @@
 
 <script>
 import ChatMsg from "@/components/ChatMsg.vue";
+import UserChoice from "@/components/UserChoice.vue";
 
 export default {
   components: {
-    ChatMsg
+    ChatMsg,
+    UserChoice,
   },
   data() {
     return {
@@ -60,8 +62,14 @@ export default {
       ],
       isUserTyping: false,
       chatInputMsg: "",
-      hasChoices: false
+      hasChoices: false,
+      choice : {}
     };
+  },
+  methods : {
+    userChoiceResponse(response){
+      console.log(response);
+    }
   }
 };
 </script>

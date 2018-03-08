@@ -1,33 +1,50 @@
 <template>
-  <div class="hello">
+  <div class="user-choice">
+    <h4>{{choice.question}}</h4>
+    <a class="response"
+      v-bind:key="index"
+      v-for="(resp,index) in choice.responses"
+      @click="selectResponse(resp)"
+    >{{resp}}</a>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "userChoice",
+  props : ['choice'],
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+
     };
   },
+  computed : {
+
+  },
+  methods :{
+    selectResponse(response){
+      this.$emit('select-response', response);
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.user-choice {
+  transition: all 1s;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.user_choice-list-enter,
+.user_choice-list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.user-choice-list {
+  margin-right: 40px;
+  display: block;
+  text-align: right;
+  color: #db0bc9;
 }
 </style>
