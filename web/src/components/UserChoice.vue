@@ -4,7 +4,7 @@
     <a class="response"
       v-bind:key="index"
       v-for="(resp,index) in choice.responses"
-      @click="selectResponse(resp)"
+      @click.stop.prevent="selectResponse(resp)"
     >{{resp}}</a>
   </div>
 </template>

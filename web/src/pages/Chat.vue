@@ -3,9 +3,9 @@
     <h1>Bot Chat</h1>
     <transition-group name="msg-list" tag="ul">
       <chat-msg
-        v-for="m in msgs"
-        v-bind:key="m.time"
-        :msg="m"
+        v-for="msg in msgs"
+        v-bind:key="msg.time"
+        :msg="msg"
         class="msg"
       />
     </transition-group>
@@ -13,8 +13,11 @@
 
     <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
       placeholder="Entrer votre message !"
-      v-model.lazy.trim="chatInputMsg"
+      v-bind:maxlength="maxLimit"
+      v-model.trim="chatInputMsg"
+      @keyup.enter="sendMsg"
     ></textarea>
+    <span id='chat-msg-input-limit'>{{limitChatInputMsg}}</span>
 
 
   </section>
@@ -31,6 +34,7 @@ export default {
   },
   data() {
     return {
+      maxLimit : 150,
       isLoading: true,
       msgs: [
         {
@@ -61,16 +65,32 @@ export default {
         }
       ],
       isUserTyping: false,
-      chatInputMsg: "",
+      chatInputMsg: '',
       hasChoices: false,
       choice : {}
     };
+  },
+  computed : {
+    limitChatInputMsg(){
+      return this.chatInputMsg.length+'/'+this.maxLimit;
+    }
   },
   methods : {
     userChoiceResponse(response){
       this.hasChoices = false;
       console.log(response);
+    },
+
+    sendMsg(){
+      const msg = {
+        type : 'user',
+        time : Date.now(),
+        msg : this.chatInputMsg
+      };
+      this.msgs.push(msg);
+     this.chatInputMsg ='';
     }
+
   }
 };
 </script>
@@ -109,6 +129,12 @@ export default {
   border: 1px solid blanchedalmond;
   box-shadow :2px 2px 0px 1px blanchedalmond;
 }
+
+
+#chat-msg-input-limit{
+  float: right;
+}
+
 
 .msg {
   transition :all 0.30s ease-in-out;
