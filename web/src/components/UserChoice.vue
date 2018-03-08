@@ -1,6 +1,6 @@
 <template>
   <div class="user-choice">
-    <h4>{{choice.question}}</h4>
+    <p class="question">{{choice.question}}</p>
     <a class="response"
       v-bind:key="index"
       v-for="(resp,index) in choice.responses"
@@ -33,18 +33,36 @@ export default {
 <style scoped>
 .user-choice {
   transition: all 1s;
+  display: block;
+  margin-right: 40px;
+  text-align: right;
+
 }
 
-.user_choice-list-enter,
-.user_choice-list-leave-to {
+.user-choice>.question {
+  color: #db0bc9;
+  display: block;
+  font-weight: bold;
+  /* -webkit-margin-before: 1.33em;
+  -webkit-margin-after: 1.33em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px; */
+}
+
+
+.user-choice>.response {
+  color: chocolate;
+  display: block;
+  cursor: pointer;
+  padding-block-end: 4px;
+}
+.user-choice>.response:hover{
+  text-decoration: underline;
+}
+
+.user_choice-enter,
+.user_choice-leave-to {
   opacity: 0;
   transform: translateY(30px);
-}
-
-.user-choice-list {
-  margin-right: 40px;
-  display: block;
-  text-align: right;
-  color: #db0bc9;
 }
 </style>

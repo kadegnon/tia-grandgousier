@@ -9,7 +9,7 @@
         class="msg"
       />
     </transition-group>
-    <user-choice  :choice="choice"  @select-response="userChoiceResponse"></user-choice>
+    <user-choice v-if="hasChoices" :choice="choice"  @select-response="userChoiceResponse"></user-choice>
 
     <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
       placeholder="Entrer votre message !"
@@ -68,6 +68,7 @@ export default {
   },
   methods : {
     userChoiceResponse(response){
+      this.hasChoices = false;
       console.log(response);
     }
   }
