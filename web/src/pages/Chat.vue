@@ -42,7 +42,7 @@ const createMsg = (msg, type) => {
   };
 };
 
-const wait = (t=10) => {
+const wait = (t=100) => {
   const d = new Date();
   let d2 = null;
   do {

@@ -17,6 +17,8 @@
 <script>
 
 window.SpeechRecognition = (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition);
+window.SpeechGrammarList = (window.SpeechGrammarList || window.webkitSpeechGrammarList || window.mozSpeechGrammarList);
+
 
 export default {
   name: "speech2Text",
@@ -25,7 +27,12 @@ export default {
     return {
       speech2Text : null,
       isRecording : false,
-      text : ''
+      text : '',
+      commands : [
+        'arrête',
+        'fini',
+        'stop',
+      ]
     };
   },
   mounted () {
@@ -33,9 +40,14 @@ export default {
   },
   methods: {
     initRecognition(){
+      const grammar = `#JSGF V1.0; grammar commands; public <cmd> = ${this.commands.join(' | ')};`;
+      const speechCommands = new SpeechGrammarList();
+      speechCommands.addFromString(grammar, 1);
+
       this.speech2Text = new window.SpeechRecognition();
-      this.speech2Text.lang = this.lang;
+      this.speech2Text.grammars = speechCommands;
       this.speech2Text.interimResults = false;
+      this.speech2Text.lang = this.lang;
 
       // this.speech2Text.onresult = ({results}) => {
       //   console.log(results);
@@ -50,11 +62,11 @@ export default {
         // console.log('You said : ', this.text);
       }
 
-
       this.speech2Text.addEventListener('end', _ => {
         if (this.text !== '') {
-          // this.results.push(this.text);
-          this.$emit('s2t-text', this.text + ' ');
+          if(!this.isCommand()){
+            this.$emit('s2t-text', this.text + ' ');
+          }
         }
         this.text = '';
         if(this.isRecording){
@@ -67,12 +79,28 @@ export default {
       this.speech2Text.start();
       this.isRecording = true;
     },
-
-
     stop(){
       this.speech2Text.stop();
       this.isRecording = false;
     },
+
+    isCommand(){
+      const cmd = this.commands.find(cmd => this.text.includes(cmd));
+      if(!cmd)
+        return false;
+      switch (cmd) {
+        case 'arrête':
+        case 'fini':
+        case 'stop':
+          this.stop();
+
+          break;
+
+        default:
+          break;
+      }
+      return true;
+    }
   }
 };
 </script>
