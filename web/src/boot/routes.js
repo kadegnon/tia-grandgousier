@@ -5,13 +5,12 @@ import VinList from '@/components/VinList';
 import VinDetails from '@/components/VinDetails';
 
 import About from '@/pages/About.vue';
-import HelloWord from '@/pages/HelloWord.vue';
 
 
 export default [
-  { name: 'home', path: '/', component: HelloWord },
+  { name: 'home', path: '/',  redirect : '/chat'},
   { name: 'about', path: '/about', component: About },
-  { name: 'chat', path: '/chat', redirect : '/' },
+  { name: 'chat', path: '/chat',component: Chat },
   // { name: 'chat', path: '/chat', component: Chat },
   {
     path: '/vins', component: Vins,
