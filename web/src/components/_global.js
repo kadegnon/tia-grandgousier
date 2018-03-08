@@ -3,19 +3,23 @@
  * anywhere within our app without importing them.
  *
  */
-const chatMsg = require('./ChatMsg.vue');
-const userChoice = require('./UserChoice.vue');
-const autoComplete = require('./AutoComplete.vue');
+const ChatMsg = require('./ChatMsg.vue');
+const UserChoice = require('./UserChoice.vue');
+const AutoComplete = require('./AutoComplete.vue');
+const Speech2Text = require('./Speech2Text.vue');
+
 const NavLinks = require('./NavLinks.vue');
 
 const VinList = require('./VinList.vue');
 const VinDetails = require('./VinDetails.vue');
 
+
 export default {
-  chatMsg,
-  userChoice,
-  autoComplete,
+  ChatMsg,
+  UserChoice,
+  AutoComplete,
   NavLinks,
   VinList,
-  VinDetails
+  VinDetails,
+  Speech2Text
 };
