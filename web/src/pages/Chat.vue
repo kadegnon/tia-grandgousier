@@ -35,6 +35,14 @@ const createMsg = (msg,type) => {
   }
 };
 
+const wait = _ => {
+  const d = new Date();
+  let d2 = null;
+  do{
+    d2 = new Date();
+  }while(d2-d < 10);
+}
+
 export default {
   components: {
     ChatMsg,
@@ -102,6 +110,7 @@ export default {
         response.forEach(res => {
           const msg = createMsg(res,'bot');
           this.msgs.push(msg);
+          wait();
         });
       }else{
         this.msgs.push(createMsg(response,'bot'));
