@@ -1,0 +1,17 @@
+{
+  "routes" : [
+  {
+    "method": "GET",
+    "url": "appellation",
+    "response": [
+      "bordeaux",
+      "Vallée du rhone et de Languedoc",
+      "beaujolais",
+      "bourgogne",
+      "Val de Loire",
+      "vins Blanc",
+      "Champagne",
+      "cognac"
+      ]
+  }
+]}
