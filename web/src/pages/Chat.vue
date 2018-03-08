@@ -11,7 +11,7 @@
         <!-- <user-choice v-bind:key="index*100+1"  ></user-choice> -->
     </transition-group>
 
-    <textarea name="chat-input-msg" id="chat-input-msg" cols="50" rows="5"
+    <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
       placeholder="Entrer votre message !"
       v-model.lazy.trim="chatInputMsg"
     ></textarea>
@@ -77,30 +77,48 @@ export default {
 .chat ul {
   padding: 10px 40px;
 }
-
-.msg {
-  transition: all 3500ms;
-}
 .msg-loading {
   text-align: left;
   margin-left: 40px;
 }
 
-.msg-list-enter {
-  opacity: 0;
+.chat-msg-input {
+  width: 100%;
+  margin: 24px;
+  padding: 12px;
+  display: inline-block;
+  box-sizing: border-box;
+  resize: none;
+
+  transition :all 0.30s ease-in-out;
+  outline: none;
+}
+
+.chat-msg-input:active,
+.chat-msg-input:focus{
+  border-radius: 0.5rem;
+  border: 1px solid blanchedalmond;
+  box-shadow :2px 2px 0px 1px blanchedalmond;
+}
+
+.msg {
+  transition :all 0.30s ease-in-out;
+  /* transition: all 500ms; */
+}
+.msg-list-enter,
+.msg-list-enter-active {
+  opacity: 0 0.5s;
 }
 
 .msg-list-leave-active {
   opacity: 0;
 }
 
-
 /* .msg-list-enter .msg-list-container,
 .msg-list-leave-active .msg-list-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 } */
-
 
 /* .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;

@@ -1,8 +1,11 @@
 <template>
   <!-- <article class="chat-msg"> -->
     <li :class="'msg-' + this.msg.type">
+      <span>
+        <i style="float:left;">x</i>&nbsp;
+        {{this.msg.msg.trim()}}
 
-      <span><i style="float:left;">x</i>&nbsp; {{this.msg.msg.trim()}}</span>
+      </span>
     </li>
     <!-- </ul> -->
   <!-- </article> -->
