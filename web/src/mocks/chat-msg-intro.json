@@ -1,0 +1,34 @@
+{
+  "msgs": [
+    {
+      "time": 1520499515666,
+      "type": "bot",
+      "msg": "Bonjour, Je suis GrandGousier, un bot conseiller en vin."
+    },
+    {
+      "time": 1520499515676,
+      "type": "bot",
+      "msg": "Du Bordeaux Rouge au Champagnes Grand cru, je m'y connais !"
+    },
+    {
+      "time": 1520499759040,
+      "type": "bot",
+      "msg": "Puis-vous conseiller un bon vin ?"
+    },
+    {
+      "time": 1520499769993,
+      "type": "user",
+      "msg": "Okay, Je suis Pierrot, "
+    },
+    {
+      "time": 1520499787440,
+      "type": "bot",
+      "msg": "Cool, mucho encantado Pierrot !."
+    },
+    {
+      "time": 1520499790184,
+      "type": "bot",
+      "msg": "I'm the BEST bot in the World ! :-D"
+    }
+  ]
+}

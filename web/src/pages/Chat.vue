@@ -9,6 +9,7 @@
         class="msg"
       />
     </transition-group>
+
     <user-choice v-if="hasChoices" :choice="choice"  @select-response="userChoiceResponse" />
 
     <div class="chat-msg">
@@ -19,7 +20,8 @@
         @keyup.enter="sendMsg"
       > </textarea>
 
-      <s2t @s2t-text="handleS2Text"/>
+      <s2t @s2t-text="handleS2Text"
+          :user-commands="commands"  @s2t-command="handleS2Cmd"/>
 
     </div>
 
@@ -33,6 +35,8 @@
 import ChatMsg from "@/components/ChatMsg.vue";
 import UserChoice from "@/components/UserChoice.vue";
 import Speech2Text from "@/components/Speech2Text.vue";
+
+const {msgs:defMsgs} = require('@/mocks/chat-msg-intro.json');
 
 const createMsg = (msg, type) => {
   return {
@@ -60,38 +64,18 @@ export default {
     return {
       maxLimit: 150,
       isLoading: true,
-      msgs: [
-        {
-          time: 1520499515666,
-          type: "bot",
-          msg: "Bonjour, Je suis GrandGousier, un bot conseiller en vin."
-        },
-        {
-          time: 1520499515676,
-          type: "bot",
-          msg: "Du Bordeaux Rouge au Champagnes Grand cru, je m'y connais !"
-        },
-        {
-          time: 1520499759040,
-          type: "bot",
-          msg: "Puis-vous conseiller un bon vin ?"
-        },
-        { time: 1520499769993, type: "user", msg: "Okay, Je suis Pierrot, " },
-        {
-          time: 1520499787440,
-          type: "bot",
-          msg: "Cool, mucho encantado Pierrot !."
-        },
-        {
-          time: 1520499790184,
-          type: "bot",
-          msg: "I'm the BEST bot in the World ! :-D"
-        }
-      ],
+      msgs: defMsgs,
       isUserTyping: false,
       chatInputMsg: "",
       hasChoices: false,
-      choice: {}
+      choice: {},
+      commands : [
+        'efface',
+        'envoye',
+        'envoie',
+        'ok',
+        'okay'
+      ]
     };
   },
   updated() {
@@ -107,6 +91,11 @@ export default {
     userChoiceResponse(response) {
       this.hasChoices = false;
       console.log(response);
+    },
+
+    handleS2Cmd(cmd){
+      console.log('Cmd : ', cmd);
+      // this.chatInputMsg += text;
     },
 
     handleS2Text(text){

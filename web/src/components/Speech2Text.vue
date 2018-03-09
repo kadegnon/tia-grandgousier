@@ -22,6 +22,13 @@ window.SpeechGrammarList = (window.SpeechGrammarList || window.webkitSpeechGramm
 
 export default {
   name: "speech2Text",
+  props : {
+    userCommands : {
+      type : Array,
+      default : [],
+      required : false
+    }
+  },
   data() {
     return {
       speech2Text : null,
@@ -31,6 +38,7 @@ export default {
         'arrête',
         'fini',
         'stop',
+        ... this.$props['userCommands']
       ]
     };
   },
@@ -58,7 +66,6 @@ export default {
 
       this.speech2Text.onresult = ({results}) => {
         this.text = results[0][0].transcript;
-        // console.log('You said : ', this.text);
       }
 
       this.speech2Text.addEventListener('end', _ => {
@@ -82,17 +89,17 @@ export default {
 
     isCommand(){
       const cmd = this.commands.find(cmd => this.text.includes(cmd));
-      if(!cmd)
-        return false;
+      if(!cmd)  return false;
+
       switch (cmd) {
         case 'arrête':
         case 'fini':
         case 'stop':
           this.stop();
-
           break;
 
-        default:
+        default: // Not reconized, thus it's an user command
+          this.$emit('s2t-command',cmd);
           break;
       }
       return true;
@@ -122,6 +129,12 @@ export default {
   background-position: center center !important;
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.btn-micro:hover {
+  /* box-shadow: 2px 2px 0px 1px crimson; */
+  border-radius: 50%;
+  background-color: hotpink   ;
 }
 
 .s2t .btn-done {
