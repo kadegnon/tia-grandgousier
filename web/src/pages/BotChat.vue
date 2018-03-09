@@ -129,10 +129,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.chat {
+/*.chat {
   max-width: 650px;
   margin: 0 auto;
-}
+}*/
 
 .msg-loading {
   text-align: left;
