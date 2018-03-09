@@ -4,7 +4,7 @@
     <form :method="id ? 'PUT' : 'POST'" @submit.prevent="saveVin">
       <div class="form-group">
         <div class="col-25">
-          <label for="appels">Appellation</label>
+          <label for="vappel">Appellation</label>
         </div>
         <div class="col-65">
           <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
