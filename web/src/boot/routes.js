@@ -1,5 +1,5 @@
 
-import Chat from '@/pages/Chat.vue';
+import BotChat from '@/pages/BotChat.vue';
 import Vins from '@/pages/Vins.vue';
 import VinList from '@/components/VinList';
 import VinDetails from '@/components/VinDetails';
@@ -8,9 +8,9 @@ import About from '@/pages/About.vue';
 
 
 export default [
-  { name: 'home', path: '/',  redirect : '/chat'},
+  { name: 'home', path: '/',  redirect : '/bot'},
   { name: 'about', path: '/about', component: About },
-  { name: 'chat', path: '/chat',component: Chat },
+  { name: 'bot', path: '/bot',component: BotChat },
   // { name: 'chat', path: '/chat', component: Chat },
   {
     path: '/vins', component: Vins,
