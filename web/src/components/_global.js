@@ -9,6 +9,7 @@ const AutoComplete = require('./AutoComplete.vue');
 const Speech2Text = require('./Speech2Text.vue');
 
 const NavLinks = require('./NavLinks.vue');
+const ToastMsg = require('./ToastMsg.vue');
 
 const VinList = require('./VinList.vue');
 const VinDetails = require('./VinDetails.vue');

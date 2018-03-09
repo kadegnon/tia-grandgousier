@@ -4,19 +4,24 @@
     <NavLinks>
     </NavLinks>
 
-    <router-view> </router-view>
+    <toast-msg />
+
+
+    <router-view />
 
   </div>
 </template>
 
 <script>
   import NavLinks from './components/NavLinks';
+  import ToastMsg from './components/ToastMsg';
 
 
   export default {
     name: 'App',
     components: {
-      NavLinks
+      NavLinks,
+      ToastMsg
     },
   };
 </script>
