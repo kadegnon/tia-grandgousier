@@ -22,7 +22,7 @@ export default {
 /* .nav-links {} */
 
 .link {
-  margin: 10;
+  margin: 10px;
   padding: 5px 10px;
   border-radius: 4px;
   text-decoration: none;
