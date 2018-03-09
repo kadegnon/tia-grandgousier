@@ -17,30 +17,36 @@ export default {
     };
   },
   mounted (){
-      this.$on('msg-error',msg => {
-          this.msg = msg;
-          this.type = 'error';
-          this.initAutoClose();
-      });
-
-      this.$on('msg-info',msg => {
-          this.msg = msg;
-          this.type = 'info'
-          this.initAutoClose();
-      });
-
-      this.$on('msg-success',msg => {
-          this.msg = msg;
-          this.type = 'success'
+    this.$on('msg-error',msg => {
+        this.msg = msg;
+        this.type = 'error';
         this.initAutoClose();
-      });
+    });
+
+    this.$on('msg-info',msg => {
+        this.msg = msg;
+        this.type = 'info'
+        this.initAutoClose();
+    });
+
+    this.$on('msg-success',msg => {
+        this.msg = msg;
+        this.type = 'success'
+      this.initAutoClose();
+    });
   },
   methods : {
-      initAutoClose(time=4){
-          setTimeout(() => {
-            console.log('Autclosing in ',time);
-          },time*1000);
-      }
+    initAutoClose(time=4){
+        setTimeout(() => {
+          console.log('Autclosing in ',time);
+          this.close();
+        },time*1000);
+    },
+
+    close(){
+      this.visible = false;
+    }
+
   }
 };
 </script>
