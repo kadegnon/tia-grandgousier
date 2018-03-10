@@ -12,15 +12,14 @@
     </div>
     <ul class="vinos-list" v-if="filteredList.length > 0">
       <template v-for="vin in filteredList">
-        <li :key="vin.id"  @click="selectVin(vin.id)"
-            v-bind:class="{'vinos-list-item':true, 'selected':(vin.id === selected)}">
+        <li :key="vin.id"  @click.prevent.stop="selectVin(vin.id)"
+            v-bind:class="{'vinos-list-item':true, 'selected':(vin.id === selected)}"
+        >
           <span class="btn-remove" title="Supprimer ce vin"
-                @click="removeVin(vin.id)"
+                @click.self.stop="removeVin(vin.id)"
           >&#x2716;</span>
-          <router-link :to="{ name: 'vinDetails', params: {id: vin.id }}">
             <!-- <span class="badge">{{vin.annee}}</span> -->
-            <span class="nom">{{vin.nom.trim()}} </span>
-          </router-link>
+          <span class="nom">{{vin.nom.trim()}}</span>
 
         </li>
       </template>
@@ -65,6 +64,7 @@ export default {
   methods : {
     selectVin(id){
       this.$emit('select-vin', id);
+      this.$router.push({ name: 'vinDetails', params: {id }});
     },
     removeVin(id){ this.$emit('remove-vin', id);},
     addVin(){
@@ -142,6 +142,7 @@ export default {
 }
 
 .vinos-list-item {
+  cursor: pointer;
   position : relative;
   border: 1px solid #ddd;
   margin-top: -1px; /* Prevent double borders */
@@ -155,19 +156,13 @@ export default {
   user-select: none;
 }
 
-
-.vinos-list-item a {
-  text-decoration: none;
-}
-
-
 .vinos-list-item:hover, .vinos-list-item.selected {
   background-color: #eee;
   color: #fff;
   color: #607d8b;
 }
 
-.btn-remove {
+.vinos-list-item > .btn-remove {
   display: none;
 }
 
