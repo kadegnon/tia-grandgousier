@@ -1,10 +1,14 @@
 <template>
-  <section class="vins">
+  <section class="vins row">
 
-    <vin-list class="view list" :vins="list">
+    <vin-list class="view-list column"
+              :vins="list"  :selected="selected"
+              @add-vin="add"  @remove-vin="remove"
+              @select-vin="select"
+    >
     </vin-list>
 
-    <router-view name="details" class="view details" >
+    <router-view name="details" class="view-details column" >
     </router-view>
 
   </section>
@@ -20,24 +24,36 @@ export default {
   },
   data() {
     return {
-      list : [ ]
+      list : [ ],
+      selected : 'cf590a5e'
     }
   },
 
   created() {
     this.getListVins();
-    this.$on('select-vin',this.remove);
-    // this.$on('add-vin',)
-    this.$on('remove-vin',this.remove);
+    this.selected = this.$route.params.id || '';
+  },
+  beforeDestroy(){
+    // this.$off(['select-vin','remove-vin']);
   },
   methods : {
     remove(id){
-      console.log("[Vins] Remove vin#"+id);
+      console.log("[Vins] Remove vin #", id);
+    },
+    add(nom){
+      console.log("[Vins] New vin : ",nom);
+    },
+
+    select(id) {
+      console.log("[Vins] Current vin #", id);
+      this.selected = id;
     },
 
     getListVins () {
       this.$http.get('vino/')
-            .then(res => this.list = res.data);
+            .then(res => this.list = res.data)
+            .catch(e => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue'))
+            // .catch(err => this.$emit('msg-error',err.body.statusText));
     }
   }
 };
@@ -50,11 +66,11 @@ export default {
 
 } */
 
-.view.list{
+.view-list{
   float: left;
 }
 
-.view.details{
+.view-details{
   float: right;
 }
 

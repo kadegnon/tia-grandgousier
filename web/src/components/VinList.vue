@@ -12,12 +12,12 @@
     </div>
     <ul class="vinos-list" v-if="filteredList.length > 0">
       <template v-for="vin in filteredList">
-        <li :key="vin.id"
+        <li :key="vin.id"  @click="selectVin(vin.id)"
             v-bind:class="{'vinos-list-item':true, 'selected':(vin.id === selected)}">
           <span class="btn-close" title="Supprimer ce vin"
                 @click="removeVin(vin.id)"
           >&#x2716;</span>
-          <router-link @click="selectVin(vin.id)" :to="{ name: 'vinDetails', params: {id: vin.id }}">
+          <router-link :to="{ name: 'vinDetails', params: {id: vin.id }}">
             <!-- <span class="badge">{{vin.annee}}</span> -->
             <span class="nom">{{vin.nom.trim()}} </span>
           </router-link>
@@ -35,11 +35,17 @@
 <script>
 export default {
   name: "vinList",
-  props : ['vins'],
+  props : {
+    vins : {
+      type : Array,
+      required : true
+    },
+    selected : ''
+  },
   data() {
     return {
       searchInput: '',
-      selected : 'cf590a5e'
+      // selected : 'cf590a5e'
     };
   },
   computed: {
@@ -57,7 +63,9 @@ export default {
   },
 
   methods : {
-    selectVin(id){ this.$emit('select-vin', id);},
+    selectVin(id){
+      this.$emit('select-vin', id);
+    },
     removeVin(id){ this.$emit('remove-vin', id);},
     addVin(){
       this.$emit('add-vin', this.searchInput);
