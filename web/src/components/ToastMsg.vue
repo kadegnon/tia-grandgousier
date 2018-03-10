@@ -26,11 +26,12 @@ export default {
   },
   created() {
     this.$bus.$on('msg-info', msg => this.display(msg));
+    this.$bus.$on('msg-warning', msg => this.display(msg,'warning'));
     this.$bus.$on('msg-error', msg => this.display(msg,'error'));
     this.$bus.$on('msg-success', msg => this.display(msg,'success'));
   },
   beforeDestroy() {
-    this.$bus.$off(['msg-info', 'msg-error','msg-success']);
+    this.$bus.$off(['msg-info', 'msg-warning', 'msg-error','msg-success']);
     console.log('Destroy comp. ',this.autoCloseTimeoutID);
     clearInterval(this.autoCloseTimeoutID);
   },
