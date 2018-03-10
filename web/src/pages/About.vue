@@ -5,7 +5,7 @@
 
     <template v-for="(member,index) in group" class="row">
 
-      <div class="column team-member">
+      <div v-bind:key="index" class="column team-member">
         <img class="avatar"
              src="@/assets/img/abuelo.jpg"
              v-bind:alt="'Avatar of '+  member.username"
@@ -16,6 +16,7 @@
           <p class="description">Joven negro & Yellow</p>
           <div class="links">
             <a v-for="(url,name, i) in member.links"
+               v-bind:key="i"
                v-bind:href="url">
               <i class="['fa', 'fa-'+name]"></i>
             </a>
@@ -53,17 +54,6 @@ export default {
     padding: 1.5%;
   }
 
-  /* Create two columns that float next to eachother */
-  .column {
-
-  }
-
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
 
   .avatar {
     opacity: 1;
@@ -118,18 +108,4 @@ export default {
   }
 
 
-  /* Responsive layout - when the screen is less than 550px wide, make the two columns stack on top of each other instead of next to each other */
-  @media (max-width: 550px) {
-    .column{
-      width: 50%;
-      margin-left: 50px;
-      margin-bottom: 100px;
-    }
-  }
-  @media (max-width: 350px) {
-    .column{
-      width: 100%;
-      margin-top: 0;
-    }
-  }
 </style>
