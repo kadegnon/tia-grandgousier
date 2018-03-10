@@ -14,7 +14,7 @@
       <template v-for="vin in filteredList">
         <li :key="vin.id"  @click="selectVin(vin.id)"
             v-bind:class="{'vinos-list-item':true, 'selected':(vin.id === selected)}">
-          <span class="btn-close" title="Supprimer ce vin"
+          <span class="btn-remove" title="Supprimer ce vin"
                 @click="removeVin(vin.id)"
           >&#x2716;</span>
           <router-link :to="{ name: 'vinDetails', params: {id: vin.id }}">
@@ -26,8 +26,8 @@
       </template>
     </ul>
     <template v-else>
-      <router-link style="display:block"
-          v-show="this.searchInput" @click="addVin" :to="{name : 'vinNew'}">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></router-link>
+      <div class="link-add"
+          v-show="this.searchInput" @click="addVin">Ajouter un nouveau vin <b>&#x201c;{{searchInput}}&#x201d; &quest;</b></div>
     </template>
   </article>
 </template>
@@ -69,6 +69,7 @@ export default {
     removeVin(id){ this.$emit('remove-vin', id);},
     addVin(){
       this.$emit('add-vin', this.searchInput);
+      this.$router.push({name : 'vinNew', query : {nom : this.searchInput }});
       this.searchInput = '';
     },
   }
@@ -126,7 +127,7 @@ export default {
   float: right;
   text-align: center;
   font-weight: bold;
-  /* transition: 0.3s; */
+  text-decoration: none;
 }
 
 .header > .btn-add:hover {
@@ -166,11 +167,11 @@ export default {
   color: #607d8b;
 }
 
-.btn-close {
+.btn-remove {
   display: none;
 }
 
-.vinos-list-item:hover > .btn-close{
+.vinos-list-item:hover > .btn-remove{
   display: inline;
   padding: 10px 14px;
   position: absolute;
@@ -180,10 +181,21 @@ export default {
   left: 0;
 }
 
-.btn-close:hover {
+.btn-remove:hover {
   background-color: crimson;
   color: #fff;
 }
+
+.link-add {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link-add:hover {
+  border-left: 3px solid aquamarine;
+}
+
+
 
 
 /*
