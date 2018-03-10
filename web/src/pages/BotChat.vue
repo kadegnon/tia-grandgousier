@@ -95,7 +95,20 @@ export default {
 
     handleS2Cmd(cmd){
       console.log('Cmd : ', cmd);
-      // this.chatInputMsg += text;
+      switch (cmd) {
+        case 'efface':
+          this.chatInputMsg = '';
+          break;
+        case 'envoye':
+        case 'envoie':
+        case 'ok':
+        case 'okay':
+          this.sendMsg();
+          break;
+
+        default:
+          break;
+      }
     },
 
     handleS2Text(text){

@@ -72,6 +72,11 @@ export default {
         if (this.text !== '' && !this.isCommand()){
           this.$emit('s2t-text', this.text + ' ');
         }
+
+        this.isRecording = !this.isCommand(true);
+
+        this.text = '';
+
         if(this.isRecording){
           this.speech2Text.start();
         }
@@ -87,7 +92,7 @@ export default {
       this.isRecording = false;
     },
 
-    isCommand(){
+    isCommand(isForUser = false){
       const cmd = this.commands.find(cmd => this.text.includes(cmd));
       if(!cmd)  return false;
 
@@ -99,7 +104,9 @@ export default {
           break;
 
         default: // Not reconized, thus it's an user command
-          this.$emit('s2t-command',cmd);
+          if(isForUser){
+            this.$emit('s2t-command',cmd);
+          }
           break;
       }
       return true;
@@ -133,8 +140,11 @@ export default {
 
 .btn-micro:hover {
   /* box-shadow: 2px 2px 0px 1px crimson; */
-  border-radius: 50%;
-  background-color: hotpink   ;
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CjxwYXRoIGZpbGw9IiNEODAwMjciIGQ9Ik04IDEwdjBjLTEuNyAwLTMtMS4zLTMtM3YtNGMwLTEuNiAxLjMtMyAzLTN2MGMxLjYgMCAzIDEuMyAzIDN2NGMwIDEuNi0xLjQgMy0zIDN6Ii8+CjxwYXRoIGZpbGw9IiNEODAwMjciIGQ9Ik0xMiA1djIuNWMwIDEuOS0xLjggMy41LTMuOCAzLjVoLTAuNGMtMiAwLTMuOC0xLjYtMy44LTMuNXYtMi41Yy0wLjYgMC0xIDAuNC0xIDF2MS41YzAgMi4yIDEuOCA0LjEgNCA0LjR2Mi4xYy0zIDAtMi41IDItMi41IDJoN2MwIDAgMC41LTItMi41LTJ2LTIuMWMyLjItMC40IDQtMi4yIDQtNC40di0xLjVjMC0wLjYtMC40LTEtMS0xeiIvPgo8L3N2Zz4K);
+  background-size: 100%;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+
 }
 
 .s2t .btn-done {
