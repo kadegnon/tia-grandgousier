@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 import VinList from '../components/VinList';
 
 export default {
@@ -38,7 +39,16 @@ export default {
   },
   methods : {
     remove(id){
-      console.log("[Vins] Remove vin #", id);
+      const ok = window.confirm('Voulez-vous vraiment supprimer ce vin !?');
+      if(ok) {
+        console.log("[Vins] Remove vin #", id);
+        this.$http.delete('vino/')
+              .then(res => {
+                this.list.splice(this.list.findIndex(v => v.id == id),1);
+                this.$bus.$emit('msg-warning','Vin supprimé !')
+              })
+              .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la suppression !'));
+      }
     },
     add(nom){
       console.log("[Vins] New vin : ",nom);
