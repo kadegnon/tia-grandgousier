@@ -7,6 +7,7 @@ const ChatMsg = require('./ChatMsg.vue');
 const UserChoice = require('./UserChoice.vue');
 const AutoComplete = require('./AutoComplete.vue');
 const Speech2Text = require('./Speech2Text.vue');
+const Text2Speech = require('./Text2Speech.vue');
 
 const NavLinks = require('./NavLinks.vue');
 const ToastMsg = require('./ToastMsg.vue');
@@ -22,5 +23,6 @@ export default {
   NavLinks,
   VinList,
   VinDetails,
-  Speech2Text
+  Speech2Text,
+  Text2Speech,
 };
