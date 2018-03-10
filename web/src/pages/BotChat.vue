@@ -42,7 +42,7 @@ const createMsg = (msg, type) => {
   return {
     time: Date.now(),
     type,
-    msg
+    content:msg
   };
 };
 

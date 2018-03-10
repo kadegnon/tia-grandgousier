@@ -3,7 +3,7 @@
     <li :class="'msg-' + this.msg.type">
       <span>
         <i style="float:left;">x</i>&nbsp;
-        {{this.msg.msg.trim()}}
+        {{this.msg.content.trim()}}
 
       </span>
     </li>
