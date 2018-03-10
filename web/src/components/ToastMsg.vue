@@ -51,6 +51,7 @@ export default {
     display(msg, type='info') {
       this.msg = msg;
       this.type = type;
+      this.visible = true;
       this.initAutoClose();
     }
   }

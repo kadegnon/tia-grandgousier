@@ -44,8 +44,8 @@ export default {
         console.log("[Vins] Remove vin #", id);
         this.$http.delete('vino/')
               .then(res => {
-                this.list.splice(this.list.findIndex(v => v.id == id),1);
-                this.$bus.$emit('msg-warning','Vin supprimé !')
+                this.list.splice(this.list.findIndex(v => v.id == id), 1);
+                this.$bus.$emit('msg-warning','Vin supprimé !');
               })
               .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la suppression !'));
       }
