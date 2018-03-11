@@ -4,6 +4,8 @@
 
     <toast-msg />
 
+    <text-2-speech standalone=true />
+
 
     <router-view />
 
@@ -13,12 +15,14 @@
 <script>
 import NavLinks from "./components/NavLinks";
 import ToastMsg from "./components/ToastMsg";
+import Text2Speech from "@/components/Text2Speech.vue";
 
 export default {
   name: "App",
   components: {
     NavLinks,
-    ToastMsg
+    ToastMsg,
+    Text2Speech,
   }
 };
 </script>

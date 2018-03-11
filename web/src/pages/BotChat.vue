@@ -74,7 +74,8 @@ export default {
         'envoye',
         'envoie',
         'ok',
-        'okay'
+        'okay',
+        'point'
       ]
     };
   },
@@ -105,6 +106,18 @@ export default {
         case 'okay':
           this.sendMsg();
           break;
+
+        case 'point' :
+        case 'à la ligne' :
+          this.chatInputMsg += '. ';
+        break;
+
+          // this.chatInputMsg += '.\n';
+
+
+
+
+
 
         default:
           break;
