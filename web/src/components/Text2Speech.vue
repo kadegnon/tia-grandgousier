@@ -1,6 +1,6 @@
 <template>
   <span v-if="!standalone"
-        v-bind:class="['t2s', isSpeaking ? 'btn-mute' : 'btn-speaker']"
+        v-bind:class="['t2s', isSpeaking ? 'btn-speaking' : 'btn-speaker']"
         v-bind:title="!isSpeaking ? 'Lire texte' : 'Arreter la lecture'"
         @click="!isSpeaking ? speak() : stop()">
   </span>
@@ -47,15 +47,18 @@ export default {
   methods: {
     initSpeaker(){
       this.text2Speech = new SpeechSynthesisUtterance();
+      this.text2Speech.lang = 'fr-FR';
       this.text2Speech.pitch = this.pitch;
       this.text2Speech.rate = this.rate;
+
 
       this.text2Speech.addEventListener('start', e => {
         this.$bus.$emit('t2s-speaking-'+this.currentText.id);
       });
 
       this.text2Speech.addEventListener('end', _ => {
-        this.speak();
+        this.$bus.$emit('t2s-done-'+this.currentText.id);
+        // this.speak();
       });
 
       this.text2Speech.addEventListener('mark', e => {
@@ -91,7 +94,7 @@ export default {
             Speech.speak(this.text2Speech);
 
             if(i == arr.length - 1){ //?  dernière phrase ?
-              this.$bus.$emit('t2s-done-'+this.currentText.id);
+              // this.$bus.$emit('t2s-done-'+this.currentText.id);
             }
           });
 
@@ -133,11 +136,11 @@ export default {
   /* background-position: center center !important; */
 }
 
-.btn-speaker:hover {
+.btn-speaker:hover, .btn-speaking {
   background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxjaXJjbGUgc3R5bGU9ImZpbGw6I0Q3NUE0QTsiIGN4PSIyOSIgY3k9IjI5IiByPSIyOSIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTIyLjQyNywyMGgtOC4zMjNDMTIuOTQyLDIwLDEyLDIwLjk0MiwxMiwyMi4xMDR2MTIuNzkzQzEyLDM2LjA1OCwxMi45NDIsMzcsMTQuMTA0LDM3aDguMzIzICBjMC4zNzUsMCwwLjc0MywwLjEsMS4wNjcsMC4yOUwzNi44Myw0OS43MDZDMzguMjMyLDUwLjUzMSw0MCw0OS41Miw0MCw0Ny44OTNWOS4xMDdjMC0xLjYyNy0xLjc2OC0yLjYzOC0zLjE3LTEuODEzTDIzLjQ5NCwxOS43MSAgQzIzLjE3LDE5LjksMjIuODAyLDIwLDIyLjQyNywyMHoiLz4KPHBhdGggc3R5bGU9ImZpbGw6IzQyNEE2MDsiIGQ9Ik01MC44NjYsOS45NjJjLTAuNDM2LTAuNS0wLjg4NC0wLjk5Mi0xLjM2LTEuNDY4cy0wLjk2OC0wLjkyNC0xLjQ2OC0xLjM2TDcuMTM0LDQ4LjAzOCAgYzAuNDM2LDAuNSwwLjg4NCwwLjk5MiwxLjM2LDEuNDY4czAuOTY4LDAuOTI0LDEuNDY4LDEuMzZMNTAuODY2LDkuOTYyeiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
 }
 
-.btn-mute {
+.btn-speaking:hover,.btn-mute {
   background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxjaXJjbGUgc3R5bGU9ImZpbGw6IzM4NDU0RjsiIGN4PSIyOSIgY3k9IjI5IiByPSIyOSIvPgo8cGF0aCBzdHlsZT0iZmlsbDojNzM4M0JGOyIgZD0iTTE2LjQyNywyMEg4LjEwNEM2Ljk0MiwyMCw2LDIwLjk0Miw2LDIyLjEwNHYxMi43OTNDNiwzNi4wNTgsNi45NDIsMzcsOC4xMDQsMzdoOC4zMjMgIGMwLjM3NSwwLDAuNzQzLDAuMSwxLjA2NywwLjI5TDMwLjgzLDQ5LjcwNkMzMi4yMzIsNTAuNTMxLDM0LDQ5LjUyLDM0LDQ3Ljg5M1Y5LjEwN2MwLTEuNjI3LTEuNzY4LTIuNjM4LTMuMTctMS44MTNMMTcuNDk0LDE5LjcxICBDMTcuMTcsMTkuOSwxNi44MDIsMjAsMTYuNDI3LDIweiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRUZDRTRBOyIgZD0iTTQxLjU0MSw0Mi4wNDJjLTAuMjU2LDAtMC41MTItMC4wOTgtMC43MDctMC4yOTNjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQgIGM2LjIzOC02LjIzOCw2LjIzOC0xNi4zOSwwLTIyLjYyOGMtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNHMxLjAyMy0wLjM5MSwxLjQxNCwwYzcuMDE4LDcuMDE5LDcuMDE4LDE4LjQzOCwwLDI1LjQ1NiAgQzQyLjA1Miw0MS45NDQsNDEuNzk2LDQyLjA0Miw0MS41NDEsNDIuMDQyeiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRUZDRTRBOyIgZD0iTTM4LDM4Yy0wLjI1NiwwLTAuNTEyLTAuMDk4LTAuNzA3LTAuMjkzYy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0ICBjNC4yOTctNC4yOTcsNC4yOTctMTEuMjg5LDAtMTUuNTg2Yy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0czEuMDIzLTAuMzkxLDEuNDE0LDBjNS4wNzcsNS4wNzcsNS4wNzcsMTMuMzM3LDAsMTguNDE0ICBDMzguNTEyLDM3LjkwMiwzOC4yNTYsMzgsMzgsMzh6Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiNFRkNFNEE7IiBkPSJNNDQuNDc2LDQ3Yy0wLjI1NiwwLTAuNTEyLTAuMDk4LTAuNzA3LTAuMjkzYy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0ICBjNC4zNTYtNC4zNTUsNi43NTUtMTAuMTQyLDYuNzU1LTE2LjI5M3MtMi4zOTktMTEuOTM4LTYuNzU1LTE2LjI5M2MtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNHMxLjAyMy0wLjM5MSwxLjQxNCwwICBjNC43MzQsNC43MzMsNy4zNDEsMTEuMDIxLDcuMzQxLDE3LjcwN3MtMi42MDcsMTIuOTc0LTcuMzQxLDE3LjcwN0M0NC45ODgsNDYuOTAyLDQ0LjczMiw0Nyw0NC40NzYsNDd6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
 }
 
