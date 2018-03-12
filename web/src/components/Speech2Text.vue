@@ -1,8 +1,8 @@
 <template>
   <div class="s2t">
     <div v-if="!isRecording"
-        class="btn-micro"
         title="Dicter phrase "
+        v-bind:class="'btn-micro'+(!hasPermission ? '-blocked':'')"
         @click="start">
     </div>
     <div v-else
@@ -31,6 +31,7 @@ export default {
   },
   data() {
     return {
+      hasPermission : true,
       speech2Text : null,
       isRecording : false,
       text : '',
@@ -43,9 +44,24 @@ export default {
     };
   },
   mounted () {
+    this.checkPermission();
     this.initRecognition();
   },
   methods: {
+    setPermission(perm) {
+      this.hasPermission = (perm === 'granted');
+      if(!this.hasPermission){
+        this.$emit('s2t-permission', perm);
+      }
+    },
+
+    checkPermission(){
+      navigator.permissions.query({name:'microphone'})
+        .then((permissionStatus) => {
+          this.setPermission(permissionStatus.state);
+          permissionStatus.onchange = this.setPermission;
+      });
+    },
     initRecognition(){
       const grammar = `#JSGF V1.0; grammar commands; public <cmd> = ${this.commands.join(' | ')};`;
       const speechCommands = new SpeechGrammarList();
@@ -56,14 +72,6 @@ export default {
       this.speech2Text.interimResults = false;
       this.speech2Text.lang = 'fr-FR';
 
-      // this.speech2Text.onresult = ({results}) => {
-      //   console.log(results);
-      //   this.text = Array.from(results)
-      //     .map(res => res[0])
-      //     .map(res => res.transcript)
-      //     .join(' ');
-      // };
-
       this.speech2Text.onresult = ({results}) => {
         this.text = results[0][0].transcript;
       }
@@ -73,8 +81,7 @@ export default {
           this.$emit('s2t-text', this.text + ' ');
         }
 
-        this.isRecording = !this.isCommand(true);
-
+        this.isRecording = this.isRecording && !this.isCommand(true);
         this.text = '';
 
         if(this.isRecording){
@@ -84,12 +91,16 @@ export default {
     },
 
     start(){
-      this.speech2Text.start();
-      this.isRecording = true;
+      if(!this.hasPermission){
+        this.$emit('s2t-permission');
+      }else{
+        this.speech2Text.start();
+        this.isRecording = true;
+      }
     },
     stop(){
-      this.speech2Text.stop();
       this.isRecording = false;
+      this.speech2Text.stop();
     },
 
     isCommand(isForUser = false){

@@ -21,8 +21,8 @@
       > </textarea>
 
       <s2t @s2t-text="handleS2Text"
-          :user-commands="commands"  @s2t-command="handleS2Cmd"/>
-
+          :user-commands="commands"  @s2t-command="handleS2Cmd"
+          @s2t-permission="allowMicro"/>
     </div>
 
     <span id='chat-msg-input-limit'>{{limitChatInputMsg}}</span>
@@ -89,11 +89,9 @@ export default {
     }
   },
   methods: {
-    userChoiceResponse(response) {
-      this.hasChoices = false;
-      console.log(response);
+    allowMicro(perm) {
+      this.$bus.$emit('msg-warning', 'Veuillez autoriser l\'utilisation du micro');
     },
-
     handleS2Cmd(cmd){
       console.log('Cmd : ', cmd);
       switch (cmd) {
@@ -111,13 +109,7 @@ export default {
         case 'à la ligne' :
           this.chatInputMsg += '. ';
         break;
-
           // this.chatInputMsg += '.\n';
-
-
-
-
-
 
         default:
           break;
@@ -129,6 +121,10 @@ export default {
       this.chatInputMsg += text;
     },
 
+    userChoiceResponse(response) {
+      this.hasChoices = false;
+      console.log(response);
+    },
     sendMsg() {
       const msg = createMsg(this.chatInputMsg, "user");
       this.msgs.push(msg);
