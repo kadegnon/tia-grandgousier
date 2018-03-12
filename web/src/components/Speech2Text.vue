@@ -1,14 +1,13 @@
 <template>
   <div class="s2t">
-    <div v-if="!isRecording"
-        title="Dicter phrase "
-        v-bind:class="'btn-micro'+(!hasPermission ? '-blocked':'')"
-        @click="start">
+    <div v-if="hasPermission"
+        v-bind:class="'btn-micro'+(!isRecording ? '-stop':'')"
+        v-bind:title="(!isRecording ? 'Dicter phrase':'Arreter l\'enregistrement')"
+        @click="!isRecording ? start() : stop()">
     </div>
     <div v-else
-        class="btn-done"
-        title="Arreter l'enregistrement"
-        @click="stop">
+        class="btn-micro-blocked"
+        title="Micro non-autorisé">
     </div>
   </div>
 
@@ -155,10 +154,29 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat !important;
   background-position: center center !important;
-
 }
 
-.s2t .btn-done {
+.btn-micro-blocked {
+  /* box-shadow: 2px 2px 0px 1px crimson; */
+  background-size: 100%;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+}
+
+.s2t .btn-micro-blocked {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCIgdmlld0JveD0iMCAwIDU2NS41MTIgNTY1LjUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTY1LjUxMiA1NjUuNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTg2Ljk5OSwyMzkuMjU1djQzLjUwN2MwLDM3Ljk4Niw5LjYzOSw3Mi4yMTYsMjguODc0LDEwMi43MDdsMzEuNzg4LTMxLjc4N2MtMTEuNDMyLTIxLjMxMS0xNy4xNjEtNDQuOTQ1LTE3LjE2MS03MC45MTQgICAgdi00My41MDdjMC01Ljg4MS0yLjE2LTEwLjk3OS02LjQ1Ny0xNS4yOTRjLTQuMzA5LTQuMzAyLTkuNDA2LTYuNDUtMTUuMjk0LTYuNDVjLTUuODk0LDAtMTAuOTkxLDIuMTQ4LTE1LjI5NCw2LjQ1ICAgIEM4OS4xNDYsMjI4LjI3Niw4Ni45OTksMjMzLjM3NCw4Ni45OTksMjM5LjI1NXoiIGZpbGw9IiMwMDAwMDAiLz4KCQk8cGF0aCBkPSJNMzkxLjUxMiwxMDguNzU4YzAtMjkuOTA4LTEwLjY1NS01NS41MDgtMzEuOTQ2LTc2LjgxMkMzMzguMjYyLDEwLjY0OCwzMTIuNjYxLDAsMjgyLjc1Mywwcy01NS41MTUsMTAuNjQ4LTc2LjgwNiwzMS45NCAgICBDMTg0LjY0OSw1My4yNSwxNzQsNzguODQ0LDE3NCwxMDguNzUydjE3NC4wMWMwLDEzLjUzNywyLjI5NSwyNi4xMzgsNi42NTksMzcuOTE0TDM5MS41MDUsMTA5Ljgzdi0xLjA3MUgzOTEuNTEyeiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxwYXRoIGQ9Ik0zNTkuNTY1LDM1OS41NzRjMjEuMjkxLTIxLjI5MSwzMS45NDYtNDYuOTA0LDMxLjk0Ni03Ni44MTJ2LTQzLjEwM0wyNDUuOTIzLDM4NS4yNDIgICAgYzExLjQ2OSw0LjEsMjMuNzA5LDYuMjY2LDM2LjgzLDYuMjY2QzMxMi42NjEsMzkxLjUxNCwzMzguMjYyLDM4MC44NzksMzU5LjU2NSwzNTkuNTc0eiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxwYXRoIGQ9Ik00NTYuNzYzLDIxNy41MTFjLTUuODk0LDAtMTAuOTkxLDIuMTQ4LTE1LjI5NCw2LjQ1MWMtNC4zMDksNC4zMTQtNi40NTYsOS40MTItNi40NTYsMTUuMjkzdjQzLjUwNyAgICBjMCw0MS45MjEtMTQuOTAyLDc3Ljc3OS00NC42ODgsMTA3LjU3MmMtMjkuNzk4LDI5Ljc5MS02NS42NTUsNDQuNjgyLTEwNy41NzEsNDQuNjgyYy0yNS41NzYsMC00OC44OC01LjU3Ni02OS45MzktMTYuNjY0ICAgIGwtMzEuODYxLDMxLjg1OWMyMy44NSwxNC42Nyw1MC41MjEsMjMuNjgsODAuMDUsMjYuOTQxdjQ0Ljg3MUgxNzRjLTUuODk0LDAtMTAuOTkyLDIuMTM3LTE1LjI5NCw2LjQ1MSAgICBjLTQuMzA5LDQuMzAzLTYuNDU3LDkuNC02LjQ1NywxNS4yOTNjMCw1Ljg4MSwyLjE0OCwxMC45OCw2LjQ1NywxNS4yOTVjNC4zMDIsNC4zMDEsOS40LDYuNDQ5LDE1LjI5NCw2LjQ0OWgyMTcuNTExICAgIGM1Ljg4NywwLDEwLjk4NS0yLjE0OCwxNS4yOTQtNi40NDljNC4zMDItNC4zMTQsNi40NTYtOS40MTQsNi40NTYtMTUuMjk1YzAtNS44OTMtMi4xNTQtMTAuOTktNi40NTYtMTUuMjkzICAgIGMtNC4zMDktNC4zMTQtOS40MDctNi40NTEtMTUuMjk0LTYuNDUxaC04Ny4wMDl2LTQ0Ljg3MWM0OS4xNjItNS40Myw5MC40NTQtMjYuNjcyLDEyMy44ODItNjMuNzIzICAgIGMzMy40MTUtMzcuMDM3LDUwLjEyOS04MC41OTQsNTAuMTI5LTEzMC42NzN2LTQzLjUwN2MwLTUuODgxLTIuMTU0LTEwLjk3OS02LjQ1Ny0xNS4yOTQgICAgQzQ2Ny43NDgsMjE5LjY1OSw0NjIuNjUsMjE3LjUxMSw0NTYuNzYzLDIxNy41MTF6IiBmaWxsPSIjMDAwMDAwIi8+CgkJPHBhdGggZD0iTTQ3OC4zNzksNDQuNjAzbC04Ni44NjcsODYuODY3bC0yMDQuMDEsMjA0LjAwNWwtMzEuNjU5LDMxLjY1OGwtMzEuMTUsMzEuMTVsLTgwLjgzMyw4MC44NCAgICBjLTExLjk1MywxMS45NDUtMTEuOTUzLDMxLjMyMiwwLDQzLjI2OGM1Ljk2Nyw1Ljk3OSwxMy44MDcsOC45NjcsMjEuNjM0LDguOTY3YzcuODI3LDAsMTUuNjY3LTIuOTg4LDIxLjYzNC04Ljk2N2w4MC44OTUtODAuODk1ICAgIGwzMS4yMzYtMzEuMjM2bDMxLjY4OS0zMS42ODlsMTYwLjU2NC0xNjAuNTU4TDUyMS42NTMsODcuODcxYzExLjk1Mi0xMS45NDYsMTEuOTUyLTMxLjMyMiwwLTQzLjI2OCAgICBDNTA5LjcwNywzMi42NSw0OTAuMzE5LDMyLjY1LDQ3OC4zNzksNDQuNjAzeiIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
+  background-size: 100%;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+
+.s2t .btn-micro-stop {
   cursor: pointer;
   height: 100%;
   width: 100%;
