@@ -14,7 +14,7 @@
 
     <div class="chat-msg">
       <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
-        placeholder="Entrer votre message !"
+        placeholder="Entrer ou dicter votre requête !"
         v-bind:maxlength="maxLimit"
         v-model.trim="chatInputMsg"
         @keyup.enter="sendMsg"

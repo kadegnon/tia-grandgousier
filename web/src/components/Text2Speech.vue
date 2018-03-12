@@ -8,120 +8,110 @@
 </template>
 
 <script>
-
 const Speech = window.speechSynthesis;
-
 
 export default {
   name: "text2Speech",
-  props : {
-    standalone:true,
-    text : {
-      type : String,
-      required : false
+  props: {
+    standalone: true,
+    text: {
+      type: String,
+      required: false
     }
   },
   data() {
     return {
-      text2Speech : null,
-      isSpeaking : false,
-      voices : null,
-      rate : 1,
-      pitch : 1,
-      texts :[],
-      currentText : null
+      isSpeaking: false,
+      voices: null,
+      rate: 1,
+      pitch: 1,
+      texts: []
     };
   },
-  created () {
-    this.voices = window.speechSynthesis.getVoices().filter(v => v.localService);
+  created() {
+    this.voices = window.speechSynthesis
+      .getVoices()
+      .filter(v => v.localService);
 
-    this.$bus.$on('t2s-speak',this.addText);
-    this.$bus.$on('t2s-cancel',this.cancelSpeak);
-
-    this.initSpeaker();
+    this.$bus.$on("t2s-speak", this.addText);
+    this.$bus.$on("t2s-cancel", this.cancelSpeak);
 
   },
-  beforeDestroy(){
-    this.$bus.$off(['t2s-speak','t2s-cancel']);
+  beforeDestroy() {
+    this.$bus.$off(["t2s-speak", "t2s-cancel"]);
   },
   methods: {
-    initSpeaker(){
-      this.text2Speech = new SpeechSynthesisUtterance();
-      this.text2Speech.lang = 'fr-FR';
-      this.text2Speech.pitch = this.pitch;
-      this.text2Speech.rate = this.rate;
+    initSpeaker(text, position, id) {
+      const text2Speech = new SpeechSynthesisUtterance(text);
+      text2Speech.lang = "fr-FR";
+      text2Speech.pitch = this.pitch;
+      text2Speech.rate = this.rate;
 
+      if(position === 'first'){
+        text2Speech,addEventListener('start', e => this.$bus.$emit("t2s-speaking-" + id));
+      }
 
-      this.text2Speech.addEventListener('start', e => {
-        this.$bus.$emit('t2s-speaking-'+this.currentText.id);
-      });
+      if(position === 'last'){
+        text2Speech,addEventListener('end', e => this.$bus.$emit("t2s-done-" + id));
+      }
 
-      this.text2Speech.addEventListener('end', _ => {
-        this.$bus.$emit('t2s-done-'+this.currentText.id);
-        // this.speak();
-      });
-
-      this.text2Speech.addEventListener('mark', e => {
-        console.log('A mark was reached: ' + e.name);
-      });
-
+      return text2Speech;
     },
 
-    addText(text,id){
+    addText(text, id) {
       this.texts.push({
         id,
-        phrases : text.split('.')
-      })
-      if(!this.isSpeaking){
+        phrases: text
+          .split(".")
+          .map(p => p.trim())
+          .filter(p => p.length > 0)
+      });
+      if (!this.isSpeaking) {
         this.speak();
       }
     },
 
-    cancelSpeak(id){
+    cancelSpeak(id) {
       const textIdx = this.texts.findIndex(t => t.id === id);
-      if(textIdx > -1){
+      if (textIdx > -1) {
         this.texts.splice(textIdx, 1);
       }
     },
 
-    speak(){
-      if(!Speech.speaking){
+    speak() {
+      if (!Speech.speaking) {
         this.isSpeaking = true;
         do {
-          this.currentText = this.texts.shift();
-          this.currentText.phrases.forEach((phr,i,arr) => {
-            this.text2Speech.text = phr;
-            Speech.speak(this.text2Speech);
-
-            if(i == arr.length - 1){ //?  dernière phrase ?
-              // this.$bus.$emit('t2s-done-'+this.currentText.id);
-            }
+          const currentText = this.texts.shift();
+          currentText.phrases.forEach((phr,i) => {
+            const text2Speech = this.initSpeaker(phr,'init',currentText.id);
+            Speech.speak(this.initSpeaker);
           });
-
-        } while(this.texts.length > 0)
+        } while (this.texts.length > 0); // Each msg to read
         this.isSpeaking = false;
-      }else{
-        this.$bus.$emit('msg-info','En cours de lecture !\n Un peu de patience,')
+      } else {
+        this.$bus.$emit(
+          "msg-info",
+          "En cours de lecture !\n Un peu de patience,"
+        );
       }
     },
 
-    stop(){
+    stop() {
       Speech.cancel();
       this.isSpeaking = false;
-    },
-
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.t2s{
+.t2s {
   /* margin: 4px; */
   /* position: static; */
   /* background: brown; */
-  margin-right: 4px ;
+  margin-right: 4px;
   height: 32px;
   width: 32px;
   background-size: 100%;
@@ -136,12 +126,13 @@ export default {
   /* background-position: center center !important; */
 }
 
-.btn-speaker:hover, .btn-speaking {
+.btn-speaker:hover,
+.btn-speaking {
   background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxjaXJjbGUgc3R5bGU9ImZpbGw6I0Q3NUE0QTsiIGN4PSIyOSIgY3k9IjI5IiByPSIyOSIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTIyLjQyNywyMGgtOC4zMjNDMTIuOTQyLDIwLDEyLDIwLjk0MiwxMiwyMi4xMDR2MTIuNzkzQzEyLDM2LjA1OCwxMi45NDIsMzcsMTQuMTA0LDM3aDguMzIzICBjMC4zNzUsMCwwLjc0MywwLjEsMS4wNjcsMC4yOUwzNi44Myw0OS43MDZDMzguMjMyLDUwLjUzMSw0MCw0OS41Miw0MCw0Ny44OTNWOS4xMDdjMC0xLjYyNy0xLjc2OC0yLjYzOC0zLjE3LTEuODEzTDIzLjQ5NCwxOS43MSAgQzIzLjE3LDE5LjksMjIuODAyLDIwLDIyLjQyNywyMHoiLz4KPHBhdGggc3R5bGU9ImZpbGw6IzQyNEE2MDsiIGQ9Ik01MC44NjYsOS45NjJjLTAuNDM2LTAuNS0wLjg4NC0wLjk5Mi0xLjM2LTEuNDY4cy0wLjk2OC0wLjkyNC0xLjQ2OC0xLjM2TDcuMTM0LDQ4LjAzOCAgYzAuNDM2LDAuNSwwLjg4NCwwLjk5MiwxLjM2LDEuNDY4czAuOTY4LDAuOTI0LDEuNDY4LDEuMzZMNTAuODY2LDkuOTYyeiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
 }
 
-.btn-speaking:hover,.btn-mute {
+.btn-speaking:hover,
+.btn-mute {
   background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU4IDU4IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1OCA1ODsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxjaXJjbGUgc3R5bGU9ImZpbGw6IzM4NDU0RjsiIGN4PSIyOSIgY3k9IjI5IiByPSIyOSIvPgo8cGF0aCBzdHlsZT0iZmlsbDojNzM4M0JGOyIgZD0iTTE2LjQyNywyMEg4LjEwNEM2Ljk0MiwyMCw2LDIwLjk0Miw2LDIyLjEwNHYxMi43OTNDNiwzNi4wNTgsNi45NDIsMzcsOC4xMDQsMzdoOC4zMjMgIGMwLjM3NSwwLDAuNzQzLDAuMSwxLjA2NywwLjI5TDMwLjgzLDQ5LjcwNkMzMi4yMzIsNTAuNTMxLDM0LDQ5LjUyLDM0LDQ3Ljg5M1Y5LjEwN2MwLTEuNjI3LTEuNzY4LTIuNjM4LTMuMTctMS44MTNMMTcuNDk0LDE5LjcxICBDMTcuMTcsMTkuOSwxNi44MDIsMjAsMTYuNDI3LDIweiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRUZDRTRBOyIgZD0iTTQxLjU0MSw0Mi4wNDJjLTAuMjU2LDAtMC41MTItMC4wOTgtMC43MDctMC4yOTNjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQgIGM2LjIzOC02LjIzOCw2LjIzOC0xNi4zOSwwLTIyLjYyOGMtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNHMxLjAyMy0wLjM5MSwxLjQxNCwwYzcuMDE4LDcuMDE5LDcuMDE4LDE4LjQzOCwwLDI1LjQ1NiAgQzQyLjA1Miw0MS45NDQsNDEuNzk2LDQyLjA0Miw0MS41NDEsNDIuMDQyeiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRUZDRTRBOyIgZD0iTTM4LDM4Yy0wLjI1NiwwLTAuNTEyLTAuMDk4LTAuNzA3LTAuMjkzYy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0ICBjNC4yOTctNC4yOTcsNC4yOTctMTEuMjg5LDAtMTUuNTg2Yy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0czEuMDIzLTAuMzkxLDEuNDE0LDBjNS4wNzcsNS4wNzcsNS4wNzcsMTMuMzM3LDAsMTguNDE0ICBDMzguNTEyLDM3LjkwMiwzOC4yNTYsMzgsMzgsMzh6Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiNFRkNFNEE7IiBkPSJNNDQuNDc2LDQ3Yy0wLjI1NiwwLTAuNTEyLTAuMDk4LTAuNzA3LTAuMjkzYy0wLjM5MS0wLjM5MS0wLjM5MS0xLjAyMywwLTEuNDE0ICBjNC4zNTYtNC4zNTUsNi43NTUtMTAuMTQyLDYuNzU1LTE2LjI5M3MtMi4zOTktMTEuOTM4LTYuNzU1LTE2LjI5M2MtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNHMxLjAyMy0wLjM5MSwxLjQxNCwwICBjNC43MzQsNC43MzMsNy4zNDEsMTEuMDIxLDcuMzQxLDE3LjcwN3MtMi42MDcsMTIuOTc0LTcuMzQxLDE3LjcwN0M0NC45ODgsNDYuOTAyLDQ0LjczMiw0Nyw0NC40NzYsNDd6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
 }
-
 </style>
