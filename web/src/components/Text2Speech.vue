@@ -47,11 +47,11 @@ export default {
       text2Speech.pitch = this.pitch;
       text2Speech.rate = this.rate;
 
-      // if(position === 'first'){
-        // text2Speech,addEventListener('start', e => this.$bus.$emit("t2s-speaking-" + id));
-      // }
       if(last){
-        text2Speech.addEventListener('end', e => this.$bus.$emit("t2s-done-" + id));
+        text2Speech.addEventListener('end', e => {
+            this.$bus.$emit("t2s-done-" + id);
+            this.speak();
+        });
       }
 
       return text2Speech;
@@ -80,22 +80,19 @@ export default {
     speak() {
       if (!Speech.speaking) {
         this.isSpeaking = true;
-        do {
+        while (this.texts.length > 0){
           const currentText = this.texts.shift();
           const nbPhr = currentText.phrases.length;
 
           this.$bus.$emit("t2s-speaking-" + currentText.id);
           currentText.phrases.forEach((phr,i) => {
-            let text2Speech = null
-            // if (i == (nbPhr-1)){ // ? Last phrase ?
-              text2Speech = this.initSpeaker(phr, i === (nbPhr-1), currentText.id);
-            // }else{
-              // text2Speech = this.initSpeaker(phr);
-            // }
+              const text2Speech = this.initSpeaker(phr, i === (nbPhr-1), currentText.id);
 
             Speech.speak(text2Speech);
           });
-        } while (this.texts.length > 0); // Each msg to read
+          console.log(this.texts.length)
+        }; // Each msg to
+        console.log()
         this.isSpeaking = false;
       } else {
         this.$bus.$emit(
