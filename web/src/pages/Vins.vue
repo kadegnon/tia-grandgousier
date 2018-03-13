@@ -72,16 +72,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .view {
+.vins {
+  text-align:center;
+  width: 100%;
+}
 
-} */
+.column {
+  min-width:250px;
+  margin: 2%;
+
+}
 
 .view-list{
   float: left;
 }
 
-.view-details{
-  float: right;
+
+@media (max-width: 700px) {
+  .column {
+    width: 75%;
+  }
 }
 
 </style>

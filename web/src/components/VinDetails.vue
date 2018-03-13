@@ -3,12 +3,12 @@
     <h2>{{$route.params.id ? 'Mise à jour ' : 'Ajout'}} de vin</h2>
     <form :method="id ? 'PUT' : 'POST'" @submit.prevent="saveVin">
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vappel">Appellation</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
-          <select  :class="{'form-control': true, 'error': errors.has('vappel') }" id="vappel" name="vappel">
+          <select  :class="{'form-input': true, 'error': errors.has('vappel') }" id="vappel" name="vappel">
             <template v-for="(appel,index) in appellations" >
               <option :key="index" :value="appel" :selected="appel == vin.appellation">{{appel}}</option>
             </template>
@@ -16,72 +16,72 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vnom">Nom</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <span class="text-danger" v-show="errors.has('vnom')">Le nom est requis.</span>
           <input type="text" id="vnom" name="vnom" placeholder="Nom de vin"
                 v-model="vin.nom" v-validate="'required'"
-                :class="{'form-control': true, 'error': errors.has('vname') }"
+                :class="{'form-input': true, 'error': errors.has('vname') }"
           >
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vorigine">Origine</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <input type="text" id="vorigine" name="vorigine" placeholder="Origine de vin"
-                v-model="vin.origine" :class="{'form-control': true, 'error': errors.has('vorigine') }"
+                v-model="vin.origine" :class="{'form-input': true, 'error': errors.has('vorigine') }"
           >
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vannee">Année</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
           <input type="number" max="2025" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
                 v-model="vin.annee" v-validate="'required'"
-                :class="{'form-control': true, 'error': errors.has('vannee') }"
+                :class="{'form-input': true, 'error': errors.has('vannee') }"
           >
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vhtva">H.T.V.A</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
           <input type="number" id="vhtva" name="vhtva"  step="0.1" placeholder="Prix H.T.V.A"
                 v-model="vin.htva" v-validate="'required'"
-                :class="{'form-control': true, 'error': errors.has('vhtva') }"
+                :class="{'form-input': true, 'error': errors.has('vhtva') }"
           >
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vtvac">T.V.A.C</label>
         </div>
-        <div class="col-65">
+        <div class="form-control">
           <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
           <input type="number" id="vtvac" name="vtvac"  step="0.1" placeholder="Prix H.T.V.A"
                 v-model="vin.tvac" v-validate="'required'"
-                :class="{'form-control': true, 'error': errors.has('vtvac') }"
+                :class="{'form-input': true, 'error': errors.has('vtvac') }"
           >
         </div>
       </div>
       <div class="form-group">
-        <div class="col-25">
+        <div class="form-label">
           <label for="vdescrip">Description</label>
         </div>
-        <div class="col-65">
-          <span class="text-danger" v-show="errors.has('vdescrip')">L'appellation est requis</span>
+        <div class="form-control">
+          <!--<span class="text-danger" v-show="errors.has('vdescrip')">La description est requis</span>-->
           <textarea id="vdescrip" name="vdescrip" placeholder="Description du vin" style="height:200px"
               v-model="vin.description"   v-validate="'required'"
-              :class="{'form-control': true, 'error': errors.has('vdescrip') }" ></textarea>
+              :class="{'form-input': true, /*'error': errors.has('vdescrip') */}" ></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -144,10 +144,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .vino-details {
-  width: 65%;
   border-radius: 5px;
+  height: 100%;
   /* background-color: #f2f2f2; */
-  padding: 20px;
 }
 
 /* Clear floats after the columns */
@@ -157,37 +156,22 @@ export default {
   clear: both;
 }
 
-.col-15 {
+.form-label {
   float: left;
-  width: 15%;
+  min-width: 28%;
   margin-top: 6px;
-}
-
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
-
-.col-65 {
-  float: left;
-  width: 65%;
-  margin-top: 6px;
-}
-
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
-}
-
-.col-85 {
-  float: left;
-  width: 85%;
-  margin-top: 6px;
+  padding-right: 2%;
 }
 
 .form-control {
+  float: right;
+  width: 67%;
+  margin: 6px 0;
+  padding-left: 3%;
+}
+
+
+.form-input{
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -197,7 +181,7 @@ export default {
 }
 
 label {
-  padding: 12px 12px 12px 0;
+  padding: 12px 0;
   display: inline-block;
 }
 

@@ -82,6 +82,7 @@ export default {
 <style scoped>
 * {
   box-sizing: border-box;
+  text-align: center;
 }
 
 .header {
@@ -163,7 +164,7 @@ export default {
 
 .vinos-list-item:hover > .btn-remove{
   display: inline;
-  padding: 10px 14px;
+  padding: 14px;
   position: absolute;
   font-weight: bolder;
   cursor: pointer;
