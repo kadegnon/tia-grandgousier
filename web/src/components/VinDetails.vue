@@ -44,7 +44,7 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
           <input type="number" max="2025" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
-                v-model="vin.annee" v-validate="'required'"
+                v-model="vin.annee" v-validate="'required|numeric|min:4|max:4'"
                 :class="{'form-input': true, 'error': errors.has('vannee') }"
           >
         </div>
@@ -56,7 +56,7 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
           <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A"
-                v-model="vin.htva" v-validate="'required'"
+                v-model="vin.htva" v-validate="'required|decimal:2'"
                 :class="{'form-input': true, 'error': errors.has('vhtva') }"
           >
         </div>
@@ -68,7 +68,7 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
           <input type="number" id="vtvac" name="vtvac"  step="0.01" placeholder="Prix T.V.A.C"
-                v-model="vin.tvac" v-validate="'required'"
+                v-model="vin.tvac" v-validate="'required|decimal:2'"
                 :class="{'form-input': true, 'error': errors.has('vtvac') }"
           >
         </div>
