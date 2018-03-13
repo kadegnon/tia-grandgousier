@@ -41,18 +41,17 @@ export default {
     this.$bus.$off(["t2s-speak", "t2s-cancel"]);
   },
   methods: {
-    initSpeaker(text, position, id) {
+    initSpeaker(text, last, id) {
       const text2Speech = new SpeechSynthesisUtterance(text);
       text2Speech.lang = "fr-FR";
       text2Speech.pitch = this.pitch;
       text2Speech.rate = this.rate;
 
-      if(position === 'first'){
-        text2Speech,addEventListener('start', e => this.$bus.$emit("t2s-speaking-" + id));
-      }
-
-      if(position === 'last'){
-        text2Speech,addEventListener('end', e => this.$bus.$emit("t2s-done-" + id));
+      // if(position === 'first'){
+        // text2Speech,addEventListener('start', e => this.$bus.$emit("t2s-speaking-" + id));
+      // }
+      if(last){
+        text2Speech.addEventListener('end', e => this.$bus.$emit("t2s-done-" + id));
       }
 
       return text2Speech;
@@ -83,9 +82,18 @@ export default {
         this.isSpeaking = true;
         do {
           const currentText = this.texts.shift();
+          const nbPhr = currentText.phrases.length;
+
+          this.$bus.$emit("t2s-speaking-" + currentText.id);
           currentText.phrases.forEach((phr,i) => {
-            const text2Speech = this.initSpeaker(phr,'init',currentText.id);
-            Speech.speak(this.initSpeaker);
+            let text2Speech = null
+            // if (i == (nbPhr-1)){ // ? Last phrase ?
+              text2Speech = this.initSpeaker(phr, i === (nbPhr-1), currentText.id);
+            // }else{
+              // text2Speech = this.initSpeaker(phr);
+            // }
+
+            Speech.speak(text2Speech);
           });
         } while (this.texts.length > 0); // Each msg to read
         this.isSpeaking = false;
