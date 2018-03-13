@@ -1,6 +1,6 @@
 <template>
   <article class="vino-details">
-    <h2>{{$route.params.id ? 'Mise à jour ' : 'Ajout'}} de vin</h2>
+    <h2>{{$route.params.id ? 'Mise à jour du' : 'Ajout de'}} vin</h2>
     <form :method="id ? 'PUT' : 'POST'" @submit.prevent="saveVin">
       <div class="form-group">
         <div class="form-label">
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div class="form-group">
-        <input type="submit" :value="id ? 'Modifier' :'Sauvegarder'">
+        <input class="btn success" type="submit" :value="id ? 'Modifier' :'Sauvegarder'">
       </div>
     </form>
   </article>
@@ -189,11 +189,10 @@ input[type="submit"] {
   font-size: medium;
   background-color: #4caf50;
   color: white;
-  padding: 20px;
+  /*padding: 20px;*/
   border: none;
   border-radius: 5px;
-  margin-left: 25%;
-  margin-top : 10px;
+  margin-left: 33%;
   cursor: pointer;
   float: left;
 }

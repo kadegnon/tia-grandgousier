@@ -59,6 +59,27 @@ export default {
   display: table;
 }
 
+.btn {
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  padding: 14px 28px; /* Add some padding */
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: mediumaquamarine;} /* Green */
+
+.info {background-color: #2196F3;}
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;}
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;}
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;}
+.default:hover {background: #ddd;}
+
 /* Responsive layout - when the screen is less than 550px wide, make the two columns stack on top of each other instead of next to each other */
 @media (max-width: 550px) {
   .column {

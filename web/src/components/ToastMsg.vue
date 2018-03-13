@@ -75,7 +75,7 @@ export default {
 }
 
 #toast-msg.success {
-  background-color: aquamarine;
+  background-color: mediumaquamarine;
   color: black;
 }
 #toast-msg.info {
