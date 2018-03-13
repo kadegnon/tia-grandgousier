@@ -15,8 +15,9 @@
 </template>
 
 <script>
-
 import VinList from '../components/VinList';
+
+const API_URL_TO_VINO = 'vino/';
 
 export default {
   name: "vins",
@@ -26,23 +27,31 @@ export default {
   data() {
     return {
       list : [ ],
-      selected : 'cf590a5e'
+      selected : ''
     }
   },
 
   created() {
     this.getListVins();
     this.selected = this.$route.params.id || '';
+    this.$bus.$on('vin-modif',this.modif);
+
   },
+
+  beforeRouteUpdate(to, from, next){
+    this.selected = to.params.id;
+    next();
+  },
+
   beforeDestroy(){
-    // this.$off(['select-vin','remove-vin']);
+     this.$off(['vin-select','vin-add','vin-modif','vin-remove']);
   },
   methods : {
     remove(id){
       const ok = window.confirm('Voulez-vous vraiment supprimer ce vin !?');
       if(ok) {
         console.log("[Vins] Remove vin #", id);
-        this.$http.delete('vino/')
+        this.$http.delete(API_URL_TO_VINO)
               .then(res => {
                 this.list.splice(this.list.findIndex(v => v.id == id), 1);
                 this.$bus.$emit('msg-warning','Vin supprimé !');
@@ -52,6 +61,7 @@ export default {
     },
     add(nom){
       console.log("[Vins] New vin : ",nom);
+
     },
 
     select(id) {
@@ -59,8 +69,19 @@ export default {
       this.selected = id;
     },
 
+    modif(id,data){
+      console.log("[Vins] M.A.J. vin #", id, data);
+      this.$http.put(API_URL_TO_VINO)
+        .then(res => {
+          this.list.splice(this.list.findIndex(v => v.id == id), 1, res.data);
+          this.$bus.$emit('msg-success','Vin modifié!');
+          this.$routes.push('/vins');
+        })
+        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la modification !'));
+    },
+
     getListVins () {
-      this.$http.get('vino/')
+      this.$http.get(API_URL_TO_VINO)
             .then(res => this.list = res.data)
             .catch(e => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue'))
             // .catch(err => this.$emit('msg-error',err.body.statusText));

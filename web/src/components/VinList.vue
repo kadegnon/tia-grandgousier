@@ -62,17 +62,18 @@ export default {
   },
 
   methods : {
-    selectVin(id){
-      this.$emit('select-vin', id);
-      this.$router.push({ name: 'vinDetails', params: {id }});
-    },
-    removeVin(id){ this.$emit('remove-vin', id);},
     addVin(){
-      this.$emit('add-vin', this.searchInput);
+      this.$emit('vin-add', this.searchInput);
       this.$router.push({name : 'vinNew', query : {nom : this.searchInput }});
       this.searchInput = '';
     },
-  }
+    selectVin(id){
+      this.$emit('vin-select', id);
+      this.$router.push({ name: 'vinDetails', params: {id }});
+    },
+
+    removeVin(id){ this.$emit('vin-remove', id);},
+  },
 };
 </script>
 

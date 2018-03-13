@@ -55,7 +55,7 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
-          <input type="number" id="vhtva" name="vhtva"  step="0.1" placeholder="Prix H.T.V.A"
+          <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A"
                 v-model="vin.htva" v-validate="'required'"
                 :class="{'form-input': true, 'error': errors.has('vhtva') }"
           >
@@ -67,7 +67,7 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
-          <input type="number" id="vtvac" name="vtvac"  step="0.1" placeholder="Prix H.T.V.A"
+          <input type="number" id="vtvac" name="vtvac"  step="0.01" placeholder="Prix T.V.A.C"
                 v-model="vin.tvac" v-validate="'required'"
                 :class="{'form-input': true, 'error': errors.has('vtvac') }"
           >
@@ -98,7 +98,7 @@ export default {
   name: "vinDetails",
   data() {
     return {
-      id: this.$route.params.id,
+      id: '',
       appellations : [],
       vin: {
         nom: "",
@@ -110,31 +110,33 @@ export default {
         tvac: 0.2
       }
     };
-    },
-    created () {
-      this.getListAppellations();
+  },
+  created () {
+    this.getListAppellations();
+  },
 
+  beforeUpdate()  {
+    this.id = this.$route.params.id;
+    this.getVin();
+  },
+  methods : {
+    getListAppellations(){
+      this.$http.get('appellation')
+          .then(res => this.appellations = res.data);
     },
-    beforeUpdate()  {
-      this.id = this.$route.params.id;
-      this.getVin();
-    },
-    methods : {
-      getListAppellations(){
-        this.$http.get('appellation')
-            .then(res => this.appellations = res.data);
-      },
-      getVin() {
-        if(this.id){
-          this.$http.get('vino/'+this.id)
-              .then(res => this.vin = res.data);
-        }
-      },
-      saveVin () {
-        console.log(this.errors);
-        this.$emit('save-vin', this.id, this.vin)
+    getVin() {
+      if(this.id){
+        this.$http.get('vino/'+this.id)
+            .then(res => this.vin = res.data);
       }
+    },
+    saveVin () {
+      if(this.errors.count() === 0){
+        return this.$bus.$emit('vin-modif', this.id, this.vin);
+      }
+      this.$bus.$emit('msg-warning', 'Certains informations sont manquant !')
     }
+  }
 
 };
 </script>
