@@ -22,7 +22,7 @@ export default {
   components: {
     NavLinks,
     ToastMsg,
-    Text2Speech,
+    Text2Speech
   }
 };
 </script>
@@ -41,6 +41,9 @@ export default {
 
 /* Create two columns that float next to eachother */
 .column {
+  float: left;
+  width: 45%;
+  margin: 2%;
 }
 
 /* Clear floats after the columns */
