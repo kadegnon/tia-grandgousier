@@ -59,7 +59,10 @@ export default {
         .then((permissionStatus) => {
           this.setPermission(permissionStatus.state);
           permissionStatus.onchange = this.setPermission;
-      });
+        })
+        .catch(e => {
+          this.setPermission('unknown');
+        });
     },
     initRecognition(){
       const grammar = `#JSGF V1.0; grammar commands; public <cmd> = ${this.commands.join(' | ')};`;
