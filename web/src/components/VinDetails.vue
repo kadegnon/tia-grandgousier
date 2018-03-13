@@ -116,8 +116,12 @@ export default {
   },
 
   beforeUpdate()  {
-    this.id = this.$route.params.id;
-    this.getVin();
+    if(this.$route.path === '/vins/new'){
+      this.vin.nom = this.$route.query.nom;
+    }else{
+      this.id = this.$route.params.id;
+      this.getVin();
+    }
   },
   methods : {
     getListAppellations(){
