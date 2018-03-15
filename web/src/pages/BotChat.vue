@@ -1,7 +1,7 @@
 <template>
   <section class="chat">
     <h1>Bot Chat</h1>
-    <transition-group name="msg-list" tag="ul" ref="msgList">
+    <transition-group name="msg-list" id="msg-list" tag="ul" ref="msgList">
       <chat-msg
         v-for="msg in msgs"
         v-bind:key="msg.time"
@@ -10,11 +10,9 @@
       />
     </transition-group>
 
-    <user-choice v-if="hasChoices" :choice="choice"  @select-response="userChoiceResponse" />
-
     <div class="chat-msg">
-      <textarea name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
-        placeholder="Entrer ou dicter votre requête !"
+      <textarea ref="msgChatInput"  name="chat-msg-input" class="chat-msg-input" cols="50" rows="5"
+        placeholder="Entrer ou dicter votre requête !" autofocus
         v-bind:maxlength="maxLimit"
         v-model.trim="chatInputMsg"
         @keyup.enter="sendMsg"
@@ -46,12 +44,13 @@ const createMsg = (msg, type) => {
   };
 };
 
-const wait = (t=100) => {
+const wait = (cb, t=100) => {
   const d = new Date();
   let d2 = null;
   do {
     d2 = new Date();
   } while (d2 - d < t);
+  cb();
 };
 
 export default {
@@ -80,8 +79,7 @@ export default {
     };
   },
   updated() {
-    const elt = this.$refs.msgList.$el;
-    this.$refs.msgList.scrollTop = elt.scrollHeight;
+    this.scrollToEnd();
   },
   computed: {
     limitChatInputMsg() {
@@ -89,9 +87,15 @@ export default {
     }
   },
   methods: {
+    scrollToEnd(){
+      var chatMsgList = this.$el.querySelector("#msg-list");
+      chatMsgList.scrollTop = chatMsgList.scrollHeight;
+    },
+
     allowMicro(perm) {
       this.$bus.$emit('msg-warning', 'Veuillez autoriser l\'utilisation du micro');
     },
+
     handleS2Cmd(cmd){
       console.log('Cmd : ', cmd);
       switch (cmd) {
@@ -121,25 +125,23 @@ export default {
       this.chatInputMsg += text;
     },
 
-    userChoiceResponse(response) {
-      this.hasChoices = false;
-      console.log(response);
-    },
     sendMsg() {
       const msg = createMsg(this.chatInputMsg, "user");
       this.msgs.push(msg);
       this.$http
         .post("bot/", { demande: this.chatInputMsg })
-        .then(res => this.handleBotResponse(res.data));
-      this.chatInputMsg = "";
+        .then(res => {
+          this.handleBotResponse(res.data)
+          this.chatInputMsg = '';
+          this.$refs.msgChatInput.focus();
+        });
     },
 
     handleBotResponse(response) {
       if (Array.isArray(response)) {
         response.forEach(res => {
           const msg = createMsg(res, "bot");
-          this.msgs.push(msg);
-          wait();
+          wait(_ => this.msgs.push(msg));
         });
       } else {
         this.msgs.push(createMsg(response, "bot"));
