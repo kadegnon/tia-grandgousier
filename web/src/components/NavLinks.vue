@@ -28,6 +28,7 @@ export default {
 .nav-links {
   background-color: #f1f1f1;
   overflow: hidden;
+  /* text-align: center; */
 }
 
 .link {
@@ -45,8 +46,8 @@ export default {
   color: #607d8b;
 }
 
-.link:hover {
-  border-bottom: 3px solid #039be5;
+.link:not(.router-link-active):hover {
+  border-top: 2px solid #039be5;
 }
 
 .link.router-link-active {
