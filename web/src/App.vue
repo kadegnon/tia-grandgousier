@@ -60,10 +60,10 @@ export default {
 }
 
 .btn {
-  border: none; /* Remove borders */
-  color: white; /* Add a text color */
-  padding: 14px 28px; /* Add some padding */
-  cursor: pointer; /* Add a pointer cursor on mouse-over */
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  cursor: pointer;
 }
 
 .success {background-color: mediumaquamarine;} /* Green */
