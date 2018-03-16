@@ -59,6 +59,27 @@ export default {
       this.selected = id;
       this.$router.push({ name: 'vinDetails', params: {id }});
     },
+    add(vin){
+      console.log("[Vins] New vin : ",vin);
+      this.$http.post(API_URL_TO_VINO)
+        .then(res => {
+          this.list.push(res.data);
+          this.$bus.$emit('msg-success',res.data.nom + ' ajouté!');
+          this.$router.push('/vins');
+        })
+        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de l\'ajout de ',vin.nom));
+    },
+
+    modif(id,data){
+      console.log("[Vins] M.A.J. vin #", id, data);
+      this.$http.put(API_URL_TO_VINO)
+        .then(res => {
+          this.list.splice(this.list.findIndex(v => v.id == id), 1, res.data);
+          this.$bus.$emit('msg-success','Vin modifié!');
+          this.$router.push('/vins');
+        })
+        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la modification !'));
+    },
 
     remove(id){
       const ok = window.confirm('Voulez-vous vraiment supprimer ce vin !?');
@@ -71,21 +92,6 @@ export default {
               })
               .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la suppression !'));
       }
-    },
-    add(vin){
-      console.log("[Vins] New vin : ",vin);
-
-    },
-
-    modif(id,data){
-      console.log("[Vins] M.A.J. vin #", id, data);
-      this.$http.put(API_URL_TO_VINO)
-        .then(res => {
-          this.list.splice(this.list.findIndex(v => v.id == id), 1, res.data);
-          this.$bus.$emit('msg-success','Vin modifié!');
-          this.$routes.push('/vins');
-        })
-        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la modification !'));
     },
 
     getListVins () {
