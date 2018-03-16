@@ -3,8 +3,8 @@
 
     <vin-list class="view-list column"
               :vins="list"  :selected="selected"
-              @add-vin="add"  @remove-vin="remove"
-              @select-vin="select"
+              @vin-new="redirectToNewVin"  @vin-remove="remove"
+              @vin-select="redirectToVinDetails"
     >
     </vin-list>
 
@@ -33,8 +33,11 @@ export default {
 
   created() {
     this.getListVins();
-    this.selected = this.$route.params.id || '';
+    this.selected = this.$route.params.id;
+
+    this.$bus.$on('vin-add',this.add);
     this.$bus.$on('vin-modif',this.modif);
+    this.$bus.$on('vin-remove',this.remove);
 
   },
 
@@ -47,6 +50,16 @@ export default {
      this.$off(['vin-select','vin-add','vin-modif','vin-remove']);
   },
   methods : {
+    redirectToNewVin(nom){
+      console.log("[Vins] Adding new vin : ", nom);
+      this.$router.push({name : 'vinNew', query : {nom}});
+    },
+    redirectToVinDetails(id) {
+      console.log("[Vins] Selected vin #", id);
+      this.selected = id;
+      this.$router.push({ name: 'vinDetails', params: {id }});
+    },
+
     remove(id){
       const ok = window.confirm('Voulez-vous vraiment supprimer ce vin !?');
       if(ok) {
@@ -59,14 +72,9 @@ export default {
               .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la suppression !'));
       }
     },
-    add(nom){
-      console.log("[Vins] New vin : ",nom);
+    add(vin){
+      console.log("[Vins] New vin : ",vin);
 
-    },
-
-    select(id) {
-      console.log("[Vins] Current vin #", id);
-      this.selected = id;
     },
 
     modif(id,data){

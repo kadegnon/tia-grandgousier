@@ -8,9 +8,12 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
-          <select  :class="{'form-input': true, 'error': errors.has('vappel') }" id="vappel" name="vappel">
+          <select id="vappel" name="vappel"
+                :class="{'form-input': true, 'error': errors.has('vappel') }"
+                v-model="vin.appellation"
+          >
             <template v-for="(appel,index) in appellations" >
-              <option :key="index" :value="appel" :selected="appel == vin.appellation">{{appel}}</option>
+              <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
             </template>
           </select>
         </div>
@@ -43,9 +46,10 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
-          <input type="number" max="2025" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
-                v-model="vin.annee" v-validate="'required|numeric|min:4|max:4'"
+          <input type="number" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
                 :class="{'form-input': true, 'error': errors.has('vannee') }"
+                v-model="vin.annee" v-validate="'required|numeric|min:4|max:4'"
+                v-bind:max="new Date().getFullYear()"
           >
         </div>
       </div>
@@ -56,8 +60,8 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
           <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A"
-                v-model="vin.htva" v-validate="'required|decimal:2'"
                 :class="{'form-input': true, 'error': errors.has('vhtva') }"
+                v-model="vin.htva" v-validate="'required|decimal:2'"
           >
         </div>
       </div>
@@ -92,56 +96,55 @@
 </template>
 
 <script>
-
-
 export default {
   name: "vinDetails",
   data() {
     return {
-      id: '',
-      appellations : [],
+      id: undefined,
+      appellations: [],
       vin: {
         nom: "",
         annee: 2017,
         origine: "",
-        description: '',
-        appellation : '',
+        description: "",
+        appellation: "",
         htva: 0.1,
         tvac: 0.2
       }
     };
   },
-  created () {
+  created() {
     this.getListAppellations();
   },
 
-  beforeUpdate()  {
-    if(this.$route.path === '/vins/new'){
+  beforeUpdate() {
+    if (this.$route.path === "/vins/new") {
       this.vin.nom = this.$route.query.nom;
-    }else{
+    } else {
       this.id = this.$route.params.id;
       this.getVin();
     }
   },
-  methods : {
-    getListAppellations(){
-      this.$http.get('appellation')
-          .then(res => this.appellations = res.data);
+  methods: {
+    getListAppellations() {
+      this.$http.get("appellation").then(res => (this.appellations = res.data));
     },
     getVin() {
-      if(this.id){
-        this.$http.get('vino/'+this.id)
-            .then(res => this.vin = res.data);
+      if (this.id) {
+        this.$http.get("vino/" + this.id).then(res => (this.vin = res.data));
       }
     },
-    saveVin () {
-      if(this.errors.count() === 0){
-        return this.$bus.$emit('vin-modif', this.id, this.vin);
+    saveVin() {
+      if (this.errors.count() === 0) {
+        if (this.id) {
+          return this.$bus.$emit("vin-modif", this.id, this.vin);
+        } else {
+          return this.$bus.$emit("vin-add", this.vin);
+        }
       }
-      this.$bus.$emit('msg-warning', 'Certains informations sont manquant !')
+      this.$bus.$emit("msg-warning", "Certains informations sont manquant !");
     }
   }
-
 };
 </script>
 
@@ -176,8 +179,7 @@ export default {
   padding-left: 3%;
 }
 
-
-.form-input{
+.form-input {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -209,12 +211,13 @@ input[type="submit"]:hover {
 
 .text-danger {
   float: left;
-  color: #FF3333;
-  padding: 12px 0
+  color: #ff3333;
+  padding: 12px 0;
 }
 
 .form-control.error {
-  border-color: #FF3333;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 71, 71, 0.6);
+  border-color: #ff3333;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(255, 71, 71, 0.6);
 }
 </style>
