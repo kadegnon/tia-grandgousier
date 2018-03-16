@@ -10,7 +10,7 @@
           <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
           <select id="vappel" name="vappel"
                 :class="{'form-input': true, 'error': errors.has('vappel') }"
-                v-model="vin.appellation"
+                v-model="vin.appellation" v-validate="'required'"
           >
             <template v-for="(appel,index) in appellations" >
               <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
@@ -82,7 +82,7 @@
           <label for="vdescrip">Description</label>
         </div>
         <div class="form-control">
-          <!--<span class="text-danger" v-show="errors.has('vdescrip')">La description est requis</span>-->
+          <span class="text-danger" v-show="errors.has('vdescrip')">La description est requis</span>
           <textarea id="vdescrip" name="vdescrip" placeholder="Description du vin" style="height:200px"
               v-model="vin.description"   v-validate="'required'"
               :class="{'form-input': true, /*'error': errors.has('vdescrip') */}" ></textarea>
@@ -96,21 +96,18 @@
 </template>
 
 <script>
+const _defaultVin = ({
+  nom: "", annee: 2017, origine: "",
+  description: "", appellation: undefined,
+  htva: 0.1,  tvac: 0.2
+});
 export default {
   name: "vinDetails",
   data() {
     return {
       id: undefined,
       appellations: [],
-      vin: {
-        nom: "",
-        annee: 2017,
-        origine: "",
-        description: "",
-        appellation: "",
-        htva: 0.1,
-        tvac: 0.2
-      }
+      vin: _defaultVin,
     };
   },
   created() {
@@ -119,7 +116,9 @@ export default {
 
   beforeUpdate() {
     if (this.$route.path === "/vins/new") {
+      this.vin = _defaultVin;
       this.vin.nom = this.$route.query.nom;
+      this.$el.querySelector('#vnom').focus();
     } else {
       this.id = this.$route.params.id;
       this.getVin();
