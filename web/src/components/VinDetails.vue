@@ -114,15 +114,17 @@ export default {
     this.getListAppellations();
   },
 
-  beforeUpdate() {
-    if (this.$route.path === "/vins/new") {
+  beforeRouteUpdate(to,from,next) {
+    if (to.path === "/vins/new") {
       this.vin = _defaultVin;
       this.vin.nom = this.$route.query.nom;
       this.$el.querySelector('#vnom').focus();
+      next();
     } else {
       this.id = this.$route.params.id;
-      this.getVin();
+      next(this.getVin());
     }
+
   },
   methods: {
     getListAppellations() {
