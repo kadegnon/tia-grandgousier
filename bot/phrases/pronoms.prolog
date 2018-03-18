@@ -1,5 +1,16 @@
-%% pronom(Mot,Personne,FormeCanonique).
-%% 
+/*****************************************************************************/
+%   verbe(Conjuge,Personne,Infinitif,Temps)
+%		Conjuge		: La forme conjugée du verbe,
+%       Personne	: {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       },
+%       Infinitif 	: La forme infinitif du verbe,
+%       Temps		: Le temps de conjugaison si n'est infinitif..
+/*****************************************************************************/
 pron('aucun', '1', 'aucun').
 pron('aucune', '2', 'aucun').
 pron('autrui', '1', 'autrui').

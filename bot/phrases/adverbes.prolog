@@ -1,5 +1,11 @@
-%% adverbe(Mot,Personne,FormeCanonique).
-%% 
+/*****************************************************************************/
+%   adverbe(Mot, Personne, FormeCanonique).
+%		Mot			: L'adverbe
+%       Personne	:	0 : Neutre
+%       FormCanonique: L'adjectif dont découle celui-ci
+%       
+/*****************************************************************************/
+
 adv('TTC', '0', 'TTC').
 adv('abandonnément', '0', 'abandonnément').
 adv('abjectement', '0', 'abjectement').

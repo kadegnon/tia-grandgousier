@@ -1,5 +1,16 @@
-%% determinant(Mot,Personne,FormeCanonique).
-%% 
+/*****************************************************************************/
+%   determinant(Mot, Personne, FormeCanonique).
+%		Mot			: Le determinant
+%       Personne	: {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       }
+%       FormCanonique: Le determinant dont découle celui-ci.
+/*****************************************************************************/
+
 det('aucun', '1', 'aucun').
 det('aucune', '2', 'aucun').
 det('ce', '1', 'ce').

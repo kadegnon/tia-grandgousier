@@ -1,5 +1,9 @@
-%% conjonction_coordination(Mot,Personne).
-%% 
+/*****************************************************************************/
+%   conjonction_coordination(Mot, Personne).
+%		Mot 		: La conjonction de coordination
+%       Personne	: 0 : Neutre
+/*****************************************************************************/
+
 conjc('alors', '0').
 conjc('car', '0').
 conjc('donc', '0').

@@ -114,49 +114,156 @@ foreach my $entry (@doct){
 	}
 }
 
-print NOUN "%% mot(Mot,Personne,FormeCanonique).\n%% \n";
+my $header = <<END;
+/*****************************************************************************/
+%   mot(Mot, Personne, FormeCanonique).
+%		Mot			 : Le mot en question    
+%       Personne	 : {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       }
+%       FormCanonique: Le mot dont découle celui-ci.
+/*****************************************************************************/
+
+END
+
+print NOUN encode("utf8", $header);
 my @t  = keys %h_noun;
 my @tt = sort @t;
 while (@tt) {
 	print NOUN encode("utf8",shift @tt);
 }
 
-print ADJ "%% adjectif(Mot,Personne,FormeCanonique).\n%% \n";
+
+
+$header = <<END;
+/*****************************************************************************/
+%   adjectif(Mot, Personne, FormeCanonique).
+%		Mot			 : L'adjectif
+%       Personne	 : {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       }
+%       FormCanonique: L'adjectif dont découle celui-ci
+/*****************************************************************************/
+
+END
+
+print ADJ encode("utf8", $header);
+
 @t  = keys %h_adj;
 @tt = sort @t;
 while (@tt) {
 	print ADJ encode("utf8",shift @tt);
 }
 
-print ADV "%% adverbe(Mot,Personne,FormeCanonique).\n%% \n";
+$header = <<END;
+/*****************************************************************************/
+%   adverbe(Mot, Personne, FormeCanonique).
+%		Mot			: L'adverbe
+%       Personne	:	0 : Neutre
+%       FormCanonique: L'adjectif dont découle celui-ci
+%       
+/*****************************************************************************/
+
+END
+
+print ADV encode("utf8", $header);
 @t  = keys %h_adv;
 @tt = sort @t;
 while (@tt) {
 	print ADV encode("utf8",shift @tt);
 }
 
-print CONJC "%% conjonction_coordination(Mot,Personne).\n%% \n";
+$header = <<END;
+/*****************************************************************************/
+%   conjonction_coordination(Mot, Personne).
+%		Mot 		: La conjonction de coordination
+%       Personne	: 0 : Neutre
+/*****************************************************************************/
+
+END
+
+print CONJC encode("utf8", $header);
 @t  = keys %h_conjc;
 @tt = sort @t;
 while (@tt) {
 	print CONJC encode("utf8",shift @tt);
 }
 
-print DET "%% determinant(Mot,Personne,FormeCanonique).\n%% \n";
+
+$header = <<END;
+/*****************************************************************************/
+%   determinant(Mot, Personne, FormeCanonique).
+%		Mot			: Le determinant
+%       Personne	: {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       }
+%       FormCanonique: Le determinant dont découle celui-ci.
+/*****************************************************************************/
+
+END
+
+print DET encode("utf8", $header);
 @t  = keys %h_det;
 @tt = sort @t;
 while (@tt) {
 	print DET encode("utf8",shift @tt);
 }
 
-print PRONOUN "%% pronom(Mot,Personne,FormeCanonique).\n%% \n";
+
+$header = <<END;
+/*****************************************************************************/
+%   verbe(Conjuge,Personne,Infinitif,Temps)
+%		Conjuge		: La forme conjugée du verbe,
+%       Personne	: {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       },
+%       Infinitif 	: La forme infinitif du verbe,
+%       Temps		: Le temps de conjugaison si n'est infinitif..
+/*****************************************************************************/
+END
+
+
+print PRONOUN encode("utf8", $header);
 @t  = keys %h_pronoun;
 @tt = sort @t;
 while (@tt) {
 	print PRONOUN encode("utf8",shift @tt);
 }
 
-print VERB "%% verbe(Conjuge,Personne,Infinitif,Temps).\n%% \n";
+
+$header = <<END;
+/*****************************************************************************/
+%   verbe(Conjuge,Personne,Infinitif,Temps)
+%		Conjuge		: La forme conjugée du verbe,
+%       Personne	: {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       },
+%       Infinitif 	: La forme infinitif du verbe,
+%       Temps		: Le temps de conjugaison si n'est infinitif..
+/*****************************************************************************/
+END
+
+print VERB encode("utf8", $header);
 @t  = keys %h_verb;
 @tt = sort @t;
 while (@tt) {

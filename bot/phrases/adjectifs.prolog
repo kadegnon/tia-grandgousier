@@ -1,5 +1,16 @@
-%% adjectif(Mot,Personne,FormeCanonique).
-%% 
+/*****************************************************************************/
+%   adjectif(Mot, Personne, FormeCanonique).
+%		Mot			 : L'adjectif
+%       Personne	 : {
+%       	0 : Neutre
+%       	1 : Masculin Singulier
+%       	2 : Feminin Singulier,
+%       	3 : Masculin Pluriel,
+%       	4 : Feminin Pluriel
+%       }
+%       FormCanonique: L'adjectif dont découle celui-ci
+/*****************************************************************************/
+
 adj('Antonine', '2', 'Antonine').
 adj('Antonines', '4', 'Antonine').
 adj('Appienne', '2', 'Appienne').
