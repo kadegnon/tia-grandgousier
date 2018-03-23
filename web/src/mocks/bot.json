@@ -1,0 +1,27 @@
+{
+  "routes" : [
+  {
+    "method": "POST",
+    "url": "bot/",
+    "response": "Merci de m'avoir consulté !"
+  },{
+      "method": "POST",
+      "url": "bot/",
+      "response": [
+        "Je ne sais pas encore !",
+        "Je suis en cours de dev"
+      ]
+    },{
+      "method": "POST",
+      "url": "bot/",
+      "response": "Un peu de patience"
+    },{
+      "method": "GET",
+      "url": "appellation",
+      "response": [
+        "Merci de m'avoir consulté !",
+        "Je suis en cours de devellopment",
+        "Un peu de patience"
+      ]
+    }
+]}
