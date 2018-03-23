@@ -1,7 +1,7 @@
 
-:- module([
+:- module(lire_question,[
     lire_question/1
-])
+]).
 
 
 
@@ -14,7 +14,7 @@
 
 
 /*****************************************************************************/
-% lire_question(+L_Mots)
+% lire_question(+L_Mots).
 
 lire_question(LMots) :- read_atomics(LMots).
 

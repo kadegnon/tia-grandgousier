@@ -1,9 +1,20 @@
-:- module([
+
+:- module(produire_reponse,[
     produire_reponse/2
 ]).
 
 
-:- ensure_loaded(./regle_reponse).
+:- ensure_loaded('./regle_reponse').
+
+
+
+%% mclef(mot, priorite).
+
+mclef(bouche,10).
+mclef(nez,10).
+mclef(prix,10).
+mclef(vin,5).
+mclef(vins,5).
 
 /* --------------------------------------------------------------------- */
 /*                                                                       */
@@ -36,7 +47,7 @@ produire_reponse([fin],[L1]) :-
    L1 = [merci, de, m, '\'', avoir, consulte], !.    
 
 produire_reponse(L,Rep) :-
-%   write(L),
+   write(L),
    mclef(M,_), member(M,L),
    clause(regle_rep(M,_,Pattern,Rep),Body),
    match_pattern(Pattern,L),
@@ -47,14 +58,6 @@ produire_reponse(_,[L1,L2, L3]) :-
    L2 = [les, etudiants, vont, m, '\'', aider, '.' ],
    L3 = ['vous le verrez !'].
 
-
-%% mclef(mot, priorite).
-
-mclef(bouche,10).
-mclef(nez,10).
-mclef(prix,10).
-mclef(vin,5).
-mclef(vins,5).
 
 match_pattern(Pattern,Lmots) :-
    nom_vins_uniforme(Lmots,L_mots_unif),
