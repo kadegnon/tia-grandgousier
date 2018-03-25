@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% vin(Id,Nom,millesime,Origine,Appellation,Couleur).
-%% prix(VinId,Prix).
+%% prix(VinId,PrixHtva, PrixTvac).
 %% bouche(VinId,Text).
 %% nez(VinId,Atom_Text).
 %% description(VinId,Text).
@@ -9,7 +9,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-assert(vin(beaumes_de_venise_2015,'Beaumes-de-Venise', 2015,'Venise','Bordeaux','Rosé')).
+assert(vin(beaumes_de_venise_2015,'Beaumes de Venise', 2015,'Venise','Bordeaux','Rosé')).
 assert(prix(beaumes_de_venise_2015, 12.34, 87.45)).
 assert(nez(beaumes_de_venise_2015,[intensement, parfume])).
 assert(bouche(beaumes_de_venise_2015,
