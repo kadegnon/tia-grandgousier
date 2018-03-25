@@ -1,16 +1,15 @@
 :- module(server,[
-			server/0,
-	    server/1				% ?Port
-    ]).
+	server/0,
+	server/1				% ?Port
+]).
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(settings)).
 :- use_module(library(broadcast)).
 
-:- use_module(vino_ctrl).
-:- use_module(api_handlers).
-:- use_module(vino_handlers).
-
+:- use_module('../bot/db.prolog',[
+    init_vin_db/1
+]).
 
 :- set_setting_default(http:cors, [*]).
 
@@ -24,4 +23,4 @@ server(Port) :-
 		workers(16)
 	]).
 
-:- listen(http(pre_server_start), init_vino_db(data)).
+:- listen(http(pre_server_start), init_vino_db('../bot/db')).
