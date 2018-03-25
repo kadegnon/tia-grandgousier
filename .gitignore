@@ -1,0 +1,14 @@
+
+# User-specific stuff:
+.idea/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+*.iml
+*.iwsdata/
+
+*.*~
+data/
+
+.vscode/
