@@ -12,4 +12,4 @@
 
 :- discontiguous describe/2.
 
-:- use_module('../utils').
+# :- use_module('../utils').

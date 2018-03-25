@@ -9,12 +9,9 @@ trim:
 
 run_tests:
 	clear
-	$(PROLOG) "['lib/crisp','examples/*'], crisp, halt"
+	$(PROLOG) "['lib/crisp','bot/*'], crisp, halt"
 
-example:
-	clear
-	$(PROLOG) "['lib/crisp','examples/concatenate'], crisp, halt"
 
 stay:
 	clear
-	$(PROLOG) "['lib/crisp','examples/*'], crisp"
+	$(PROLOG) "['lib/crisp','bot/*'], crisp"
