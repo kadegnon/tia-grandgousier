@@ -21,14 +21,6 @@
 :-ensure_loaded('./db/appellation').
 :-ensure_loaded('./db/circonstance').
 
-% :- multifile vin/6.
-% :- multifile prix/3.
-% :- multifile pour/2.
-% :- multifile accompagne/2.
-% :- multifile nez/2.
-% :- multifile bouche/2.
-% :- multifile description/2.
-
 
 :- persistent
 		vin(id:atom,

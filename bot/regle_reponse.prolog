@@ -8,6 +8,10 @@
 :- discontiguous produire_reponse:regle_rep/4.
 
 
+reponse(non,[ non, '.' ]).
+reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
@@ -31,8 +35,8 @@ prix_vin_min_max(Vin,P,Min,Max) :-
 
 %% rep_lvins_min_max(+ListVinsId, -Reponse)
 %     Genere la liste de reponses pour les vins convenants.
-rep_lvins_min_max([], [[ non, '.' ]]).
-rep_lvins_min_max([H|T], [ [ oui, ',', je, dispose, de ] | L]) :-
+rep_lvins_min_max([], [reponse(non)]).
+rep_lvins_min_max([H|T], [ reponse(oui_dispose) | L]) :-
    rep_litems_vin_min_max([H|T],L).
 
 rep_litems_vin_min_max([],[]) :- !.
