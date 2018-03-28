@@ -155,17 +155,24 @@ export default {
     return {
       id: undefined,
       appellations: [],
+      services: [],
+      plats: [],
       vin: _defaultVin,
     };
   },
   created() {
-    this.getListAppellations();
+    this.getListSelect();
+    if (this.$route.path === "/vins/new" && this.$route.query ) {
+      Object.assign(this.vin, this.$route.query);
+    }
+
   },
 
   beforeRouteUpdate(to,from,next) {
+    console.log(to);
     if (to.path === "/vins/new") {
       this.vin = _defaultVin;
-      this.vin.nom = this.$route.query.nom;
+       Object.assign(this.vin, this.$route.query);
       this.$el.querySelector('#vnom').focus();
       next();
     } else {
@@ -175,8 +182,17 @@ export default {
 
   },
   methods: {
-    getListAppellations() {
-      this.$http.get("appellation").then(res => (this.appellations = res.data));
+    getListSelect() {
+      const getList = [
+        this.$http.get("appellations"),
+        this.$http.get("services"),
+        this.$http.get("plats")
+      ];
+      Promise.all(getList).then(([AppelRes, ServRes, PlatRes]) => {
+        this.appellations = AppelRes.data;
+        this.services = ServRes.data;
+        this.plats = PlatRes.data;
+      });
     },
     getVin() {
       if (this.id) {

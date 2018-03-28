@@ -1,0 +1,82 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "url": "appellations",
+      "response": [
+        "bordeaux",
+        "Vallée du rhone et de Languedoc",
+        "beaujolais",
+        "cognac"
+      ]
+    },
+    {
+      "method": "GET",
+      "url": "circonstances",
+      "response": [
+        "soirée de mariage - dansante",
+        "repas de mariage",
+        "reception de mariage",
+        "banquet",
+        "communion",
+        "buffet varié"
+      ]
+    },
+    {
+      "method": "GET",
+      "url": "couleurs",
+      "response": [
+        "rose",
+        "rouge",
+        "blanche"
+      ]
+    },
+    {
+      "method": "GET",
+      "url": "services",
+      "response": [
+        "poisson",
+        "fruits de mer et crustacés",
+        "Asiatiques",
+        "entrée",
+        "desserts",
+        "aperitif",
+        "tous"
+      ]
+    },
+    {
+      "method": "GET",
+      "url": "plats",
+      "response": [
+        "pâtes",
+        "st nectaire)",
+        "pain de viande",
+        "paella",
+        "osso bucco",
+        "onglet à l'échalotte",
+        "omelette",
+        "navarin d'agneau",
+        "moules",
+        "moule frites",
+        "melon jambon cru",
+        "marcassin",
+        "magret",
+        "lotte",
+        "lievre",
+        "lasagne",
+        "lapin",
+        "waterzooi de poulet",
+        "waterzooi de poissons",
+        "waterzooi",
+        "biche",
+        "bécasse",
+        "barbecue",
+        "bar",
+        "assortiment vapeur",
+        "asperges",
+        "artichauds",
+        "agneau"
+      ]
+    }
+  ]
+}
