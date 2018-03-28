@@ -201,14 +201,19 @@ export default {
       }
     },
     saveVin() {
-      if (this.errors.count() === 0) {
-        if (this.id) {
+      const warnMsg = _ => {
+        this.$bus.$emit("msg-warning", "Certains informations sont manquant !");
+      };
+
+      this.$validator.validateAll().then(isValid => {
+        console.log(isValid);
+        if(!isValid) return warnMsg();
+        if (this.id)
           return this.$bus.$emit("vin-modif", this.id, this.vin);
-        } else {
+         else
           return this.$bus.$emit("vin-add", this.vin);
-        }
-      }
-      this.$bus.$emit("msg-warning", "Certains informations sont manquant !");
+      }).catch(e => warnMsg)
+
     }
   }
 };
