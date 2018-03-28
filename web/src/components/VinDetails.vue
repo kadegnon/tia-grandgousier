@@ -185,9 +185,9 @@ export default {
   methods: {
     getListSelect() {
       const getList = [
-        this.$http.get("appellations"),
-        this.$http.get("services"),
-        this.$http.get("plats")
+        this.$http.get("appellations/"),
+        this.$http.get("services/"),
+        this.$http.get("plats/")
       ];
       Promise.all(getList).then(([AppelRes, ServRes, PlatRes]) => {
         this.appellations = AppelRes.data;

@@ -26,7 +26,7 @@ Vue.use(VeeValidate);
 // Vue.use(VueResource);
 // Vue.url.options.root = process.env.API_URL;
 
-if(process.env.NODE_ENV !== 'production'){
+if(process.env.NODE_ENV == 'testing'){
   const routes = [...list.routes, ...vino.routes];
 
   // Intercept all Http request to API
