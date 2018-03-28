@@ -4,22 +4,6 @@
     <form :method="id ? 'PUT' : 'POST'" @submit.prevent="saveVin">
       <div class="form-group">
         <div class="form-label">
-          <label for="vappel">Appellation</label>
-        </div>
-        <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
-          <select id="vappel" name="vappel"
-                :class="{'form-input': true, 'error': errors.has('vappel') }"
-                v-model="vin.appellation" v-validate="'required'"
-          >
-            <template v-for="(appel,index) in appellations" >
-              <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
-            </template>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
           <label for="vnom">Nom</label>
         </div>
         <div class="form-control">
@@ -28,6 +12,22 @@
                 v-model="vin.nom" v-validate="'required'"
                 :class="{'form-input': true, 'error': errors.has('vname') }"
           >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vappel">Appellation</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
+          <select id="vappel" name="vappel"
+                :class="{'form-input select': true, 'error': errors.has('vappel') }"
+                v-model="vin.appellation" v-validate="'required'"
+          >
+            <template v-for="(appel,index) in appellations" >
+              <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
+            </template>
+          </select>
         </div>
       </div>
       <div class="form-group">
@@ -77,6 +77,7 @@
           >
         </div>
       </div>
+      <hr style="width:110%;margin:15px 0;">
       <div class="form-group">
         <div class="form-label">
           <label for="vnez">Nez</label>
@@ -234,7 +235,7 @@ export default {
   float: left;
   min-width: 28%;
   margin-top: 6px;
-  padding-right: 2%;
+  /* padding-right: 2%; */
 }
 
 .form-control {
@@ -258,7 +259,11 @@ label {
   display: inline-block;
 }
 
-input[type="submit"] {
+.form-group select{
+  width: 115%;
+}
+
+.form-group input[type="submit"] {
   font-size: medium;
   background-color: #4caf50;
   color: white;
@@ -270,7 +275,7 @@ input[type="submit"] {
   float: left;
 }
 
-input[type="submit"]:hover {
+.form-group input[type="submit"]:hover {
   background-color: #45a049;
 }
 
