@@ -55,11 +55,11 @@
       </div>
       <div class="form-group">
         <div class="form-label">
-          <label for="vhtva">H.T.V.A</label>
+          <label for="vhtva">H.T.V.A.</label>
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
-          <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A"
+          <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A."
                 :class="{'form-input': true, 'error': errors.has('vhtva') }"
                 v-model="vin.htva" v-validate="'required|decimal:2'"
           >
@@ -67,13 +67,59 @@
       </div>
       <div class="form-group">
         <div class="form-label">
-          <label for="vtvac">T.V.A.C</label>
+          <label for="vtvac">T.V.A.C.</label>
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
-          <input type="number" id="vtvac" name="vtvac"  step="0.01" placeholder="Prix T.V.A.C"
+          <input type="number" id="vtvac" name="vtvac"  step="0.01" placeholder="Prix T.V.A.C."
                 v-model="vin.tvac" v-validate="'required|decimal:2'"
                 :class="{'form-input': true, 'error': errors.has('vtvac') }"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vnez">Nez</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vnez')">Un nez pour ce vin</span>
+          <input type="text" id="vnez" name="vnez"  placeholder="Nez"
+                v-model="vin.nez"   class="form-input"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vbouche">Bouche</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vbouche')">La bouche pour ce vin</span>
+          <input type="text" id="vbouche" name="vbouche" placeholder="La bouche du vin."
+                v-model="vin.bouche" class="form-input"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vpour">Service</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vpour')">Pour quelle service </span>
+          <input type="text" id="vpour" name="vpour"  placeholder="Apero, digestif, dessert, ..."
+                v-model="vin.pour"
+                :class="{'form-input': true, 'error': errors.has('vpour') }"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vaccompagne">Repas</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vaccompagne')"> pour ce vin</span>
+          <input type="text" id="vaccompagne" name="vaccompagne"  placeholder="Pour quel repas"
+                v-model="vin.avec"
+                :class="{'form-input': true, 'error': errors.has('vaccompagne') }"
           >
         </div>
       </div>
@@ -99,6 +145,8 @@
 const _defaultVin = ({
   nom: "", annee: 2017, origine: "",
   description: "", appellation: undefined,
+  pour : undefined, avec : undefined,
+  nez : undefined, bouche : undefined,
   htva: 0.1,  tvac: 0.2
 });
 export default {
