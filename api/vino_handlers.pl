@@ -1,6 +1,11 @@
 :- module(vino_handlers,[
     vino_handler/2,
-	appellations_handler/1
+	appellations_handler/1,
+	circonstances_handler/1,
+	couleurs_handler/1,
+	services_handler/1,
+	plats_handler/1
+
 ]).
 
 :- use_module(library(http/http_dispatch)).
@@ -43,6 +48,7 @@ vino_handler(Request,_) :-
 	]),
 	format('~n').				% empty body
 vino_handler(Request,Uri) :-
+	writeln(Uri),
 	read_query(Request, Query),
 	cors_enable,
 	option(method(Method), Request),
@@ -50,8 +56,25 @@ vino_handler(Request,Uri) :-
 	Params = Query.put(url,Url),
 	vino(Method, Params).
 
+
 appellations_handler(Request) :-
 	list_appellations(List),
+	reply_json_dict(List).
+
+circonstances_handler(Request) :-
+	list_circonstances(List),
+	reply_json_dict(List).
+
+couleurs_handler(Request) :-
+	list_couleurs(List),
+	reply_json_dict(List).
+
+services_handler(Request) :-
+	list_services(List),
+	reply_json_dict(List).
+
+plats_handler(Request) :-
+	list_plats(List),
 	reply_json_dict(List).
 
 

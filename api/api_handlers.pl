@@ -12,23 +12,35 @@
 
 :- use_module(vino_handlers,[
 	vino_handler/2,
-	appellations_handler/1
+	appellations_handler/1,
+	circonstances_handler/1,
+	couleurs_handler/1,
+	services_handler/1,
+	plats_handler/1
 ]).
 
 
 :- multifile http:location/3.
 :- dynamic   http:location/3.
 
-http:location(api, '/api', []).
-http:location(api_vino, api(vino), []).
-http:location(api_appellation, api(appellations), []).
+http:location(api, '/api', []). 								%
+http:location(api_vino, api(vino), []). 						% /api/vino/*
+http:location(api_appellations,	 api(appellations), []).		% /api/appellations
+http:location(api_circonstances, api(circonstances), []).		% /api/circonstances
+http:location(api_couleurs, 	 api(couleurs), []).			% /api/couleurs
+http:location(api_services, 	 api(services), []).			% /api/services
+http:location(api_plats, 		 api(plats), []).				% /api/plats
 
 
 :- http_handler(api(.), say_yello, []).
-:- http_handler(root(help), help_handler, []).
-:- http_handler(root(list), list_routes_handler, []).
-:- http_handler(api_appellation(.), appellation_handler,[]).
-:- http_handler(api_vino(.), vino_route_handler, [prefix]).
+:- http_handler(root(help), help_handler, []).				
+:- http_handler(root(list), list_routes_handler, []).			% /list
+:- http_handler(api_vino(.), vino_route_handler, [prefix]).		% /api/vino/*
+:- http_handler(api_appellations(.), appellations_handler,[]).
+:- http_handler(api_circonstances(.), circonstances_handler,[]).
+:- http_handler(api_couleurs(.), couleurs_handler,[]).
+:- http_handler(api_services(.), services_handler,[]).
+:- http_handler(api_plats(.), plats_handler,[]).
 
 
 vino_route_handler(Request) :-
