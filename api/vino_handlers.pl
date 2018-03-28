@@ -1,6 +1,6 @@
 :- module(vino_handlers,[
     vino_handler/2,
-	appellation_handler/1
+	appellations_handler/1
 ]).
 
 :- use_module(library(http/http_dispatch)).
@@ -11,7 +11,11 @@
 
 
 :- use_module(vino_ctrl,[
-    list_appellations/1,
+	list_circonstances/1,
+	list_appellations/1,
+	list_couleurs/1,
+	list_services/1,
+	list_plats/1,
 	list_vino/2,
     create_vino/2,
     update_vino/2,
@@ -46,7 +50,7 @@ vino_handler(Request,Uri) :-
 	Params = Query.put(url,Url),
 	vino(Method, Params).
 
-appellation_handler(Request) :-
+appellations_handler(Request) :-
 	list_appellations(List),
 	reply_json_dict(List).
 

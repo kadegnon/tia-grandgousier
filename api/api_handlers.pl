@@ -12,7 +12,7 @@
 
 :- use_module(vino_handlers,[
 	vino_handler/2,
-	appellation_handler/1
+	appellations_handler/1
 ]).
 
 
@@ -21,7 +21,7 @@
 
 http:location(api, '/api', []).
 http:location(api_vino, api(vino), []).
-http:location(api_appellation, api(appellation), []).
+http:location(api_appellation, api(appellations), []).
 
 
 :- http_handler(api(.), say_yello, []).

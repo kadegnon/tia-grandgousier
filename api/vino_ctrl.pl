@@ -1,10 +1,10 @@
 % Export vino predicats
 :- module(vino_ctrl,[
+	list_circonstances/1,
 	list_appellations/1,
 	list_couleurs/1,
 	list_services/1,
 	list_plats/1,
-	list_circonstances/1,
     create_vino/2,	%% C
     list_vino/2,	%% R
     update_vino/2,	%% U
