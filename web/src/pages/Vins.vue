@@ -67,7 +67,7 @@ export default {
           this.$bus.$emit('msg-success',res.data.nom + ' ajouté!');
           this.$router.push('/vins');
         })
-        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de l\'ajout de ',vin.nom));
+        .catch(e => this.$bus.$emit('msg-error','Erreur lors de l\'ajout de \''+vin.nom+'\''));
     },
 
     modif(id,data){
@@ -78,7 +78,7 @@ export default {
           this.$bus.$emit('msg-success','Vin modifié!');
           this.$router.push('/vins');
         })
-        .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la modification !'));
+        .catch(e => this.$bus.$emit('msg-error','Erreur lors de la modification !'));
     },
 
     remove(id){
@@ -90,7 +90,7 @@ export default {
                 this.list.splice(this.list.findIndex(v => v.id == id), 1);
                 this.$bus.$emit('msg-warning','Vin supprimé !');
               })
-              .catch(e => this.$bus.$emit('msg-warning','Erreur lors de la suppression !'));
+              .catch(e => this.$bus.$emit('msg-error','Erreur lors de la suppression !'));
       }
     },
 
