@@ -66,16 +66,14 @@ list_circonstances(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
-				 pour : ListServices, avec : ListAccomps,
+				 pour : ListServices,
 				 nez:Nez, bouche:Bouche,
 				 description:Descr, annee:An, origine:Orig,
 				 appellation:Appel,htva:Htva,tvac:Tvac}) :-
-	% spy(vino),
-	vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
-	prix(Id, Htva, Tvac),
-	findall(Service, pour(Id,Service), ListServices),
-	findall(Accompagne, accompagne(Id, Accompagne), ListAccomps),
-	nez(Id, Nez),	bouche(Id, Bouche), description(Id, Descr),
+	spy(vino),
+	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
+	db_prix(Id, Htva, Tvac),
+	db_nez(Id, Nez),	db_bouche(Id, Bouche), db_description(Id, Descr),
 
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
@@ -86,7 +84,7 @@ get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
 %
 get_short(Id, Location, _{id:Id, nom:Nom, url:Url, couleur:Couleur,
 						annee:An, origin:Orig,appellation:Appel}) :-
-	vin(Id, Nom,An, Orig, Appel,Couleur),		% Recup le vin dynamikement
+	db_vin(Id, Nom,An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 

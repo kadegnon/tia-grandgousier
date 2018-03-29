@@ -5,11 +5,11 @@
 	appellation/1,
 	circonstance/1,
 	couleur/1,
-	vin/6,
-	prix/3,
-	nez/2,
-	bouche/2,
-	description/2
+	db_vin/6,
+	db_prix/3,
+	db_nez/2,
+	db_bouche/2,
+	db_description/2
 ]).
 
 :- use_module(library(persistency)).
@@ -44,21 +44,21 @@ init_vin_db(Dir) :-
 	db_attach(DB, []).
 
 
-vin(Id,Nom,An,Origine,Appellation,Couleur) :-
-	with_mutex(vin, vin(Id,Nom,An,Origine,Appellation,Couleur)).
+db_vin(Id,Nom,An,Origine,Appellation,Couleur) :-
+	with_mutex(db_vin, vin(Id,Nom,An,Origine,Appellation,Couleur)).
 
 
-prix(VinId,PrixHtva, PrixTvac) :-
-	with_mutex(prix, prix(VinId,PrixHtva, PrixTvac)).
+db_prix(VinId,PrixHtva, PrixTvac) :-
+	with_mutex(db_prix, prix(VinId,PrixHtva, PrixTvac)).
 
 
-bouche(VinId,Atom_List) :-
-	with_mutex(bouche, bouche(VinId,Atom_List)).
+db_bouche(VinId,Atom_List) :-
+	with_mutex(db_bouche, bouche(VinId,Atom_List)).
 
 
-nez(VinId,Atom_List) :-
-	with_mutex(nez, nez(VinId,Atom_List)).
+db_nez(VinId,Atom_List) :-
+	with_mutex(db_nez, nez(VinId,Atom_List)).
 
 
-description(VinId,Atom_List) :-
-	with_mutex(description, description(VinId,Atom_List)).
+db_description(VinId,Atom_List) :-
+	with_mutex(db_description, description(VinId,Atom_List)).

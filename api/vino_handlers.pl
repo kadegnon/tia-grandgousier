@@ -54,8 +54,37 @@ vino_handler(Request,Uri) :-
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
 	Params = Query.put(url,Url),
-	% vino(Method, Params).
-.
+	vino(Method, Params).
+
+
+vino(get, Params) :- !,
+	list_vino(Params, List),
+	reply_json_dict(List).
+
+vino(post, Params) :- !,
+	create_vino(Params, NVino),
+	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet en JSON 
+
+vino(put, Params) :- !,
+	update_vino(Params, NVino),
+	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet sous forme de JSON 
+
+vino(delete, Params) :- !,
+	delete_vino(Params, DVino),
+	reply_json_dict(DVino).
+
+
+
+
+/******************************************************
+*
+*	Handler pour requete vers les listings 
+*		/appellations
+*		/plats
+*		...
+*
+*******************************************************/
+
 
 appellations_handler(Request) :-
 	cors_enable,
@@ -81,22 +110,4 @@ plats_handler(Request) :-
 	cors_enable,
 	list_plats(List),
 	reply_json_dict(List).
-
-
-
-vino(get, Params) :- !,
-	list_vino(Params, List),
-	reply_json_dict(List).
-
-vino(post, Params) :- !,
-	create_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet en JSON 
-
-vino(put, Params) :- !,
-	update_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet sous forme de JSON 
-
-vino(delete, Params) :- !,
-	delete_vino(Params, DVino),
-	reply_json_dict(DVino).
 
