@@ -184,16 +184,21 @@ export default {
   },
   methods: {
     getListSelect() {
-      const getList = [
-        this.$http.get("appellations/"),
-        this.$http.get("services/"),
-        this.$http.get("plats/")
-      ];
-      Promise.all(getList).then(([AppelRes, ServRes, PlatRes]) => {
-        this.appellations = AppelRes.data;
-        this.services = ServRes.data;
-        this.plats = PlatRes.data;
-      });
+      const warnFor = (type) => _ => {
+        this.$bus.$emit('msg-error','Impossible de recuperer les '+ type);
+      }
+
+      this.$http.get("appellations/")
+        .then(res => this.appellations = res.data)
+        .catch(warnFor('appellations'));
+
+      this.$http.get("services/")
+      .then(res => this.services = res.data)
+        .catch(warnFor('services'));
+
+      this.$http.get("plats/")
+        .then(res => this.plats = res.data)
+        .catch(warnFor('plats'));
     },
     getVin() {
       if (this.id) {
