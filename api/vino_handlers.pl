@@ -27,10 +27,11 @@
     delete_vino/2
 ]).
 
-:-use_module(api_handlers,[
+:-use_module(api_handler,[
 	read_query/2
 ]).
 
+:- set_setting(http:cors, [*]).
 
 
 
@@ -44,9 +45,9 @@
 vino_handler(Request,_) :-
 	option(method(options), Request), !,
 	cors_enable(Request,[
-		methods([get,post,patch,delete])
+		methods([get,post,put,delete])
 	]),
-	format('~n').				% empty body
+	format('Nope to say~n').				% empty body
 vino_handler(Request,Uri) :-
 	writeln(Uri),
 	read_query(Request, Query),
@@ -58,6 +59,7 @@ vino_handler(Request,Uri) :-
 
 
 appellations_handler(Request) :-
+	cors_enable,
 	list_appellations(List),
 	reply_json_dict(List).
 
