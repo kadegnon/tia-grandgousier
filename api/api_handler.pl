@@ -47,11 +47,11 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 vino_route_handler(Request) :-
 	vino_handler(Request,api_vino(.)).
 
-help_handler(Request) :-  
+help_handler(_) :-  
 	format('Content-type: text/plain~n~n'), 
 	format('Yelp me please !~n').
 
-list_routes_handler(Request) :-  
+list_routes_handler(_) :-  
 	format('Content-type: text/plain~n~n'),
 	format('All routes available ! ~n').
 
@@ -63,7 +63,7 @@ say_yello(Request) :-
 	reply_json_dict(List).
 
 
-say_yello(Request) :-
+say_yello(_) :-
 	format('Content-type: text/plain~n~n'),
 	format('Yello World ! ~n ').
 

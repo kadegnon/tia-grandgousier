@@ -86,27 +86,27 @@ vino(delete, Params) :- !,
 *******************************************************/
 
 
-appellations_handler(Request) :-
+appellations_handler(_) :-
 	cors_enable,
 	list_appellations(List),
 	reply_json_dict(List).
 
-circonstances_handler(Request) :-
+circonstances_handler(_) :-
 	cors_enable,
 	list_circonstances(List),
 	reply_json_dict(List).
 
-couleurs_handler(Request) :-
+couleurs_handler(_) :-
 	cors_enable,
 	list_couleurs(List),
 	reply_json_dict(List).
 
-services_handler(Request) :-
+services_handler(_) :-
 	cors_enable,
 	list_services(List),
 	reply_json_dict(List).
 
-plats_handler(Request) :-
+plats_handler(_) :-
 	cors_enable,
 	list_plats(List),
 	reply_json_dict(List).

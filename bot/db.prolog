@@ -56,22 +56,22 @@ db_prix(VinId,PrixHtva, PrixTvac) :-
 
 db_pour(VinId,Atom_List) :-
 	with_mutex(db_pour, pour(VinId,Atom_List)).
-db_pour(VinId,[]).
+db_pour(_,[]).
 
 
 db_avec(VinId,Atom_List) :-
 	with_mutex(db_avec, accompagne(VinId,Atom_List)).
-db_avec(VinId,[]).
+db_avec(_,[]).
 
 
 db_bouche(VinId,Atom_List) :-
 	with_mutex(db_bouche, bouche(VinId,Atom_List)).
-db_bouche(VinId,[]).
+db_bouche(_,[]).
 
 
 db_nez(VinId,Atom_List) :-
 	with_mutex(db_nez, nez(VinId,Atom_List)).
-db_nez(VinId,[]).
+db_nez(_,[]).
 
 db_description(VinId,Atom_List) :-
 	with_mutex(db_description, description(VinId,Atom_List)).
