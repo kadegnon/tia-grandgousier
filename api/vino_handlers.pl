@@ -49,14 +49,13 @@ vino_handler(Request,_) :-
 	]),
 	format('Nope to say~n').				% empty body
 vino_handler(Request,Uri) :-
-	writeln(Uri),
 	read_query(Request, Query),
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
 	Params = Query.put(url,Url),
-	vino(Method, Params).
-
+	% vino(Method, Params).
+.
 
 appellations_handler(Request) :-
 	cors_enable,
@@ -64,18 +63,22 @@ appellations_handler(Request) :-
 	reply_json_dict(List).
 
 circonstances_handler(Request) :-
+	cors_enable,
 	list_circonstances(List),
 	reply_json_dict(List).
 
 couleurs_handler(Request) :-
+	cors_enable,
 	list_couleurs(List),
 	reply_json_dict(List).
 
 services_handler(Request) :-
+	cors_enable,
 	list_services(List),
 	reply_json_dict(List).
 
 plats_handler(Request) :-
+	cors_enable,
 	list_plats(List),
 	reply_json_dict(List).
 
