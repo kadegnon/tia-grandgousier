@@ -66,17 +66,15 @@ list_circonstances(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
-				 nez:Nez, bouche:Bouche,
-				 description:Descr, annee:An, origine:Orig,
-				 appellation:Appel,htva:Htva,tvac:Tvac}) :-
+				 nez:Nez, bouche:Bouche, plat : Accompagne,
+				 service : Service, annee:An, origine:Orig,
+				 description:Descr, appellation:Appel, 
+				 htva:Htva,tvac:Tvac}) :-
 	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	db_prix(Id, Htva, Tvac),
 	db_description(Id, Descr),
-
-	(db_nez(Id, Nez);		set_def_value(Nez, [])),	
-	(db_nez(Id, Bouche);	set_def_value(Bouche, [])),	
-	
-
+	db_nez(Id, Nez), db_nez(Id, Bouche),	
+	db_avec(Id, Accompagne), db_pour(Id, Service) ,
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 
