@@ -10,7 +10,7 @@
 :- use_module('../bot/db.prolog',[
     init_vin_db/1
 ]).
-:- use_module(api_handlers).
+:- ensure_loaded(api_handler).
 
 :- set_setting_default(http:cors, [*]).
 
