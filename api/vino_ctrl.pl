@@ -56,7 +56,7 @@ list_plats(List) :-
 %	list(-Circonstances)
 %
 %	Donne tous les circonstances possibles pour boire un vin.
-%
+%get_short
 list_circonstances(List) :- 
 	findall(Cir, circonstance(Cir), List).
 
@@ -66,14 +66,16 @@ list_circonstances(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
-				 pour : ListServices,
 				 nez:Nez, bouche:Bouche,
 				 description:Descr, annee:An, origine:Orig,
 				 appellation:Appel,htva:Htva,tvac:Tvac}) :-
-	spy(vino),
 	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	db_prix(Id, Htva, Tvac),
-	db_nez(Id, Nez),	db_bouche(Id, Bouche), db_description(Id, Descr),
+	db_description(Id, Descr),
+
+	(db_nez(Id, Nez);		set_def_value(Nez, [])),	
+	(db_nez(Id, Bouche);	set_def_value(Bouche, [])),	
+	
 
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
