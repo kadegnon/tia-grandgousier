@@ -47,31 +47,25 @@ init_vin_db(Dir) :-
 
 
 db_vin(Id,Nom,An,Origine,Appellation,Couleur) :-
-	with_mutex(db_vin, vin(Id,Nom,An,Origine,Appellation,Couleur)).
+	vin(Id,Nom,An,Origine,Appellation,Couleur).
 
 
-db_prix(VinId,PrixHtva, PrixTvac) :-
-	with_mutex(db_prix, prix(VinId,PrixHtva, PrixTvac)).
+db_prix(VinId,PrixHtva, PrixTvac) :-	prix(VinId,PrixHtva, PrixTvac).
 
 
-db_pour(VinId,Atom_List) :-
-	with_mutex(db_pour, pour(VinId,Atom_List)).
+db_pour(VinId,Atom_List) :-	pour(VinId,Atom_List).
 db_pour(_,[]).
 
 
-db_avec(VinId,Atom_List) :-
-	with_mutex(db_avec, accompagne(VinId,Atom_List)).
+db_avec(VinId,Atom_List) :-	accompagne(VinId,Atom_List).
 db_avec(_,[]).
 
 
-db_bouche(VinId,Atom_List) :-
-	with_mutex(db_bouche, bouche(VinId,Atom_List)).
+db_bouche(VinId,Atom_List) :-	bouche(VinId,Atom_List).
 db_bouche(_,[]).
 
 
-db_nez(VinId,Atom_List) :-
-	with_mutex(db_nez, nez(VinId,Atom_List)).
+db_nez(VinId,Atom_List) :-	nez(VinId,Atom_List).
 db_nez(_,[]).
 
-db_description(VinId,Atom_List) :-
-	with_mutex(db_description, description(VinId,Atom_List)).
+db_description(VinId,Atom_List) :-	description(VinId,Atom_List).
