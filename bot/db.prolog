@@ -11,7 +11,14 @@
 	db_avec/2,
 	db_nez/2,
 	db_bouche/2,
-	db_description/2
+	db_description/2,
+	delete_vin/1,
+	delete_prix/1,
+	delete_pour/1,
+	delete_avec/1,
+	delete_bouche/1,
+	delete_nez/1,
+	delete_description/1
 ]).
 
 :- use_module(library(persistency)).
@@ -69,3 +76,20 @@ db_nez(VinId,Atom_List) :-	nez(VinId,Atom_List).
 db_nez(_,[]).
 
 db_description(VinId,Atom_List) :-	description(VinId,Atom_List).
+
+
+
+delete_vin(Id) :-				retractall_vin(Id,_,_,_,_,_).
+
+delete_prix(VinId) :-			retractall_prix(VinId,_,_).
+
+delete_pour(VinId) :-			retractall_pour(VinId,_).
+
+delete_avec(VinId) :-			retractall_accompagne(VinId,_).
+
+
+delete_bouche(VinId) :-			retractall_bouche(VinId,_).
+
+delete_nez(VinId) :-			retractall_nez(VinId,_).
+
+delete_description(VinId) :-	retractall_description(VinId,_).

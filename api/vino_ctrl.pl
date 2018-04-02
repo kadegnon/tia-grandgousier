@@ -197,7 +197,10 @@ update_vino(Params, NVino) :-
 %
 delete_vino(Params, DVino) :-
 	get(Params.id, Params.url ,DVino),
-	retractall_prix(Params.id,_,_),
-	retractall_bouche(Params.id,_),
-	retractall_nez(Params.id,_),
-	retractall_vino(Params.id,_,_,_,_,_,_,_).
+	delete_prix(Params.id),
+	delete_pour(Params.id),
+	delete_avec(Params.id),
+	delete_bouche(Params.id),
+	delete_nez(Params.id),
+	delete_description(Params.id),
+	delete_vin(Params.id).
