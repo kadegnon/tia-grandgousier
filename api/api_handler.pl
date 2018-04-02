@@ -34,8 +34,6 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 
 
 :- http_handler(api(.), say_yello, []).
-:- http_handler(root(help), help_handler, []).				
-:- http_handler(root(list), list_routes_handler, []).			% /list
 :- http_handler(api_vino(.), vino_route_handler, [prefix]).		% /api/vino/*
 :- http_handler(api_appellations(.), appellations_handler,[]).
 :- http_handler(api_circonstances(.), circonstances_handler,[]).
@@ -46,15 +44,6 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 
 vino_route_handler(Request) :-
 	vino_handler(Request,api_vino(.)).
-
-help_handler(_) :-  
-	format('Content-type: text/plain~n~n'), 
-	format('Yelp me please !~n').
-
-list_routes_handler(_) :-  
-	format('Content-type: text/plain~n~n'),
-	format('All routes available ! ~n').
-
 
 say_yello(Request) :-
 	member(method(post), Request),
