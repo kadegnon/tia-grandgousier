@@ -165,6 +165,9 @@ export default {
     this.getListSelect();
     if (this.$route.path === "/vins/new" && this.$route.query ) {
       Object.assign(this.vin, this.$route.query);
+    } else {
+      this.id = this.$route.params.id;
+      this.getVin();
     }
 
   },
