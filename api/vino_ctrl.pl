@@ -1,4 +1,4 @@
-% Export vino predicats
+﻿% Export vino predicats
 :- module(vino_ctrl,[
 	list_circonstances/1,
 	list_appellations/1,
@@ -73,7 +73,7 @@ get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
 	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	db_prix(Id, Htva, Tvac),
 	db_description(Id, Descr),
-	db_nez(Id, Nez), db_nez(Id, Bouche),	
+	db_nez(Id, Nez), db_bouche(Id, Bouche),	
 	db_avec(Id, Accompagne), db_pour(Id, Service) ,
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
