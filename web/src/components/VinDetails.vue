@@ -162,7 +162,8 @@ export default {
     };
   },
   created() {
-    this.getListSelect();
+    this.$bus.$emit('list-of-caracteristic');
+    this.$bus.$on('list-select', this.getListSelect);
     if (this.$route.path === "/vins/new" && this.$route.query ) {
       Object.assign(this.vin, this.$route.query);
     } else {
@@ -172,7 +173,7 @@ export default {
   },
 
   beforeDestroy() {
-
+    this.$bus.$off()
   },
 
   beforeRouteUpdate(to,from,next) {
@@ -187,27 +188,26 @@ export default {
 
   },
   methods: {
-    getListSelect() {
-      const warnFor = (type) => _ => {
-        this.$bus.$emit('msg-error','Impossible de recuperer les '+ type);
-      }
-
-      this.$http.get("appellations/")
-        .then(res => this.appellations = res.data)
-        .catch(warnFor('appellations'));
-
-      this.$http.get("services/")
-      .then(res => this.services = res.data)
-        .catch(warnFor('services'));
-
-      this.$http.get("plats/")
-        .then(res => this.plats = res.data)
-        .catch(warnFor('plats'));
+    getListSelect([type, list]) {
+        switch (type) {
+          case 'plats':
+            this.plats = list;
+            break;
+          case'services' :
+            this.services = list;
+            return;
+          case 'appellations':
+            this.appellations = list;
+            return;
+          default:
+            break;
+        }
     },
     getVin(vinId) {
       if (vinId) {
         this.id = vinId;
-        this.$http.get("vino/" + vinId).then(res => (this.vin = res.data));
+        this.$bus.$emit('vin-details', this.id);
+        this.$bus.$on('vin-details#'+this.id, details => this.vin = details);
       }
     },
     saveVin() {

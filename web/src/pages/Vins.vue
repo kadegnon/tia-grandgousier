@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import VinList from '../components/VinList';
+import {APIVino as ApiVino} from "@/services/api-vino";
+import VinList from '@/components/VinList';
 
 const API_URL_TO_VINO = 'vino/';
 
@@ -34,10 +35,10 @@ export default {
 
   created() {
     this.getListVins();
-    this.selected = this.$route.params.id;
+    this.selected = this.$route.params.id; // Select vin dans VinList
 
-    this.$bus.$on('list-select', this.getListOfSelect);
-    this.$bus.$on('vin-details', this.getVino);
+    this.$bus.$on('list-of-caracteristic', this.getListOfSelect);
+    this.$bus.$on('vin-details', this.getDetailsVin);
     this.$bus.$on('vin-add',this.add);
     this.$bus.$on('vin-modif',this.modif);
     this.$bus.$on('vin-remove',this.remove);
@@ -51,8 +52,8 @@ export default {
 
   beforeDestroy(){
      this.$off([
-       'list-select','vin-select',
-       'vin-detils',
+       'list-of-caracteristic', 'list-select',
+       'vin-select', 'vin-details',
        'vin-add','vin-modif','vin-remove'
        ]);
   },
@@ -68,12 +69,35 @@ export default {
     },
 
     getListOfSelect(){
+      const sendList = (type) => list  => this.$bus.$emit('list-select',[type,list]);
+
+      const warnFor = (type) => _ => {
+        this.$bus.$emit('msg-error','Impossible de recuperer la liste pour les '+ type);
+      }
+
+      let typeList = 'appellations';
+      ApiVino.getListAppellations()
+        .then(sendList(typeList))
+        .catch(warnFor(typeList));
+
+      typeList = 'services';
+      ApiVino.getListServices()
+        .then(sendList(typeList))
+        .catch(warnFor(typeList));
+
+      typeList = 'plats';
+      ApiVino.getListPlats()
+        .then(sendList(typeList))
+        .catch(warnFor(typeList));
 
     },
 
-    getVino(id){
-      this.$http.get("vino/" + id)
-        .then(res => this.$bus.$emit('vin-detils-#'+id,res.data));
+    getDetailsVin(id){
+      ApiVino.getDetailsVin(id)
+        .then(details => this.$bus.$emit('vin-details#'+id, details))
+        .catch( _ => {
+          this.$bus.$emit('msg-error','Impossible de recuperer le vin '+ id)
+        });
     },
 
     add(vin){

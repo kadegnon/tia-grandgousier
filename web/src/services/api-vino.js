@@ -9,6 +9,7 @@ import Vue from 'vue';
 // -------------------------------------------------------------------
 // Properties
 const Api = Vue.http;
+const ApiResoucreToVino = Vue.resource('vino{/id}');
 
 // -------------------------------------------------------------------
 // Exports
@@ -24,5 +25,7 @@ export const APIVino = {
   getListServices : _ => Api.get("services/").then(res => res.data),
 
   getListVins : _ => Api.get("vino/").then(res => res.data),
+
+  getDetailsVin : id => ApiResoucreToVino.get({id}).then(res => res.body),
 
 };
