@@ -5,6 +5,7 @@
               :vins="list"  :selected="selected"
               @vin-new="redirectToNewVin"  @vin-remove="remove"
               @vin-select="redirectToVinDetails"
+
     >
     </vin-list>
 
@@ -35,6 +36,8 @@ export default {
     this.getListVins();
     this.selected = this.$route.params.id;
 
+    this.$bus.$on('list-select', this.getListOfSelect);
+    this.$bus.$on('vin-details', this.getVino);
     this.$bus.$on('vin-add',this.add);
     this.$bus.$on('vin-modif',this.modif);
     this.$bus.$on('vin-remove',this.remove);
@@ -47,7 +50,11 @@ export default {
   },
 
   beforeDestroy(){
-     this.$off(['vin-select','vin-add','vin-modif','vin-remove']);
+     this.$off([
+       'list-select','vin-select',
+       'vin-detils',
+       'vin-add','vin-modif','vin-remove'
+       ]);
   },
   methods : {
     redirectToNewVin(nom){
@@ -59,6 +66,16 @@ export default {
       this.selected = id;
       this.$router.push({ name: 'vinDetails', params: {id }});
     },
+
+    getListOfSelect(){
+
+    },
+
+    getVino(id){
+      this.$http.get("vino/" + id)
+        .then(res => this.$bus.$emit('vin-detils-#'+id,res.data));
+    },
+
     add(vin){
       console.log("[Vins] New vin : ",vin);
       this.$http.post(API_URL_TO_VINO)

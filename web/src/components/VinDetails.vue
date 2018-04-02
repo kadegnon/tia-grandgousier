@@ -80,28 +80,6 @@
       <hr style="width:110%;margin:15px 0;">
       <div class="form-group">
         <div class="form-label">
-          <label for="vnez">Nez</label>
-        </div>
-        <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vnez')">Un nez pour ce vin</span>
-          <input type="text" id="vnez" name="vnez"  placeholder="Nez"
-                v-model="vin.nez"   class="form-input"
-          >
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="vbouche">Bouche</label>
-        </div>
-        <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vbouche')">La bouche pour ce vin</span>
-          <input type="text" id="vbouche" name="vbouche" placeholder="La bouche du vin."
-                v-model="vin.bouche" class="form-input"
-          >
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
           <label for="vpour">Service</label>
         </div>
         <div class="form-control">
@@ -121,6 +99,28 @@
           <input type="text" id="vaccompagne" name="vaccompagne"  placeholder="Pour quel repas"
                 v-model="vin.avec"
                 :class="{'form-input': true, 'error': errors.has('vaccompagne') }"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vnez">Nez</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vnez')">Un nez pour ce vin</span>
+          <input type="text" id="vnez" name="vnez"  placeholder="Nez"
+                v-model="vin.nez"   class="form-input"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="vbouche">Bouche</label>
+        </div>
+        <div class="form-control">
+          <span class="text-danger" v-show="errors.has('vbouche')">La bouche pour ce vin</span>
+          <input type="text" id="vbouche" name="vbouche" placeholder="La bouche du vin."
+                v-model="vin.bouche" class="form-input"
           >
         </div>
       </div>
@@ -166,22 +166,23 @@ export default {
     if (this.$route.path === "/vins/new" && this.$route.query ) {
       Object.assign(this.vin, this.$route.query);
     } else {
-      this.id = this.$route.params.id;
-      this.getVin();
+      this.getVin(this.$route.params.id);
     }
 
   },
 
+  beforeDestroy() {
+
+  },
+
   beforeRouteUpdate(to,from,next) {
-    console.log(to);
     if (to.path === "/vins/new") {
       this.vin = _defaultVin;
        Object.assign(this.vin, this.$route.query);
       this.$el.querySelector('#vnom').focus();
       next();
     } else {
-      this.id = this.$route.params.id;
-      next(this.getVin());
+      next(this.getVin(to.params.id));
     }
 
   },
@@ -203,9 +204,10 @@ export default {
         .then(res => this.plats = res.data)
         .catch(warnFor('plats'));
     },
-    getVin() {
-      if (this.id) {
-        this.$http.get("vino/" + this.id).then(res => (this.vin = res.data));
+    getVin(vinId) {
+      if (vinId) {
+        this.id = vinId;
+        this.$http.get("vino/" + vinId).then(res => (this.vin = res.data));
       }
     },
     saveVin() {
