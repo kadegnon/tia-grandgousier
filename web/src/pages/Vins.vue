@@ -136,11 +136,9 @@ export default {
     },
 
     getListVins () {
-      this.$http.get(API_URL_TO_VINO)
-            .then(res => this.list = res.data)
-            .catch(e => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue des vins'))
-            // .catch(err => this.$emit('msg-error',err.body.statusText));
-
+      ApiVino.getListVins()
+        .then(vins => this.list = vins)
+        .catch(e => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue des vins'));
     }
   }
 };
