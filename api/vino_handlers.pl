@@ -47,7 +47,7 @@ vino_handler(Request,_) :-
 	cors_enable(Request,[
 		methods([get,post,put,delete])
 	]),
-	format('Nope to say~n').				% empty body
+	format('~n').				% empty body
 vino_handler(Request,Uri) :-
 	read_query(Request, Query),
 	cors_enable,
