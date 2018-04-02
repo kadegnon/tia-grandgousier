@@ -67,7 +67,8 @@ export default {
       this.searchInput = '';
     },
     selectVin(id){
-      this.$emit('vin-select', id);
+      if(this.selected !== id)
+        this.$emit('vin-select', id);
     },
 
     removeVin(id){ this.$emit('vin-remove', id);},
