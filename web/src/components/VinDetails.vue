@@ -46,10 +46,10 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
-          <input type="number" id="vannee" name="vannee" placeholder="Année d'embouteillage du vin"
+          <input type="number" id="vannee" name="vannee" step="1" placeholder="Année d'embouteillage du vin"
                 :class="{'form-input': true, 'error': errors.has('vannee') }"
-                v-model="vin.annee" v-validate="'required|numeric|min:4|max:4'"
-                v-bind:max="new Date().getFullYear()"
+                v-model="vin.annee"  v-validate="'required|numeric|min:4|max:4'"
+                v-bind:max="new Date().getFullYear()+1"
           >
         </div>
       </div>
@@ -169,17 +169,12 @@ export default {
     } else {
       this.getVin(this.$route.params.id);
     }
-
-  },
-
-  beforeDestroy() {
-    this.$bus.$off()
   },
 
   beforeRouteUpdate(to,from,next) {
     if (to.path === "/vins/new") {
       this.vin = _defaultVin;
-       Object.assign(this.vin, this.$route.query);
+       Object.assign(this.vin, to.query);
       this.$el.querySelector('#vnom').focus();
       next();
     } else {
@@ -216,8 +211,12 @@ export default {
       };
 
       this.$validator.validateAll().then(isValid => {
-        console.log(isValid);
         if(!isValid) return warnMsg();
+        Object.assign(this.vin, {
+          annee : Number.parseInt(this.vin.annee),
+          htva : Number.parseFloat(this.vin.htva),
+          tvac : Number.parseFloat(this.vin.tvac)
+        })
         if (this.id)
           return this.$bus.$emit("vin-modif", this.id, this.vin);
          else
