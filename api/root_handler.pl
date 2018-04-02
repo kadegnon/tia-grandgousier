@@ -1,4 +1,3 @@
-:- module(root_handler).
 
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_json)).
