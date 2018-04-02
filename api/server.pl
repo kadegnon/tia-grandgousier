@@ -7,10 +7,14 @@
 :- use_module(library(settings)).
 :- use_module(library(broadcast)).
 
-:- use_module('../bot/db.prolog',[
-    init_vin_db/1
-]).
+
+%% All routes to /api/*
 :- ensure_loaded(api_handler).
+
+
+%% All routes to /*
+:- ensure_loaded(root_handler).
+
 
 :- set_setting_default(http:cors, [*]).
 
@@ -18,10 +22,8 @@
 
 server :-server(3030).
 server(Port) :-
-	broadcast(http(pre_server_start)),
 	http_server(http_dispatch,[ 
 		port(Port),
 		workers(16)
 	]).
 
-:- listen(http(pre_server_start), init_vin_db('../bot/db')).
