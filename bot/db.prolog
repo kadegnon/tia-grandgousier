@@ -5,6 +5,15 @@
 	appellation/1,
 	circonstance/1,
 	couleur/1,
+
+	create_vin/6,
+	create_prix/3,
+	create_pour/2,
+	create_avec/2,
+	create_nez/2,
+	create_bouche/2,
+	create_description/2,
+
 	db_vin/6,
 	db_prix/3,
 	db_pour/2,
@@ -12,6 +21,7 @@
 	db_nez/2,
 	db_bouche/2,
 	db_description/2,
+
 	delete_vin/1,
 	delete_prix/1,
 	delete_pour/1,
@@ -33,15 +43,15 @@
 
 :- persistent
 		vin(id:atom,
-			nom:string,
+			nom:atom,
 			millesime:integer,
-			origine:string,
+			origine:atom,
 			appelation:atom,
 			couleur:atom
 		),
 		prix(id:atom, htva:float,tvac:float),
-		pour(id:atom,service:atom),
-		accompagne(id:atom,plat:atom),
+		pour(id:atom,service:list),
+		accompagne(id:atom,plat:list),
 		nez(id:atom,text:list),
 		bouche(id:atom,text:list),
 		description(id:atom,text:list).
@@ -52,6 +62,38 @@ init_vin_db(Dir) :-
 	directory_file_path(Dir, 'vins.prolog', DB),
 	db_attach(DB, []).
 
+
+
+/******************************************************
+*
+*	Predicats pour la creation de vin
+*
+*******************************************************/
+
+create_vin(Id,Nom,An,Origine,Appellation,Couleur) :-
+	assert_vin(Id,Nom,An,Origine,Appellation,Couleur).
+
+
+create_prix(VinId,PrixHtva, PrixTvac) :-	assert_prix(VinId,PrixHtva, PrixTvac).
+
+
+create_pour(VinId,Atom_List) :-	assert_pour(VinId,Atom_List).
+
+create_avec(VinId,Atom_List) :-	assert_accompagne(VinId,Atom_List).
+
+create_bouche(VinId,Atom_List) :-	assert_bouche(VinId,Atom_List).
+
+create_nez(VinId,Atom_List) :-	assert_nez(VinId,Atom_List).
+
+create_description(VinId,Atom_List) :-	assert_description(VinId,Atom_List).
+
+
+
+/******************************************************
+*
+*	Predicats pour la recuperation de vin
+*
+*******************************************************/
 
 db_vin(Id,Nom,An,Origine,Appellation,Couleur) :-
 	vin(Id,Nom,An,Origine,Appellation,Couleur).
@@ -78,6 +120,12 @@ db_nez(_,[]).
 db_description(VinId,Atom_List) :-	description(VinId,Atom_List).
 
 
+
+/******************************************************
+*
+*	Predicats pour la suppression de vin
+*
+*******************************************************/
 
 delete_vin(Id) :-				retractall_vin(Id,_,_,_,_,_).
 

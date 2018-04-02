@@ -60,7 +60,9 @@ say_yello(_) :-
 
 read_query(Request, Dict) :-
 	option(content_length(Len), Request), Len > 0, !,
-	http_read_json_dict(Request, Dict0),
+	http_read_json_dict(Request, Dict0,[
+		value_string_as(atom)
+	]),
 	(   request_path_id(Request, ID)
 		->  Dict = Dict0.put(id,ID)
 		;   Dict = Dict0
