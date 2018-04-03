@@ -92,14 +92,20 @@
       </div>
       <div class="form-group">
         <div class="form-label">
-          <label for="vaccompagne">Repas</label>
+          <label for="vavec">Plats</label>
         </div>
         <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vaccompagne')"> pour ce vin</span>
-          <input type="text" id="vaccompagne" name="vaccompagne"  placeholder="Pour quel repas"
+          <span class="text-danger" v-show="errors.has('vavec')"> avec ce vin</span>
+          <!-- <input type="text" id="vavec" name="vavec"  placeholder="Pour quel repas"
                 v-model="vin.avec"
-                :class="{'form-input': true, 'error': errors.has('vaccompagne') }"
+                :class="{'form-input': true, 'error': errors.has('vavec') }"
+          > -->
+          <v-select multiple taggable
+                v-model="vin.avec" :options="getListSelect('plats')"
           >
+          <span slot="no-options">Ooups ! Plat inconnu.</span>
+          <span slot="no-options">Ooups ! Plat inconnu.</span>
+          </v-select>
         </div>
       </div>
       <div class="form-group">

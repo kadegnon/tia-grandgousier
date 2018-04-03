@@ -3,6 +3,12 @@
  * anywhere within our app without importing them.
  *
  */
+// -------------------------------------------------------------------
+// NPM
+import vSelect from 'vue-select';
+
+
+// Mine
 const ChatMsg = require('./ChatMsg.vue');
 const UserChoice = require('./UserChoice.vue');
 const AutoComplete = require('./AutoComplete.vue');
@@ -16,6 +22,9 @@ const VinList = require('./VinList.vue');
 const VinDetails = require('./VinDetails.vue');
 
 
+// -------------------------------------------------------------------
+// Exports
+
 export default {
   ChatMsg,
   UserChoice,
@@ -25,4 +34,5 @@ export default {
   VinDetails,
   Speech2Text,
   Text2Speech,
+  'v-select' : vSelect
 };
