@@ -80,11 +80,11 @@
       <hr style="width:110%;margin:15px 0;">
       <div class="form-group">
         <div class="form-label">
-          <label for="vpour">Service</label>
+          <label for="vservices">Service</label>
         </div>
         <div class="form-control">
-          <v-select multiple taggable id="vpour" name="vpour"  placeholder="Pour quelle service"
-                v-model="vin.pour" :options="getListSelect('services')"
+          <v-select multiple taggable id="vservices" name="vservices"  placeholder="Pour quelle service"
+                v-model="vin.services" :options="getListSelect('services')"
           >
           <span slot="no-options">Ooups ! Service inconnu.</span>
           </v-select>
@@ -92,11 +92,12 @@
       </div>
       <div class="form-group">
         <div class="form-label">
-          <label for="vavec">Plats</label>
+          <label for="vplats">Plats</label>
         </div>
         <div class="form-control">
-          <v-select multiple taggable id="vavec" name="vavec" placeholder="Avec quelle plat"
-                v-model="vin.avec" :options="getListSelect('plats')"
+          <v-select id="vplats" name="vplats" placeholder="Avec quelle plat"
+                multiple taggable
+                v-model="vin.plats" :options="getListSelect('plats')"
           >
           <span slot="no-options">Ooups ! Plat inconnu.</span>
           </v-select>
@@ -108,9 +109,9 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vnez')">Un nez pour ce vin</span>
-          <input type="text" id="vnez" name="vnez"  placeholder="Nez"
-                v-model="vin.nez"   class="form-input"
-          >
+          <v-select multiple push-tags taggable id="vnez" name="vnez"  v-model="vin.nez" >
+            <span slot="no-options">Aucun nez pour ce vin.</span>
+          </v-select>
         </div>
       </div>
       <div class="form-group">
@@ -119,9 +120,9 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vbouche')">La bouche pour ce vin</span>
-          <input type="text" id="vbouche" name="vbouche" placeholder="La bouche du vin."
-                v-model="vin.bouche" class="form-input"
-          >
+          <textarea id="vbouche" name="vbouche" placeholder="La bouche du vin." style="height:125px"
+              v-model="vin.bouche"   v-validate="'required'"
+              :class="{'form-input': true, error: errors.has('vbouche')}" ></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -130,13 +131,14 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vdescrip')">La description est requis</span>
-          <textarea id="vdescrip" name="vdescrip" placeholder="Description du vin" style="height:200px"
+          <textarea id="vdescrip" name="vdescrip" placeholder="Description du vin" style="height:150px"
               v-model="vin.description"   v-validate="'required'"
               :class="{'form-input': true, /*'error': errors.has('vdescrip') */}" ></textarea>
         </div>
       </div>
       <div class="form-group">
-        <input class="btn success" type="submit" :value="id ? 'Modifier' :'Sauvegarder'">
+        <input class="btn" type="submit"
+              :value="id ? 'Modifier' :'Sauvegarder'" :disabled="errors.any()">
       </div>
     </form>
   </article>
@@ -151,10 +153,10 @@ const _list = {
 };
 
 const _defaultVin = ({
-  nom: "", annee: 2017, origine: "",
-  description: "", appellation: undefined,
-  pour : undefined, avec : undefined,
-  nez : undefined, bouche : undefined,
+  nom: '', annee: 2017, origine: '',
+  description: '', appellation: undefined,
+  services : [], plats : [],
+  nez : [], bouche : '',
   htva: 0.1,  tvac: 0.2
 });
 export default {
@@ -169,7 +171,7 @@ export default {
     this.$bus.$emit('list-of-caracteristic');
     this.$bus.$on('list-select', this.prepareListSelect);
     if (this.$route.path === "/vins/new" && this.$route.query ) {
-      Object.assign(this.vin, this.$route.query);
+      Object.assign(this.vin, _defaultVin, this.$route.query);
     } else {
       this.getVin(this.$route.params.id);
     }
@@ -177,14 +179,19 @@ export default {
 
   beforeRouteUpdate(to,from,next) {
     if (to.path === "/vins/new") {
-      this.vin = _defaultVin;
-       Object.assign(this.vin, to.query);
+      Object.assign(this.vin, _defaultVin, to.query);
       this.$el.querySelector('#vnom').focus();
       next();
     } else {
       next(this.getVin(to.params.id));
     }
 
+  },
+  beforeDestroy(){
+    this.$bus.$off('list-select');
+    this.$bus.$off('vin-details#'+this.id);
+    this.vin = null;
+    this.id = null;
   },
   computed : {
     getListSelect() {
@@ -207,11 +214,17 @@ export default {
             break;
         }
     },
+    prepareVin(details){
+      Object.assign(this.vin, details, {
+        bouche : details.bouche.join('\n'),
+        description : details.description.join('\n'),
+      });
+    },
     getVin(vinId) {
       if (vinId) {
         this.id = vinId;
         this.$bus.$emit('vin-details', this.id);
-        this.$bus.$on('vin-details#'+this.id, details => this.vin = details);
+        this.$bus.$on('vin-details#'+this.id, this.prepareVin);
       }
     },
     saveVin() {
@@ -221,21 +234,23 @@ export default {
 
       this.$validator.validateAll().then(isValid => {
         if(!isValid) return warnMsg();
-        this.prepareInput();
+        const vinInput = this.prepareInput();
         if (this.id){
-          return this.$bus.$emit("vin-modif", this.id, this.vin);
+          return this.$bus.$emit("vin-modif", this.id, vinInput);
          } else {
-          return this.$bus.$emit("vin-add", this.vin);
+          return this.$bus.$emit("vin-add", vinInput);
          }
       }).catch(warnMsg)
 
     },
 
     prepareInput(){
-      Object.assign(this.vin, {
+      return Object.assign({}, this.vin, {
         annee : Number.parseInt(this.vin.annee),
         htva : Number.parseFloat(this.vin.htva),
-        tvac : Number.parseFloat(this.vin.tvac)
+        tvac : Number.parseFloat(this.vin.tvac),
+        bouche : details.bouche.split('\n').exclude(s => s == 'undefined'),
+        description : details.description.split('\n').exclude(s => s == 'undefined'),
       });
 
     }
@@ -305,8 +320,9 @@ label {
   float: left;
 }
 
-.form-group input[type="submit"]:hover {
-  background-color: #45a049;
+.form-group input:disabled {
+    cursor: not-allowed;
+    background-color: buttonface;
 }
 
 .text-danger {
