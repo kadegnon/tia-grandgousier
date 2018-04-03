@@ -27,28 +27,7 @@ Vue.use(VeeValidate);
 // Vue.url.options.root = process.env.API_URL;
 
 if(process.env.NODE_ENV == 'testing'){
-  const routes = [...list.routes, ...vino.routes];
-
-  // Intercept all Http request to API
-  Vue.http.interceptors.unshift((req, next) => {
-    let matchingRoute = null;
-    if(req.url === 'bot/'){
-      const nbBotRoutes = bot.routes.length;
-      const randNb = Math.floor((Math.random() * nbBotRoutes));
-      matchingRoute = bot.routes[randNb];
-    }else{
-      matchingRoute = routes.find(rt => {
-        return (req.method === rt.method && req.url === rt.url);
-      });
-    }
-
-    if (!matchingRoute) {
-      // we're just going to return a 404 here, since we don't want our test suite making a real HTTP request
-      next(req.respondWith({status: 404, statusText: 'Oh no! Not found!'}));
-    } else {
-      next(req.respondWith(matchingRoute.response,{status: 200}));
-    }
-  });
+  require('@/boot/dev');
 }
 
 
@@ -82,6 +61,8 @@ Object.keys(components)
 
 
 
+// -------------------------------------------------------------------
+// Exports
 
 export default {
   router,
