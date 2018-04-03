@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% vin(Id,Nom,millesime,Origine,Appellation,Couleur).
-%% prix(VinId,Prix).
+%% prix(VinId,PrixHtva, PrixTvac).
 %% bouche(VinId,Text).
 %% nez(VinId,Atom_Text).
 %% description(VinId,Text).

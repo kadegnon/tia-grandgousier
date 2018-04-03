@@ -4,6 +4,9 @@
 :- ensure_loaded('./ecrire_reponse').
 :- ensure_loaded('./produire_reponse').
 
+:- use_module(db, [
+    init_vin_db/1
+]).
 
 /* --------------------------------------------------------------------- */
 /*                                                                       */
@@ -26,6 +29,11 @@ grandgousier :-
    fin(L_Mots), !.
 
 fin(L) :- member(fin,L).
+
+
+grandgousier(Question, L_ligne_reponse) :-
+    lire_question(Question, L_Mots),
+    produire_reponse(L_Mots,L_ligne_reponse).
    
 
 /* --------------------------------------------------------------------- */
@@ -34,5 +42,7 @@ fin(L) :- member(fin,L).
 /*                                                                       */
 /* --------------------------------------------------------------------- */
 
-% :- grandgousier.
+:- initialization init_vin_db('./db').
+
+# :- grandgousier.
 

@@ -56,7 +56,7 @@ list_plats(List) :-
 %	list(-Circonstances)
 %
 %	Donne tous les circonstances possibles pour boire un vin.
-%get_short
+%
 list_circonstances(List) :- 
 	findall(Cir, circonstance(Cir), List).
 
