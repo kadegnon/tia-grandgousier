@@ -55,8 +55,10 @@ export const APIVino = {
 
   getDetailsVin : id => ApiResoucreToVino.get({id}).then(res => res.body),
 
-  deleteVin : id => ApiResoucreToVino.delete({id}),
+  addVin : data => Api.post('vino/',data).then(res => res.data),
 
   updateVin : data => Api.put('vino/',data).then(res => res.data),
+
+  deleteVin : id => ApiResoucreToVino.delete({id}),
 
 };

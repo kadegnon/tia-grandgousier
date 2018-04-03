@@ -149,7 +149,7 @@
 const _list = {
   appellations: [],
   services: [],
-  plats: [],
+  plats: []
 };
 
 const _defaultVin = ({
@@ -164,98 +164,100 @@ export default {
   data() {
     return {
       id: undefined,
-      vin: _defaultVin,
+      vin: _defaultVin
     };
   },
   created() {
-    this.$bus.$emit('list-of-caracteristic');
-    this.$bus.$on('list-select', this.prepareListSelect);
-    if (this.$route.path === "/vins/new" && this.$route.query ) {
+    this.$bus.$emit("list-of-caracteristic");
+    this.$bus.$on("list-select", this.prepareListSelect);
+    if (this.$route.path === "/vins/new" && this.$route.query) {
       Object.assign(this.vin, _defaultVin, this.$route.query);
     } else {
       this.getVin(this.$route.params.id);
     }
   },
 
-  beforeRouteUpdate(to,from,next) {
+  beforeRouteUpdate(to, from, next) {
     if (to.path === "/vins/new") {
       Object.assign(this.vin, _defaultVin, to.query);
-      this.$el.querySelector('#vnom').focus();
+      this.$el.querySelector("#vnom").focus();
       next();
     } else {
       next(this.getVin(to.params.id));
     }
-
   },
-  beforeDestroy(){
-    this.$bus.$off('list-select');
-    this.$bus.$off('vin-details#'+this.id);
+  beforeDestroy() {
+    this.$bus.$off("list-select");
+    this.$bus.$off("vin-details#" + this.id);
     this.vin = null;
     this.id = null;
   },
-  computed : {
+  computed: {
     getListSelect() {
-      return type => (_list.hasOwnProperty(type)) ? _list[type] : [];
-    },
+      return type => (_list.hasOwnProperty(type) ? _list[type] : []);
+    }
   },
   methods: {
     prepareListSelect([type, list]) {
-        switch (type) {
-          case 'plats':
-            _list.plats = list;
-            break;
-          case'services' :
-            _list.services = list;
-            return;
-          case 'appellations':
-            _list.appellations = list;
-            return;
-          default:
-            break;
-        }
+      switch (type) {
+        case "plats":
+          _list.plats = list;
+          break;
+        case "services":
+          _list.services = list;
+          return;
+        case "appellations":
+          _list.appellations = list;
+          return;
+        default:
+          break;
+      }
     },
-    prepareVin(details){
+    prepareVin(details) {
       Object.assign(this.vin, details, {
-        bouche : details.bouche.join('\n'),
-        description : details.description.join('\n'),
+        bouche: details.bouche.join("\n"),
+        description: details.description.join("\n")
       });
     },
     getVin(vinId) {
       if (vinId) {
         this.id = vinId;
-        this.$bus.$emit('vin-details', this.id);
-        this.$bus.$on('vin-details#'+this.id, this.prepareVin);
+        this.$bus.$emit("vin-details", this.id);
+        this.$bus.$on("vin-details#" + this.id, this.prepareVin);
       }
     },
     saveVin() {
       const warnMsg = _ => {
-        this.$bus.$emit("msg-warning", "Certains informations sont manquantes !");
+        this.$bus.$emit(
+          "msg-warning",
+          "Certains informations sont manquantes !"
+        );
       };
 
-      this.$validator.validateAll().then(isValid => {
-        if(!isValid) return warnMsg();
-        const vinInput = this.prepareInput();
-        if (this.id){
-          return this.$bus.$emit("vin-modif", this.id, vinInput);
-         } else {
-          return this.$bus.$emit("vin-add", vinInput);
-         }
-      }).catch(warnMsg)
-
+      this.$validator
+        .validateAll()
+        .then(isValid => {
+          if (!isValid) return warnMsg();
+          const vinInput = this.prepareInput();
+          if (this.id) {
+            return this.$bus.$emit("vin-modif", this.id, vinInput);
+          } else {
+            return this.$bus.$emit("vin-add", vinInput);
+          }
+        })
+        .catch(warnMsg);
     },
 
-    prepareInput(){
+    prepareInput() {
       return Object.assign({}, this.vin, {
-        annee : Number.parseInt(this.vin.annee),
-        htva : Number.parseFloat(this.vin.htva),
-        tvac : Number.parseFloat(this.vin.tvac),
-        bouche : details.bouche.split('\n').exclude(s => s == 'undefined'),
-        description : details.description.split('\n').exclude(s => s == 'undefined'),
+        annee: Number.parseInt(this.vin.annee),
+        htva: Number.parseFloat(this.vin.htva),
+        tvac: Number.parseFloat(this.vin.tvac),
+        bouche: this.vin.bouche.split("\n"),
+        description: this.vin.description.split("\n")
       });
-
     }
-  },
-
+  }
 };
 </script>
 
@@ -304,7 +306,7 @@ label {
   display: inline-block;
 }
 
-.form-group select{
+.form-group select {
   width: 115%;
 }
 
@@ -321,8 +323,8 @@ label {
 }
 
 .form-group input:disabled {
-    cursor: not-allowed;
-    background-color: buttonface;
+  cursor: not-allowed;
+  background-color: buttonface;
 }
 
 .text-danger {

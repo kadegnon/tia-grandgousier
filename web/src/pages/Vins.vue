@@ -51,12 +51,11 @@ export default {
   },
 
   beforeDestroy(){
-    console.log("destroy Vins Page")
-     this.$bus.$off([
-       'list-of-caracteristic', 'list-select',
-       'vin-select', 'vin-details',
-       'vin-add','vin-modif','vin-remove'
-       ]);
+    this.$bus.$off([
+      'list-of-caracteristic', 'list-select',
+      'vin-select', 'vin-details',
+      'vin-add','vin-modif','vin-remove'
+    ]);
   },
   methods : {
     redirectToNewVin(nom){
@@ -96,31 +95,31 @@ export default {
     getDetailsVin(id){
       ApiVino.getDetailsVin(id)
         .then(details => this.$bus.$emit('vin-details#'+id, details))
-        .catch( _ => {
-          this.$bus.$emit('msg-error','Impossible de recuperer le vin '+ id)
-        });
+        .catch( _ => this.$bus.$emit('msg-error','Impossible de recuperer le vin '+ id));
     },
 
-    add(vin){
-      console.log("[Vins] New vin : ",vin);
-      this.$http.post(API_URL_TO_VINO)
-        .then(res => {
-          this.list.push(res.data);
-          this.$bus.$emit('msg-success',res.data.nom + ' ajouté!');
-          this.$router.push('/vins');
-        })
-        .catch(e => this.$bus.$emit('msg-error','Erreur lors de l\'ajout de \''+vin.nom+'\''));
-    },
-
-    modif(id,data){
-      console.log("[Vins] M.A.J. vin #", id, data);
-      ApiVino.updateVin(data)
-        .then(res => {
-          this.list.splice(this.list.findIndex(v => v.id == id), 1, res);
-          this.$bus.$emit('msg-success','Vin modifié!');
+    add(newVin){
+      console.log("[Vins] New vin : ", newVin);
+      ApiVino.addVin(newVin)
+        .then(vin => {
+          this.list.push(vin);
+          console.log(this.list);
+          this.$bus.$emit('msg-success',vin.nom + ' ajouté!');
           this.$router.replace({path: '/vins'});
         })
-        .catch(e => this.$bus.$emit('msg-error','Erreur lors de la modification !'));
+        .catch(_ => this.$bus.$emit('msg-error','Erreur lors de l\'ajout de \''+newVin.nom+'\''));
+    },
+
+    modif(id, updVin){
+      console.log("[Vins] M.A.J. vin #", id);
+      ApiVino.updateVin(updVin)
+        .then(vin => {
+          this.selected = null;
+          this.list.splice(this.list.findIndex(v => v.id == id), 1, vin);
+          this.$bus.$emit('msg-success','Vin modifié !');
+          this.$router.replace({path: '/vins'});
+        })
+        .catch(_ => this.$bus.$emit('msg-error','Erreur lors de la modification !'));
     },
 
     remove(id){
@@ -128,18 +127,18 @@ export default {
       if(ok) {
         console.log("[Vins] Remove vin #", id);
         ApiVino.deleteVin(id)
-          .then(res => {
+          .then(_ => {
             this.list.splice(this.list.findIndex(v => v.id == id), 1);
             this.$bus.$emit('msg-warning','Vin supprimé !');
           })
-          .catch(e => this.$bus.$emit('msg-error','Erreur lors de la suppression du vin !'));
+          .catch(_ => this.$bus.$emit('msg-error','Erreur lors de la suppression du vin !'));
       }
     },
 
     getListVins () {
       ApiVino.getListVins()
         .then(vins => this.list = vins)
-        .catch(e => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue des vins'));
+        .catch(_ => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue des vins'));
     }
   }
 };
