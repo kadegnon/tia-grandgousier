@@ -24,7 +24,7 @@
                 :class="{'form-input select': true, 'error': errors.has('vappel') }"
                 v-model="vin.appellation" v-validate="'required'"
           >
-            <template v-for="(appel,index) in appellations" >
+            <template v-for="(appel,index) in getListSelect('appellations')" >
               <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
             </template>
           </select>
@@ -143,6 +143,13 @@
 </template>
 
 <script>
+
+const _list = {
+  appellations: [],
+  services: [],
+  plats: [],
+};
+
 const _defaultVin = ({
   nom: "", annee: 2017, origine: "",
   description: "", appellation: undefined,
@@ -155,15 +162,12 @@ export default {
   data() {
     return {
       id: undefined,
-      appellations: [],
-      services: [],
-      plats: [],
       vin: _defaultVin,
     };
   },
   created() {
     this.$bus.$emit('list-of-caracteristic');
-    this.$bus.$on('list-select', this.getListSelect);
+    this.$bus.$on('list-select', this.prepareListSelect);
     if (this.$route.path === "/vins/new" && this.$route.query ) {
       Object.assign(this.vin, this.$route.query);
     } else {
@@ -182,17 +186,22 @@ export default {
     }
 
   },
+  computed : {
+    getListSelect() {
+      return type => (_list.hasOwnProperty(type)) ? _list[type] : [];
+    },
+  },
   methods: {
-    getListSelect([type, list]) {
+    prepareListSelect([type, list]) {
         switch (type) {
           case 'plats':
-            this.plats = list;
+            _list.plats = list;
             break;
           case'services' :
-            this.services = list;
+            _list.services = list;
             return;
           case 'appellations':
-            this.appellations = list;
+            _list.appellations = list;
             return;
           default:
             break;
@@ -207,24 +216,31 @@ export default {
     },
     saveVin() {
       const warnMsg = _ => {
-        this.$bus.$emit("msg-warning", "Certains informations sont manquant !");
+        this.$bus.$emit("msg-warning", "Certains informations sont manquantes !");
       };
 
       this.$validator.validateAll().then(isValid => {
         if(!isValid) return warnMsg();
-        Object.assign(this.vin, {
-          annee : Number.parseInt(this.vin.annee),
-          htva : Number.parseFloat(this.vin.htva),
-          tvac : Number.parseFloat(this.vin.tvac)
-        })
-        if (this.id)
+        this.prepareInput();
+        if (this.id){
           return this.$bus.$emit("vin-modif", this.id, this.vin);
-         else
+         } else {
           return this.$bus.$emit("vin-add", this.vin);
-      }).catch(e => warnMsg)
+         }
+      }).catch(warnMsg)
+
+    },
+
+    prepareInput(){
+      Object.assign(this.vin, {
+        annee : Number.parseInt(this.vin.annee),
+        htva : Number.parseFloat(this.vin.htva),
+        tvac : Number.parseFloat(this.vin.tvac)
+      });
 
     }
-  }
+  },
+
 };
 </script>
 
