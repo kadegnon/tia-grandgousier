@@ -83,11 +83,11 @@
           <label for="vpour">Service</label>
         </div>
         <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vpour')">Pour quelle service </span>
-          <input type="text" id="vpour" name="vpour"  placeholder="Apero, digestif, dessert, ..."
-                v-model="vin.pour"
-                :class="{'form-input': true, 'error': errors.has('vpour') }"
+          <v-select multiple taggable id="vpour" name="vpour"  placeholder="Pour quelle service"
+                v-model="vin.pour" :options="getListSelect('services')"
           >
+          <span slot="no-options">Ooups ! Service inconnu.</span>
+          </v-select>
         </div>
       </div>
       <div class="form-group">
@@ -95,15 +95,9 @@
           <label for="vavec">Plats</label>
         </div>
         <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vavec')"> avec ce vin</span>
-          <!-- <input type="text" id="vavec" name="vavec"  placeholder="Pour quel repas"
-                v-model="vin.avec"
-                :class="{'form-input': true, 'error': errors.has('vavec') }"
-          > -->
-          <v-select multiple taggable
+          <v-select multiple taggable id="vavec" name="vavec" placeholder="Avec quelle plat"
                 v-model="vin.avec" :options="getListSelect('plats')"
           >
-          <span slot="no-options">Ooups ! Plat inconnu.</span>
           <span slot="no-options">Ooups ! Plat inconnu.</span>
           </v-select>
         </div>

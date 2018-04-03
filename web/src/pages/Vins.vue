@@ -70,7 +70,7 @@ export default {
     },
 
     getListOfSelect(){
-      const sendList = (type) => list  => this.$bus.$emit('list-select',[type,list]);
+      const sendList = (type) => list  => this.$bus.$emit('list-select',[type,list.sort()]);
 
       const warnFor = (type) => _ => {
         this.$bus.$emit('msg-error','Impossible de recuperer la liste pour les '+ type);
