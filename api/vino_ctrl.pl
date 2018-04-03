@@ -66,8 +66,8 @@ list_circonstances(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
-				 nez:Nez, bouche:Bouche, plat : Accompagne,
-				 service : Service, annee:An, origine:Orig,
+				 nez:Nez, bouche:Bouche, plats : Accompagne,
+				 services : Service, annee:An, origine:Orig,
 				 description:Descr, appellation:Appel, 
 				 htva:Htva,tvac:Tvac}) :-
 	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
@@ -119,8 +119,8 @@ create_vino(Params, Vino) :-
 				annee:An,		origine:Orig,
 				htva:Htva,		tvac:Tvac,
 				nez:Nez,		bouche:Bouche, 
-				couleur:Couleur,plat:Plats,
-				service:Services, appellation:Appel,
+				couleur:Couleur,plats:Plats,
+				servicea:Services, appellation:Appel,
 				description:Descr
 			}, % Unification partielle
 
