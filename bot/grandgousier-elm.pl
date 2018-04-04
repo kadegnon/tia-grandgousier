@@ -4,9 +4,6 @@
 :- ensure_loaded('./ecrire_reponse').
 :- ensure_loaded('./produire_reponse').
 
-:- use_module(db, [
-    init_vin_db/1
-]).
 
 /* --------------------------------------------------------------------- */
 /*                                                                       */
@@ -42,7 +39,5 @@ grandgousier(Question, L_ligne_reponse) :-
 /*                                                                       */
 /* --------------------------------------------------------------------- */
 
-:- initialization init_vin_db('./db').
-
-# :- grandgousier.
+% :- grandgousier.
 
