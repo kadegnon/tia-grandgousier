@@ -1,6 +1,7 @@
 
 :- module(lire_question,[
-    lire_question/1
+    lire_question/1,
+    lire_question/2
 ]).
 
 
@@ -14,13 +15,22 @@
 
 
 /*****************************************************************************/
-% lire_question(+L_Mots).
+% lire_question(-L_Mots).
 
 lire_question(LMots) :- read_atomics(LMots).
 
-
-
 /*****************************************************************************/
+% lire_question(+Question, -ListOfAtoms).
+% Transform the Question in input to a list of clean atomic terms.
+% e.g. "This is an example !"  ==> [this,is,an,example].
+
+lire_question(Question, LMots) :- 
+	string_lower(Question, String),
+	string_codes(String,CharCodes),
+	clean_string(CharCodes, StringCleaned),
+	extract_atomics(StringCleaned,LMots).
+
+
 % read_atomics(-ListOfAtomics)
 %  Reads a line of input, removes all punctuation characters, and converts
 %  it into a list of atomic terms, e.g., [this,is,an,example].
@@ -31,7 +41,6 @@ read_atomics(ListOfAtomics) :-
 	extract_atomics(Cleanstring,ListOfAtomics).
 
 
-/*****************************************************************************/
 % read_lc_string(-String)
 %  Reads a line of input into String as a list of ASCII codes,
 %  with all capital letters changed to lower case.
@@ -49,7 +58,7 @@ read_lc_string_aux(LChar,[LChar|Rest]) :- read_lc_string(Rest).
 
 
 
-/*****************************************************************************/
+
 % clean_string(+String,-Cleanstring)
 %  removes all punctuation characters from String and return Cleanstring
 
@@ -64,7 +73,7 @@ clean_string([C|[]],[C]).
 
 
 
-/*****************************************************************************/
+
 % my_char_type(+Char,?Type)
 %    Char is an ASCII code.
 %    Type is whitespace, punctuation, numeric, alphabetic, or special.
@@ -81,7 +90,7 @@ my_char_type(Char, punctuation) :- Char >= 123, Char =< 126, !.
 my_char_type(_,special).
 
 
-/*****************************************************************************/
+
 % lower_case(+C,?L)
 %   If ASCII code C is an upper-case letter, then L is the
 %   corresponding lower-case letter. Otherwise L=C.
@@ -94,7 +103,7 @@ lower_case(C,L) :-
 lower_case(C,C).
 
 
-/*****************************************************************************/
+
 % extract_word(+String,-Rest,-Word) (final version)
 %  Extracts the first Word from String; Rest is rest of String.
 %  A word is a series of contiguous letters, or a series
@@ -115,7 +124,7 @@ extract_word_aux(Type,[C|Chars],Rest,[C|RestOfWord]) :-
 extract_word_aux(_,Rest,Rest,[]).   % if previous clause did not succeed.
 
 
-/*****************************************************************************/
+
 % remove_initial_blanks(+X,?Y)
 %   Removes whitespace characters from the
 %   beginning of string X, giving string Y.
@@ -127,7 +136,7 @@ remove_initial_blanks([C|Chars],Result) :-
 remove_initial_blanks(X,X).   % if previous clause did not succeed.
 
 
-/*****************************************************************************/
+
 % digit_value(?D,?V)
 %  Where D is the ASCII code of a digit,
 %  V is the corresponding number.
@@ -144,7 +153,7 @@ digit_value(56, 8).
 digit_value(57, 9).
 
 
-/*****************************************************************************/
+
 % string_to_number(+S,-N)
 %  Converts string S to the number that it
 %  represents, e.g., "234" to 234.
@@ -161,7 +170,7 @@ string_to_number_aux([D|Digits],ValueSoFar,Result) :-
 string_to_number_aux([],Result,Result).
 
 
-/*****************************************************************************/
+
 % string_to_atomic(+String,-Atomic)
 %  Converts String into the atom or number of
 %  which it is the written representation.
@@ -173,7 +182,7 @@ string_to_atomic(String,Atom) :- name(Atom,String).
   % assuming previous clause failed.
 
 
-/*****************************************************************************/
+
 % extract_atomics(+String,-ListOfAtomics) (second version)
 %  Breaks String up into ListOfAtomics
 %  e.g., " abc def  123 " into [abc,def,123].
