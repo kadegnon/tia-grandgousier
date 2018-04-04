@@ -1,9 +1,24 @@
+:- module(ggs,[
+    intro/1,
+    grandgousier/2,
+    grandgousier/0
+    
+]).
+
 :- use_module(library(lists)).
 
 :- ensure_loaded('./lire_question').
 :- ensure_loaded('./ecrire_reponse').
 :- ensure_loaded('./produire_reponse').
 
+
+
+
+intro([
+    'Bonjour, je suis Grandgousier, GGS pour les intimes, conseiller en vin. ', 
+    'En quoi, puis-je vous etre utile ?'
+]).
+    
 
 /* --------------------------------------------------------------------- */
 /*                                                                       */
