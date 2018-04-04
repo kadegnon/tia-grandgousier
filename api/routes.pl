@@ -37,13 +37,15 @@
 :- dynamic   http:location/3.
 
 
-:- http_handler(root(.), say_yello, []).						% /
-:- http_handler(root(help), help_handler, []).					% /help
-:- http_handler(root(list), list_routes_handler, []).			% /list
+/******************************************************
+*
+*	Cree les URL.
+*
+*******************************************************/
 
 
-
-http:location(api, '/api', []). 								%
+http:location(api, '/api', []). 								% /api
+http:location(api_ggs, api(ggs), []). 							% /api/ggs/*
 http:location(api_vino, api(vino), []). 						% /api/vino/*
 http:location(api_appellations,	 api(appellations), []).		% /api/appellations
 http:location(api_circonstances, api(circonstances), []).		% /api/circonstances
@@ -52,7 +54,22 @@ http:location(api_services, 	 api(services), []).			% /api/services
 http:location(api_plats, 		 api(plats), []).				% /api/plats
 
 
-:- http_handler(api(.), say_yello, []).
+
+/******************************************************
+*
+*	Enregistre les handlers --> pour URL.
+*
+*******************************************************/
+
+:- http_handler(root(.), say_yello, []).						% /
+:- http_handler(root(help), help_handler, []).					% /help
+:- http_handler(root(list), list_routes_handler, []).			% /list
+
+:- http_handler(api(.), say_yello, []).							% /api
+
+:- http_handler(api_ggs(intro), intro_handler, []).				% /api/ggs/intro
+:- http_handler(api_ggs(question), question_handler, []).		% /api/ggs/question
+
 :- http_handler(api_vino(.), vino_route_handler, [prefix]).		% /api/vino/*
 :- http_handler(api_appellations(.), appellations_handler,[]).
 :- http_handler(api_circonstances(.), circonstances_handler,[]).
