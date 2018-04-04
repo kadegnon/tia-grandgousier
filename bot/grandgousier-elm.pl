@@ -43,11 +43,17 @@ grandgousier :-
 fin(L) :- member(fin,L).
 
 
-grandgousier(Question, L_ligne_reponse) :-
-    lire_question(Question, L_Mots),
-    produire_reponse(L_Mots,L_ligne_reponse).
+grandgousier(Question, Ligne_reponse) :-
+    lire_question(Question, L_Mots),  
+    produire_reponse(L_Mots, M_ligne_reponse),
+    flatten_reponse(M_ligne_reponse, Ligne_reponse).
    
+flatten_reponse([], []).
+flatten_reponse([As|T], [String | FlatR]) :-
+    atomics_to_string(As, " ", String),
+    flatten_reponse(T, FlatR).
 
+    
 /* --------------------------------------------------------------------- */
 /*                                                                       */
 /*             ACTIVATION DU PROGRAMME APRES COMPILATION                 */

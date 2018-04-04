@@ -29,11 +29,12 @@ produire_reponse([bye],[[merci, de, m, '\'', avoir, consulte]]) :- !.
 produire_reponse([au,revoir],[[merci, de, m, '\'', avoir, consulte]]) :- !.
 
 produire_reponse(L,Rep) :-
-   write(L),
    mclef(M,_), member(M,L),
    clause(regle_rep(M,_,Pattern,Rep),Body),
    match_pattern(Pattern,L),
    call(Body), !.
+
+produire_reponse(_, [['So', comman],['Je', ne, comprends,pas]]) :- !.
 
 
 match_pattern(Pattern,Lmots) :-

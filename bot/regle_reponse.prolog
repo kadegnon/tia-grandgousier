@@ -8,7 +8,7 @@
 :- discontiguous produire_reponse:regle_rep/4.
 
 
-reponse(non,[ non, '.' ]).
+reponse(non, [ non, '.' ]).
 reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
 
 
@@ -30,19 +30,19 @@ lvins_prix_min_max(Min,Max,Lvins) :-
    
 prix_vin_min_max(Vin,P,Min,Max) :-
     db_prix(Vin,P,_),
-    write(P),
     Min =< P, P =< Max.
 
 %% rep_lvins_min_max(+ListVinsId, -Reponse)
 %     Genere la liste de reponses pour les vins convenants.
-rep_lvins_min_max([], [reponse(non)]).
-rep_lvins_min_max([H|T], [ reponse(oui_dispose) | L]) :-
-   rep_litems_vin_min_max([H|T],L).
+rep_lvins_min_max([], [Resp]) :- reponse(non, Resp).
+rep_lvins_min_max([H|T], [ Resp | L]) :-  
+    reponse(oui_dispose, Resp),
+    rep_litems_vin_min_max([H|T],L).
 
 rep_litems_vin_min_max([],[]) :- !.
 rep_litems_vin_min_max([(VinId,P)|L], [Irep|Ll]) :-
    db_vin(VinId,Nom,_,_,Appellation,_),
-   Irep = [ '-  ', Nom, ' (', Appellation, ') à', P, ' EUR' ],
+   Irep = [ '-  ', Nom, '(', Appellation, ') à', P, 'EUR' ],
    rep_litems_vin_min_max(L,Ll).
 
 
