@@ -87,7 +87,7 @@ const getList = url => {
   }
 
 
-  export function sendGGS (question) {
+  export function sendGGSQuestion (question) {
     return Api.get('ggs/', {
       params : {question}
     }).then(res => res.data)

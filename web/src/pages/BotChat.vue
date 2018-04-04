@@ -38,7 +38,7 @@ const createMsg = (msg, type) => {
   return {
     time: Date.now(),
     type, // user | bot
-    content:msg
+    content:msg.trim()
   };
 };
 
@@ -132,11 +132,10 @@ export default {
     sendMsg() {
       const msg = createMsg(this.chatInputMsg, "user");
       this.msgs.push(msg);
-      this.$http
-        .post("bot/", { demande: this.chatInputMsg })
-        .then(res => {
-          this.handleBotResponse(res.data)
+      sendGGSQuestion(msg.content)
+        .then(({reponse}) => {
           this.chatInputMsg = '';
+          this.handleBotResponse(reponse)
           this.$refs.msgChatInput.focus();
         });
     },
