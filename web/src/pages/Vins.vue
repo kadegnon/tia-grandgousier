@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {APIVino as ApiVino} from "@/services/api-vino";
+import * as ApiVino from "@/services/api-vino";
 import VinList from '@/components/VinList';
 
 const API_URL_TO_VINO = 'vino/';

@@ -2,11 +2,8 @@
   <section class="chat">
     <h1>Bot Chat</h1>
     <transition-group name="msg-list" id="msg-list" tag="ul" ref="msgList">
-      <chat-msg
-        v-for="msg in msgs"
-        v-bind:key="msg.time"
-        :msg="msg"
-        class="msg"
+      <chat-msg  class="msg" :key="msg.time"
+        v-for="msg in msgs"  :msg="msg"
       />
     </transition-group>
 
@@ -30,16 +27,17 @@
 </template>
 
 <script>
+import {getGGSIntro, sendGGSQuestion} from "@/services/api-vino";
 import ChatMsg from "@/components/ChatMsg.vue";
 import UserChoice from "@/components/UserChoice.vue";
 import Speech2Text from "@/components/Speech2Text.vue";
 
-const {msgs:defMsgs} = require('@/mocks/chat-msg-intro.json');
+// const {msgs:defMsgs} = require('@/mocks/chat-msg-intro.json');
 
 const createMsg = (msg, type) => {
   return {
     time: Date.now(),
-    type,
+    type, // user | bot
     content:msg
   };
 };
@@ -63,7 +61,7 @@ export default {
     return {
       maxLimit: 150,
       isLoading: true,
-      msgs: defMsgs,
+      msgs: [],
       isUserTyping: false,
       chatInputMsg: "",
       hasChoices: false,
@@ -77,6 +75,12 @@ export default {
         'point'
       ]
     };
+  },
+
+  created () {
+    getGGSIntro().then(intros => {
+      intros.forEach(i => wait(_ => this.msgs.push(createMsg(i, 'bot'))));
+    });
   },
   updated() {
     this.scrollToEnd();

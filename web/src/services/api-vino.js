@@ -9,6 +9,7 @@ import Vue from 'vue';
 // -------------------------------------------------------------------
 // Properties
 const API_URL_TO_VINO = 'vino/';
+const API_URL_TO_GGS = 'ggs/';
 const Api = Vue.http;
 const ApiResoucreToVino = Vue.resource('vino{/id}');
 const Storage = localStorage;
@@ -40,25 +41,56 @@ const getList = url => {
 // -------------------------------------------------------------------
 // Exports
 
+  export function getListAppellations() {
+     return getList("appellations/");
+  }
 
-export const APIVino = {
+  export function getListCouleurs() {
+    return getList("couleurs/") ;
+  }
 
-  getListAppellations : _ =>  getList("appellations/"),
 
-  getListCouleurs : _ => getList("couleurs/") ,
+  export function getListPlats() {
+    return getList("plats/") ;
+  }
 
-  getListPlats : _ => getList("plats/") ,
 
-  getListServices : _ => getList("services/") ,
+  export function getListServices() {
+    return getList("services/") ;
+  }
 
-  getListVins : _ => Api.get("vino/").then(res => res.data),
 
-  getDetailsVin : id => ApiResoucreToVino.get({id}).then(res => res.body),
+  export function getListVins() {
+    return Api.get("vino/").then(res => res.data);
+  }
 
-  addVin : data => Api.post('vino/',data).then(res => res.data),
 
-  updateVin : data => Api.put('vino/',data).then(res => res.data),
+  export function getDetailsVin(id) {
+    return ApiResoucreToVino.get({id}).then(res => res.body);
+  }
 
-  deleteVin : id => ApiResoucreToVino.delete({id}),
 
-};
+  export function addVin(data) {
+    return Api.post('vino/',data).then(res => res.data);
+  }
+
+  export function updateVin(data) {
+    return Api.put('vino/',data).then(res => res.data);
+  }
+
+  export function deleteVin(id) {
+    return ApiResoucreToVino.delete({id});
+  }
+
+  export function getGGSIntro() {
+    return getList('ggs/intro');
+  }
+
+
+  export function sendGGS (question) {
+    return Api.get('ggs/', {
+      params : {question}
+    }).then(res => res.data)
+  }
+
+
