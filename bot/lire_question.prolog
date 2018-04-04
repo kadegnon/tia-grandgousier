@@ -63,13 +63,12 @@ read_lc_string_aux(LChar,[LChar|Rest]) :- read_lc_string(Rest).
 %  removes all punctuation characters from String and return Cleanstring
 
 clean_string([C|Chars],L) :-
-		my_char_type(C,punctuation),
-		clean_string(Chars,L), !.
-	clean_string([C|Chars],[C|L]) :-
-		clean_string(Chars,L), !.
-	clean_string([C|[]],[]) :-
-		my_char_type(C,punctuation), !.
-	clean_string([C|[]],[C]).
+	my_char_type(C,punctuation),
+	clean_string(Chars,L), !.
+clean_string([C|Chars],[C|L]) :- clean_string(Chars,L), !.
+clean_string([C|[]],[]) :-		my_char_type(C,punctuation), !.
+clean_string([C|[]], Chars) :-	my_char_type(C,euro), string_codes("eur", Chars), !.
+clean_string([C|[]],[C]).
 
 
 
