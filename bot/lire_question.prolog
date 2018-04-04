@@ -63,13 +63,13 @@ read_lc_string_aux(LChar,[LChar|Rest]) :- read_lc_string(Rest).
 %  removes all punctuation characters from String and return Cleanstring
 
 clean_string([C|Chars],L) :-
-	my_char_type(C,punctuation),
-	clean_string(Chars,L), !.
-clean_string([C|Chars],[C|L]) :-
-	clean_string(Chars,L), !.
-clean_string([C|[]],[]) :-
-	my_char_type(C,punctuation), !.
-clean_string([C|[]],[C]).
+		my_char_type(C,punctuation),
+		clean_string(Chars,L), !.
+	clean_string([C|Chars],[C|L]) :-
+		clean_string(Chars,L), !.
+	clean_string([C|[]],[]) :-
+		my_char_type(C,punctuation), !.
+	clean_string([C|[]],[C]).
 
 
 
@@ -78,15 +78,16 @@ clean_string([C|[]],[C]).
 %    Char is an ASCII code.
 %    Type is whitespace, punctuation, numeric, alphabetic, or special.
 
-my_char_type(46, period) :- !.
-my_char_type(Char, alphanumeric) :- Char >= 65, Char =< 90, !.
-my_char_type(Char, alphanumeric) :- Char >= 97, Char =< 123, !.
-my_char_type(Char, alphanumeric) :- Char >= 48, Char =< 57, !.
+my_char_type(46, period) :- !.										% .
+my_char_type(Char, alphanumeric) :- Char >= 65, Char =< 90, !.		% A .. Z
+my_char_type(Char, alphanumeric) :- Char >= 97, Char =< 123, !.		% a .. z
+my_char_type(Char, alphanumeric) :- Char >= 48, Char =< 57, !.		% 0 .. 9
 my_char_type(Char, whitespace) :- Char =< 32, !.
-my_char_type(Char, punctuation) :- Char >= 33, Char =< 47, !.
-my_char_type(Char, punctuation) :- Char >= 58, Char =< 64, !.
-my_char_type(Char, punctuation) :- Char >= 91, Char =< 96, !.
-my_char_type(Char, punctuation) :- Char >= 123, Char =< 126, !.
+my_char_type(Char, punctuation) :- Char >= 33, Char =< 47, !. 		% !, ", #, $, %, &, ', (, ), * + , - +
+my_char_type(Char, punctuation) :- Char >= 58, Char =< 64, !.		% : ; < = > ? @
+my_char_type(Char, punctuation) :- Char >= 91, Char =< 96, !.		% [ \ ] ^ _` 
+my_char_type(Char, punctuation) :- Char >= 123, Char =< 126, !.		% { | } ~ 
+my_char_type(8364,euro).
 my_char_type(_,special).
 
 
