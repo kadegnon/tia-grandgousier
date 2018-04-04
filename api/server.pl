@@ -15,19 +15,14 @@
 :- set_setting_default(http:logfile, './api/http_api.log').
 
 
+%% All routes to /api/*
+:- ensure_loaded('./routes').
+
+
+
 % flag to ensure we only start server once
 :- dynamic is_started/0.
 
-
-%% All routes to /api/*
-:- ensure_loaded(api_handler).
-
-
-%% All routes to /*
-:- ensure_loaded(root_handler).
-
-
-:- set_setting_default(http:cors, [*]).
 
 
 

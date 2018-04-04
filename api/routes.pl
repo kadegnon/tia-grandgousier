@@ -1,4 +1,4 @@
-:- module(api_handler,[
+:- module(routes, [
     read_query/2
 ]).
 
@@ -10,7 +10,19 @@
 :- use_module(library(option)).
 
 
-:- use_module(vino_handlers,[
+:- use_module('./handler/root_handlers',[
+	help_handler/1,
+	list_routes_handler/1,
+	say_yello/1
+]).
+	
+
+:- use_module('./handler/ggs_handlers',[
+	intro_handler/1,
+	question_handler/1
+]).
+
+:- use_module('./handler/vino_handlers',[
 	vino_handler/2,
 	appellations_handler/1,
 	circonstances_handler/1,
@@ -23,6 +35,13 @@
 
 :- multifile http:location/3.
 :- dynamic   http:location/3.
+
+
+:- http_handler(root(.), say_yello, []).						% /
+:- http_handler(root(help), help_handler, []).					% /help
+:- http_handler(root(list), list_routes_handler, []).			% /list
+
+
 
 http:location(api, '/api', []). 								%
 http:location(api_vino, api(vino), []). 						% /api/vino/*
@@ -42,20 +61,9 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 :- http_handler(api_plats(.), plats_handler,[]).
 
 
+
 vino_route_handler(Request) :-
 	vino_handler(Request,api_vino(.)).
-
-say_yello(Request) :-
-	member(method(post), Request),
-	cors_enable,
-	http_read_data(Request, List, []),
-	reply_json_dict(List).
-
-
-say_yello(_) :-
-	format('Content-type: text/plain~n~n'),
-	format('Yello World ! ~n ').
-
 
 
 read_query(Request, Dict) :-
