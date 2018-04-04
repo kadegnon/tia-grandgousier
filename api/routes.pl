@@ -67,8 +67,8 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 
 :- http_handler(api(.), say_yello, []).							% /api
 
+:- http_handler(api_ggs(.), question_handler, []).				% /api/ggs/
 :- http_handler(api_ggs(intro), intro_handler, []).				% /api/ggs/intro
-:- http_handler(api_ggs(question), question_handler, []).		% /api/ggs/question
 
 :- http_handler(api_vino(.), vino_route_handler, [prefix]).		% /api/vino/*
 :- http_handler(api_appellations(.), appellations_handler,[]).

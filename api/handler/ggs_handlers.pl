@@ -29,7 +29,7 @@
 intro_handler(_) :-
 	cors_enable,
 	ggs_intro(Intro),
-	reply_json_dict(Intro).				% empty body
+	reply_json_dict(Intro).
 
 
 /******************************************************
@@ -44,25 +44,20 @@ question_handler(Request) :-
 		methods([get,post])
 	]),
 	format('~n').				% empty body
+
 question_handler(Request) :-
 	cors_enable,
-	option(method(Method), Request),
-	ggs(Method, Request).
-
-ggs(get, _).
-
-/*
-ggs(get, Request) :- !,
 	http_parameters(Request, [ 
-		question1(Question, [ optional(true), string ])
+		question(Question, [default("fin")])
 	]),
-	ggs_question(Question, Response)
-	reply_json_dict(Response).
 
-ggs(post, Request) :- !,
-	option(content_length(Len), Request), Len > 0, !,
-	http_read_json_dict(Request, Params,[]),
-	ggs_question(Params.question, Response)
-	reply_json_dict(Response).
+	ggs(Question).
 
-*/
+
+ggs(Question) :-
+	ggs_question(Question, GGSResponse),
+	reply_json_dict(_{'reponse' : GGSResponse}).
+
+ggs(_) :-
+	Err = 'Invalid or Missing parameter (?question)', 
+	reply_json_dict(_{'msg': Err}, [status(400)]).
