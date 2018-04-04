@@ -39,14 +39,14 @@
 
 /******************************************************
 *
-*	Cree les URL.
+*	Creation des URL.
 *
 *******************************************************/
 
 
-http:location(api, '/api', []). 								% /api
-http:location(api_ggs, api(ggs), []). 							% /api/ggs/*
-http:location(api_vino, api(vino), []). 						% /api/vino/*
+http:location(api, 				 '/api', []).					% /api
+http:location(api_ggs, 			 api(ggs), []).					% /api/ggs/*
+http:location(api_vino, 		 api(vino), []).				% /api/vino/*
 http:location(api_appellations,	 api(appellations), []).		% /api/appellations
 http:location(api_circonstances, api(circonstances), []).		% /api/circonstances
 http:location(api_couleurs, 	 api(couleurs), []).			% /api/couleurs

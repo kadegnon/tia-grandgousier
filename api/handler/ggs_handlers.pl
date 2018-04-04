@@ -4,7 +4,6 @@
 
 ]).
 
-:- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/http_cors)).
 :- use_module(library(http/http_parameters)).
@@ -27,7 +26,6 @@
 *
 *******************************************************/
 
-
 intro_handler(_) :-
 	cors_enable,
 	ggs_intro(Intro),
@@ -39,7 +37,6 @@ intro_handler(_) :-
 *	Handler pour requete vers /grandgousier/question
 *
 *******************************************************/
-
 
 question_handler(Request) :-
 	option(method(options), Request), !,

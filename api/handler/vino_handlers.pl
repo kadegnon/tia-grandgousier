@@ -8,7 +8,6 @@
 
 ]).
 
-:- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/http_cors)).
 :- use_module(library(http/http_path)).
