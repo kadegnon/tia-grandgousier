@@ -1,8 +1,8 @@
 :- module(server,[
 	start_server/0,
-	start_server/1,				% +Port
+	start_server/1,		% +Port
 	stop_server/0,
-	stop_server/1,
+	stop_server/1,		% +Port
 	bye/0
 ]).
 :- use_module(library(http/http_dispatch)).
@@ -29,7 +29,7 @@
 %%   default_server_port(-Port).
 %		Port : the port where the server should listen on
 %
-default_server_port(3030).
+default_server_port(8081).
 
 
 %%	start_server.
@@ -51,7 +51,7 @@ start_server :- 	default_server_port(Port), start_server(Port).
 start_server(Port) :-
 	format(user_error, '[SERVER] API starting ... ~n', []),
 	http_server(http_dispatch, [
-		port(Port),		% Where to listen for request 	[3030]
+		port(Port),		% Where to listen for request 	[8081]
 		workers(6),		% Numbers of Workers threads in the pool [6]
 		timeout(180)	% the maximum period of inactivity handling a request [3min]
 	]),
@@ -81,5 +81,3 @@ stop_server(Port) :-
 %  Shut down the server and exit.
 %
 bye :-	stop_server, halt.
-
-
