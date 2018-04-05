@@ -130,6 +130,9 @@ export default {
           .then(_ => {
             this.list.splice(this.list.findIndex(v => v.id == id), 1);
             this.$bus.$emit('msg-warning','Vin supprimé !');
+            if(this.selected == id){
+              this.$router.replace({path: '/vins'});
+            }
           })
           .catch(_ => this.$bus.$emit('msg-error','Erreur lors de la suppression du vin !'));
       }
