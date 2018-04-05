@@ -237,10 +237,13 @@ export default {
     },
 
     prepareInput() {
+      const textToPhrase = txt => txt.split(/[\n\r.]/)
+                                      .filter(s => (s.trim() !== ''));
+
       return Object.assign({}, this.vin, {
-        tvac : Number.parseFloat(this.vin.htva * 1.21),
-        bouche: this.vin.bouche.split(".\n"),
-        description: this.vin.description.split(".\n")
+        // tvac : Number.parseFloat(this.vin.htva * 1.21),
+        bouche: textToPhrase(this.vin.bouche),
+        description: textToPhrase(this.vin.description)
       });
     }
   }
