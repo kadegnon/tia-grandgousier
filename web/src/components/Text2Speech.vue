@@ -34,7 +34,8 @@ export default {
       .filter(v => v.localService);
 
     this.$bus.$on("t2s-speak", this.addText);
-    this.$bus.$on("t2s-cancel", this.cancelSpeak);
+    this.$bus.$on("t2s-stop", this.cancelSpeak);
+    this.$bus.$on("t2s-cancel", this.stop);
 
   },
   beforeDestroy() {
@@ -86,13 +87,10 @@ export default {
 
           this.$bus.$emit("t2s-speaking-" + currentText.id);
           currentText.phrases.forEach((phr,i) => {
-              const text2Speech = this.initSpeaker(phr, i === (nbPhr-1), currentText.id);
-
+            const text2Speech = this.initSpeaker(phr, i === (nbPhr-1), currentText.id);
             Speech.speak(text2Speech);
           });
-          console.log(this.texts.length)
-        }; // Each msg to
-        console.log()
+        }; // Each msg for the Speech
         this.isSpeaking = false;
       } else {
         this.$bus.$emit(

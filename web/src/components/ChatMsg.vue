@@ -41,6 +41,7 @@ export default {
 
     stop() {
       this.$bus.$emit('t2s-cancel',this.msg.time);
+      this.isReading = false
     }
   }
 };
