@@ -120,7 +120,7 @@ create_vino(Params, Vino) :-
 				htva:Htva,		tvac:Tvac,
 				nez:Nez,		bouche:Bouche, 
 				couleur:Couleur,plats:Plats,
-				servicea:Services, appellation:Appel,
+				services:Services, appellation:Appel,
 				description:Descr
 			}, % Unification partielle
 
