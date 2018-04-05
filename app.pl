@@ -4,6 +4,16 @@
 %    % swipl app.pl
 
 :- set_prolog_flag(verbose, silent).
+
+:- use_module('./bot/db.prolog',[
+    init_vin_db/1
+]).
+
 :- use_module('./api/server').
 
-:- initialization server.
+
+
+run :- init_vin_db('./bot/db'), start_server.
+
+
+:- initialization run.

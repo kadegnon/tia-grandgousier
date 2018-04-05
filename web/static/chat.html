@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GrandGousier - Bot Vino</title>
+
+    <style>
+
+
+        .msg {
+            transition: all .5s
+        }
+
+        .msg-loading {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .msg-enter {
+            opacity: 0;
+            transform: translateY(30px)
+        }
+
+        .user-choice-item {
+            transition: all 1s
+        }
+
+        .user_choice-list-enter,
+        .user_choice-list-leave-to {
+            opacity: 0;
+            transform: translateY(30px)
+        }
+
+        .user-choice-list-item {
+            margin-right: 40px;
+            display: block;
+            text-align: right;
+            color: #db0bc9
+        }
+
+        .msg {
+            list-style: none;
+            margin-bottom: 5px
+        }
+
+        .msg span {
+            padding: 10px;
+            display: inline-block;
+            background: aquamarine;
+            position: relative;
+            border-radius: .5rem;
+            max-width: 80%
+        }
+
+        .msg-bot {
+            text-align: left
+        }
+
+        .msg-bot span:before {
+            content: "";
+            display: block;
+            position: absolute;
+            border: 8px solid transparent;
+            border-right-color: #f0f8ff;
+            left: -16px;
+            bottom: 8px
+        }
+
+        .msg-user {
+            text-align: right
+        }
+
+        .msg-user span {
+            background:#88f76c
+        }
+
+        .msg-user span:after {
+            content: "";
+            display: block;
+            position: absolute;
+            border: 8px solid transparent;
+            border-left-color: #4fd42d;
+            right: -16px;
+            bottom: 8px
+        }
+
+        .msg-bot+.msg-user,
+        .msg-user+.msg-bot {
+            margin-top: 10px
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="chat">
+            <ul>
+                <li class="msg msg-bot">
+                    <span>Bonjour, Je suis GrandGousier, un bot conseiller en vin.</span>
+                </li>
+                <li class="msg msg-bot msg-enter-to">
+                    <span>Du Bordeaux Rouge au Champagnes Grand cru, je m'y connais !</span>
+                </li>
+                <li class="msg msg-bot msg-enter-to">
+                    <span>Puis-vous conseiller un bon vin ?</span>
+                </li>
+                <li class="msg msg-user">
+                    <span>Okay, Je suis Pierrot, </span>
+                </li>
+                <li class="msg msg-bot">
+                    <span>Cool, mucho encantado Pierrot !.</span>
+                </li>
+                <li class="msg msg-bot msg-enter-to">
+                    <span>I'm the BEST bot in the World ! :-D</span>
+                </li>
+            </ul>
+
+            <div class="user-choice">
+                <a class="user-choice-list-item user-choice-list-item">
+                    Puis-vous conseiller un bon vin ?
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

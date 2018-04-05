@@ -74,17 +74,12 @@ plat('poisson au four').
 plat('plateau de fromages').
 plat('plat asiatique viande sauce onctueuse').
 plat('plat asiatique viande sauce aigre-douce').
-plat('menthe').
-plat('plat asiatique viande parfumé coriandre').
-plat('plat asiatique viande épicé:curry-piment-gingembre').
+plat('plat asiatique viande parfumé').
+plat('plat asiatique viande épicé').
 plat('pizzas').
 plat('pierrade').
 plat('perdreau').
-plat('gruyère)').
-plat('beaufort').
-plat('pâtes pressées (comté').
-plat('pâtes').
-plat('st nectaire)').
+plat('pâtes pressées').
 plat('pâte pressée cuite').
 plat('pain de viande').
 plat('paella').
@@ -132,24 +127,19 @@ plat('desserts aux fruits rouges et-ou noirs').
 plat('desserts aux fruits exotiques').
 plat('cuisses de grenouilles').
 plat('crustacés').
-plat('vacherin').
-plat('brie').
-plat('croûtes fleuries ').
+plat('croûtes fleuries').
 plat('croquette de crevette').
 plat('crevettes').
 plat('crèpes salées').
 plat('couscous').
-plat('chevreuil)').
+plat('chevreuil').
 plat('biche').
 plat('côtes grillées marcassin').
 plat('côte de porc').
 plat('coq au vin').
 plat('confit (oie ou canard)').
 plat('cochon de lait').
-plat('sanglier)').
-plat('marcassin').
-plat('biche').
-plat('civet (lièvre').
+plat('civet').
 plat('choucroute').
 plat('chicons au gratin').
 plat('chevreuil').

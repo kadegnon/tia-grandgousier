@@ -1,10 +1,10 @@
-% Export vino predicats
+﻿% Export vino predicats
 :- module(vino_ctrl,[
+	list_circonstances/1,
 	list_appellations/1,
 	list_couleurs/1,
 	list_services/1,
 	list_plats/1,
-	list_circonstances/1,
     create_vino/2,	%% C
     list_vino/2,	%% R
     update_vino/2,	%% U
@@ -66,17 +66,15 @@ list_circonstances(List) :-
 %	Donne le vino correspondant à l'ID.
 %
 get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
-				 pour : ListServices, avec : ListAccomps,
-				 nez:Nez, bouche:Bouche,
-				 description:Descr, annee:An, origine:Orig,
-				 appellation:Appel,htva:Htva,tvac:Tvac}) :-
-	% spy(vino),
-	vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
-	prix(Id, Htva, Tvac),
-	findall(Service, pour(Id,Service), ListServices),
-	findall(Accompagne, accompagne(Id, Accompagne), ListAccomps),
-	nez(Id, Nez),	bouche(Id, Bouche), description(Id, Descr),
-
+				 nez:Nez, bouche:Bouche, plats : Accompagne,
+				 services : Service, annee:An, origine:Orig,
+				 description:Descr, appellation:Appel, 
+				 htva:Htva,tvac:Tvac}) :-
+	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
+	db_prix(Id, Htva, Tvac),
+	db_description(Id, Descr),
+	db_nez(Id, Nez), db_bouche(Id, Bouche),	
+	db_avec(Id, Accompagne), db_pour(Id, Service) ,
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 
@@ -86,7 +84,7 @@ get(Id, Location, _{id:Id, nom:Nom, url:Url,couleur:Couleur,
 %
 get_short(Id, Location, _{id:Id, nom:Nom, url:Url, couleur:Couleur,
 						annee:An, origin:Orig,appellation:Appel}) :-
-	vin(Id, Nom,An, Orig, Appel,Couleur),		% Recup le vin dynamikement
+	db_vin(Id, Nom,An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
 
@@ -114,66 +112,44 @@ list_vino(Params, List) :-
 %	Ajoute un nouveau Vino dans la 'DB'.
 %
 create_vino(Params, Vino) :-
-	uuid(Uuid), 						% Genere un Uuid
-	split_string(Uuid,"-","",[First|_]),	% Garde ke la 1er partie de l'Uuid
-	atom_string(Id,First),
+	
+	generate_id(Id), 
+	
 	Params >:< _{nom:Nom, 
 				annee:An,		origine:Orig,
 				htva:Htva,		tvac:Tvac,
 				nez:Nez,		bouche:Bouche, 
-				couleur:Couleur,plat:Plats,
-				service:Services, appellation:Appel,
+				couleur:Couleur,plats:Plats,
+				services:Services, appellation:Appel,
 				description:Descr
 			}, % Unification partielle
 
-	set_def_value(Nom,  ""),
-	set_def_value(Orig, ""),
-	set_def_value(Couleur, ""),
+	set_def_value(Nom,  ''),
+	set_def_value(Orig, ''),
+	set_def_value(Couleur, ''),
 	set_def_value(An, 	2017),
 	set_def_value(Htva, 0.0),
 	set_def_value(Tvac, 0.0),
-	set_def_value(Appel, ""),
-	string_to_atoms(Nez, Nez_Atoms),
-	string_to_atoms(Bouche, Bouche_Atoms),
-	string_to_atoms(Services, Serv_Atoms),
-	string_to_atoms(Plats, Plats_Atoms),
-	assert_vin(Id, Nom, An, Orig, Appel, Couleur),   % Cree && Persiste le Vino
-	assert_prix(Id,Htva,Tvac), assert_bouche(Id,Bouche_Atoms),	assert_nez(Id,Nez_Atoms),
-	assert_pour(Id, Serv_Atoms), assert_accompagne(Id, Plats_Atoms), create_description(Id,Descr),
+	set_def_value(Appel, ''),
+	set_def_value(Services,	[]),
+	set_def_value(Plats, 	[]),
+	set_def_value(Descr, 	[]),
+	set_def_value(Bouche, 	[]),
+	set_def_value(Nez, []),
+
+	create_vin(Id, Nom, An, Orig, Appel, Couleur),   % Cree && Persiste le Vino
+	create_prix(Id,Htva,Tvac), create_bouche(Id,Bouche),	create_nez(Id,Nez),
+	create_pour(Id, Services), create_avec(Id, Plats), create_description(Id,Descr),
+	
 	get(Id, Params.url, Vino).
 
+generate_id(Id) :- 
+	uuid(Uuid), 						% Genere un Uuid
+	split_string(Uuid,"-","",[First|_]),	% Garde ke la 1er partie de l'Uuid
+	atom_string(Id,First).
 
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
 set_def_value(_, _).
-
-%%%
-% str_atoms(ListStr,+ListAtoms).
-%
-str_atoms([],[]).
-str_atoms([H|T], [A|S]) :- atom_string(A,H), str_atoms(T,S).
-
-
-%%%
-% create_pour(+VinId,+ListService).
-%
-create_pour(VinId, Text) :- str_atoms(Text,As), assert_pour(VinId, As).  
-create_pour(_, []).
-
-%%%
-% create_accompagne(+VinId,+ListPlat).
-%
-create_accompagne(VinId, Text) :- str_atoms(Text,As), assert_accompagne(VinId,As), 
-create_accompagne(_, []).
-
-
-%%%
-% create_description(+VinId,+Text).
-%
-is_empty_string(X) :-  (X == " "; X == ""),!.
-create_description(VinId, Text) :- 
-	str_atoms(Text,As),
-	assert_description(VinId, As), 
-create_description(_, []).
 
 
 %%%
@@ -199,7 +175,10 @@ update_vino(Params, NVino) :-
 %
 delete_vino(Params, DVino) :-
 	get(Params.id, Params.url ,DVino),
-	retractall_prix(Params.id,_,_),
-	retractall_bouche(Params.id,_),
-	retractall_nez(Params.id,_),
-	retractall_vino(Params.id,_,_,_,_,_,_,_).
+	delete_prix(Params.id),
+	delete_pour(Params.id),
+	delete_avec(Params.id),
+	delete_bouche(Params.id),
+	delete_nez(Params.id),
+	delete_description(Params.id),
+	delete_vin(Params.id).

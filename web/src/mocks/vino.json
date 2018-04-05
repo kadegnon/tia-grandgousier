@@ -1,0 +1,79 @@
+{
+  "routes" : [
+  {
+    "method": "GET",
+    "url": "vino/",
+    "response": [
+      {
+        "annee":2017,
+        "appellation":"",
+        "id":"a39631a8",
+        "nom":"nope",
+        "origin":"Bx",
+        "url":"http://192.168.1.42:3030/api/vino/a39631a8"
+      },
+      {
+        "annee":1817,
+        "appellation":"bordeaux",
+        "id":"b224d6f6",
+        "nom":"Tour Mocky",
+        "origin":"Fr",
+        "url":"http://192.168.1.42:3030/api/vino/b224d6f6"
+      },
+      {
+        "annee":1897,
+        "appellation":"",
+        "id":"cf590a5e",
+        "nom":"Fourchaumes",
+        "origin":"UNamur",
+        "url":"http://192.168.1.42:3030/api/vino/cf590a5e"
+      },
+      {
+        "annee":1952,
+        "appellation":"",
+        "id":"c18775cc",
+        "nom":"Bouquet du jardin",
+        "origin":"Poil",
+        "url":"http://192.168.1.42:3030/api/vino/c18775cc"
+      },
+      {
+        "annee":1768,
+        "appellation":"",
+        "id":"ef9e2abe",
+        "nom":"Bois de pellouse",
+        "origin":"CZ",
+        "url":"http://192.168.1.42:3030/api/vino/ef9e2abe"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "vino/a39631a8",
+    "response": {
+        "annee":2017,
+        "appellation":"",
+        "description":"",
+        "htva":45.42,
+        "id":"a39631a8",
+        "nom":"nope",
+        "origine":"Bx",
+        "tvac":0.0,
+        "url":"http://192.168.1.42:3030/api/vino/a39631a8"
+      }
+  },
+  {
+    "method": "GET",
+    "url": "vino/b224d6f6",
+    "response": {
+        "annee":1817,
+        "appellation":"bordeaux",
+        "description":"",
+        "htva":0.0,
+        "id":"b224d6f6",
+        "nom":"Tour Mocky",
+        "origine":"",
+        "tvac":0.0,
+        "url":"http://192.168.1.42:3030/api/vino/b224d6f6"
+      }
+  }
+]}

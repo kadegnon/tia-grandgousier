@@ -15,10 +15,10 @@ couleur('blanche').
 %
 
 appellation(bordeaux).
-appellation('vallée du rhone et de Languedoc').
+appellation('vallée du Rhone et de Languedoc').
 appellation(beaujolais).
 appellation(bourgogne).
-appellation('Val de Loire').
-appellation('vins Blanc').
-appellation('Champagne').
+appellation('val de Loire').
+appellation('vins blanc').
+appellation('champagne').
 appellation(cognac).

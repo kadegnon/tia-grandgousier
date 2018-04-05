@@ -1,0 +1,19 @@
+{
+  "routes" : [
+    {
+      "name" : "BOT - Grandgousier",
+      "to" : {
+        "name": "bot"
+      }
+    }
+  ,{
+      "name" : "Vins",
+      "to" : "/vins"
+    }
+  ,{
+      "name" : "Settings",
+      "to" : "/settings"
+    }
+
+  ]
+}

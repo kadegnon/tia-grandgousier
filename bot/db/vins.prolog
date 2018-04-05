@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% vin(Id,Nom,millesime,Origine,Appellation,Couleur).
-%% prix(VinId,Prix).
+%% prix(VinId,PrixHtva, PrixTvac).
 %% bouche(VinId,Text).
 %% nez(VinId,Atom_Text).
 %% description(VinId,Text).
@@ -9,7 +9,9 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-assert(vin(beaumes_de_venise_2015,'Beaumes-de-Venise', 2015,'Venise','Bordeaux','Rosé')).
+
+assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru', 2013, 'Normandie','Les Chaboeufs','Blanc')).
+assert(vin(beaumes_de_venise_2015,'Beaumes de Venise', 2015, 'Venise','bordeaux','Rosé')).
 assert(prix(beaumes_de_venise_2015, 12.34, 87.45)).
 assert(nez(beaumes_de_venise_2015,[intensement, parfume])).
 assert(bouche(beaumes_de_venise_2015,
@@ -23,7 +25,9 @@ assert(description(beaumes_de_venise_2015,[
   'grand vin'
 ])).
 
-
-assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru', 2013, 'Normandie','Les Chaboeufs','Blanc')).
+assert(description(les_chaboeufs_2013,[ 
+  'Sur une parcelle escarpée, pierreuse',
+  'Superbe'
+])).
 assert(prix(les_chaboeufs_2013, 42.35, 45.76)).
 
