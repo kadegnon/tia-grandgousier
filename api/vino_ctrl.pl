@@ -115,9 +115,8 @@ create_vino(Params, Vino) :-
 	
 	generate_id(Id), 
 	
-	Params >:< _{nom:Nom, 
+	Params >:< _{nom:Nom, 		htva:Htva,
 				annee:An,		origine:Orig,
-				htva:Htva,		tvac:Tvac,
 				nez:Nez,		bouche:Bouche, 
 				couleur:Couleur,plats:Plats,
 				services:Services, appellation:Appel,
@@ -128,14 +127,14 @@ create_vino(Params, Vino) :-
 	set_def_value(Orig, ''),
 	set_def_value(Couleur, ''),
 	set_def_value(An, 	2017),
-	set_def_value(Htva, 0.0),
-	set_def_value(Tvac, 0.0),
+	set_def_value(Htva, 1),
+	is(Tvac, Htva * 1.21),
 	set_def_value(Appel, ''),
 	set_def_value(Services,	[]),
 	set_def_value(Plats, 	[]),
 	set_def_value(Descr, 	[]),
 	set_def_value(Bouche, 	[]),
-	set_def_value(Nez, []),
+	set_def_value(Nez, 		[]),
 
 	create_vin(Id, Nom, An, Orig, Appel, Couleur),   % Cree && Persiste le Vino
 	create_prix(Id,Htva,Tvac), create_bouche(Id,Bouche),	create_nez(Id,Nez),

@@ -49,12 +49,12 @@
 			appelation:atom,
 			couleur:atom
 		),
-		prix(id:atom, htva:float,tvac:float),
-		pour(id:atom,service:list),
-		accompagne(id:atom,plat:list),
-		nez(id:atom,text:list),
-		bouche(id:atom,text:list),
-		description(id:atom,text:list).
+		prix(id:atom, htva:number, tvac:number),
+		pour(id:atom, service:list),
+		accompagne(id:atom, plat:list),
+		nez(id:atom, text:list),
+		bouche(id:atom, text:list),
+		description(id:atom, text:list).
 
 
 init_vin_db(Dir) :-

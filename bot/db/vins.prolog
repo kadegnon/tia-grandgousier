@@ -1,10 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% vin(Id,Nom,millesime,Origine,Appellation,Couleur).
-%% prix(VinId,PrixHtva, PrixTvac).
-%% bouche(VinId,Text).
-%% nez(VinId,Atom_Text).
-%% description(VinId,Text).
+%% vin(Id, Nom, Millesime, Origine, Appellation, Couleur).
+%%
+%% prix(VinId, PrixHtva, PrixTvac).
+%%
+%% bouche(VinId, Atom_List).
+%%
+%% nez(VinId, Atom_List).
+%%
+%% description(VinId, Atom_List).
 %%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,4 +34,6 @@ assert(description(les_chaboeufs_2013,[
   'Superbe'
 ])).
 assert(prix(les_chaboeufs_2013, 42.35, 45.76)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
