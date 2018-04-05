@@ -97,7 +97,7 @@ export default {
       } else {
         this.$bus.$emit(
           "msg-info",
-          "En cours de lecture !\n Un peu de patience,"
+          "En cours de lecture !\n Un peu de patience ..."
         );
       }
     },

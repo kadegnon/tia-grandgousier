@@ -1,6 +1,11 @@
 <template>
   <section class="chat">
-    <h1>Bot Chat</h1>
+    <a @click="autoSpeak = !autoSpeak;" href="javascript:;" class="switch-btn-speak">
+      <span v-if="autoSpeak">Mute 🔇</span>
+      <span v-else title="Ecouter la reponse du bot">Auto-Speak 🔊</span>
+    </a>
+    <!-- <swich-button :swich="autoSpeak" :labels="{checked: 'Foo', unchecked: 'Bar'}"/> -->
+    <h1>Bot Chat </h1>
     <transition-group name="msg-list" id="msg-list" tag="ul" ref="msgList">
       <chat-msg  class="msg" :key="msg.time"
         v-for="msg in msgs"  :msg="msg"
@@ -64,7 +69,8 @@ export default {
       msgs: [],
       isUserTyping: false,
       chatInputMsg: "",
-      hasChoices: false,
+      autoSpeak: true,
+      lastMsgSpeak : -1,
       choice: {},
       commands : [
         'efface',
@@ -91,6 +97,11 @@ export default {
     }
   },
   methods: {
+    speak (newMsg) {
+      if(!this.autoSpeak)
+        return;
+      newMsg.forEach(msg => this.$bus.$emit('t2s-speak', msg));
+    },
     scrollToEnd(){
       var chatMsgList = this.$el.querySelector("#msg-list");
       chatMsgList.scrollTop = chatMsgList.scrollHeight;
@@ -133,21 +144,25 @@ export default {
       const msg = createMsg(this.chatInputMsg, "user");
       this.msgs.push(msg);
       sendGGSQuestion(msg.content)
-        .then(({reponse}) => {
+        .then(({reponse}) =>   this.handleBotResponse(reponse))
+        .then(newMsg => {
           this.chatInputMsg = '';
-          this.handleBotResponse(reponse)
           this.$refs.msgChatInput.focus();
+          this.speak(newMsg);
         });
     },
 
     handleBotResponse(response) {
       if (Array.isArray(response)) {
-        response.forEach(res => {
-          const msg = createMsg(res, "bot");
-          wait(_ => this.msgs.push(msg));
+        return response.map(res => {
+          const msg = res.trim();
+          wait(_ => this.msgs.push(createMsg(msg, "bot")));
+          return msg;
         });
       } else {
-        this.msgs.push(createMsg(response, "bot"));
+        const msg = response.trim();
+        this.msgs.push(createMsg(msg, "bot"));
+        return [msg];
       }
     }
   }
@@ -155,11 +170,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 /*.chat {
   max-width: 650px;
   margin: 0 auto;
 }*/
+
+.switch-btn-speak {
+  float: left;
+  transition: all .2s;
+}
 
 .msg-loading {
   text-align: left;
@@ -222,6 +242,8 @@ export default {
 .msg-list-leave-active {
   opacity: 0;
 }
+
+
 
 /* .msg-list-enter .msg-list-container,
 .msg-list-leave-active .msg-list-container {
