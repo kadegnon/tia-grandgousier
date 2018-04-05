@@ -11,7 +11,7 @@ import vSelect from 'vue-select';
 // Mine
 const ChatMsg = require('./ChatMsg.vue');
 const UserChoice = require('./UserChoice.vue');
-const AutoComplete = require('./AutoComplete.vue');
+const SwitchButton = require('./SwitchButton.vue');
 const Speech2Text = require('./Speech2Text.vue');
 const Text2Speech = require('./Text2Speech.vue');
 
@@ -28,11 +28,12 @@ const VinDetails = require('./VinDetails.vue');
 export default {
   ChatMsg,
   UserChoice,
-  AutoComplete,
+  SwitchButton,
   NavLinks,
   VinList,
   VinDetails,
   Speech2Text,
   Text2Speech,
+
   'v-select' : vSelect
 };
