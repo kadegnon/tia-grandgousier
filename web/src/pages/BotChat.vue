@@ -43,7 +43,7 @@ const createMsg = (msg, type) => {
   return {
     time: Date.now(),
     type, // user | bot
-    content:msg.trim()
+    content:msg.trim().replace(/[0-9]+[.]/ig, n => n.substr(0, n.length -1) + ',')
   };
 };
 
@@ -155,14 +155,14 @@ export default {
     handleBotResponse(response) {
       if (Array.isArray(response)) {
         return response.map(res => {
-          const msg = res.trim();
-          wait(_ => this.msgs.push(createMsg(msg, "bot")));
-          return msg;
+          const resp = createMsg(res, "bot");
+          wait(_ => this.msgs.push(resp));
+          return resp.content;
         });
       } else {
-        const msg = response.trim();
-        this.msgs.push(createMsg(msg, "bot"));
-        return [msg];
+        const resp = createMsg(response, "bot");
+        this.msgs.push(resp);
+        return [resp.content];
       }
     }
   }
