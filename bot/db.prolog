@@ -34,11 +34,13 @@
 :- use_module(library(persistency)).
 :- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier
 
+:- load_files([
+	'./db/service',
+	'./db/plat',
+	'./db/appellation',
+	'./db/circonstance'
+], [if(not_loaded)]).
 
-:-ensure_loaded('./db/service').
-:-ensure_loaded('./db/plat').
-:-ensure_loaded('./db/appellation').
-:-ensure_loaded('./db/circonstance').
 
 
 :- persistent
