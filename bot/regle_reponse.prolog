@@ -19,6 +19,7 @@ reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
 
 
 :- load_files([
-	'./rep/selon_intervalle_prix'
+	'./rep/selon_intervalle_prix',
+	'./rep/selon_criteres'
 
 ], [if(not_loaded)]).
