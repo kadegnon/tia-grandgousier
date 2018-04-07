@@ -65,7 +65,7 @@ list_vino(Params, List) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	create(+Dict,+Location, -Vino)
+%	create(+Vino, -NVino.Id).
 %
 %	Ajoute un nouveau Vino dans la 'DB'.
 %
@@ -98,13 +98,27 @@ create_vino(Params, Id) :-
 	create_vin(Id, Nom, An, Orig, Appel, Couleur),
 	create_prix(Id,Htva,Tvac), create_bouche(Id,Bouche),	create_nez(Id,Nez),
 	create_pour(Id, Services), create_avec(Id, Plats), create_description(Id,Descr).
+
 	
+%	generate_id(-Id).
+%
+%	Genere suite d'atome aleatoire.
+%
 generate_id(Id) :- 
 	uuid(Uuid), 						% Genere un Uuid
 	split_string(Uuid,"-","",[First|_]),	% Garde ke la 1er partie de l'Uuid
 	atom_string(Id,First).
 
+
+%	set_def_value(+TermA, +TermB).
+%
+%	Essayie d'unifier TermA avec TermB.
+%
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
+set_def_value([H|T], Default) :- 
+	set_def_value(H, Default),
+	set_def_value(T, Default).
+set_def_value([],  _).
 set_def_value(_, _).
 
 
