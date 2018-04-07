@@ -14,18 +14,7 @@
 :- use_module(library(option)).
 
 
-:- use_module('../vino_ctrl',[
-	list_circonstances/1,
-	list_appellations/1,
-	list_couleurs/1,
-	list_services/1,
-	list_plats/1,
-	list_vino/2,
-    create_vino/2,
-    update_vino/2,
-    delete_vino/2,
-	inject_url/3
-]).
+:- use_module('../vino_ctrl').
 
 :-use_module('../routes',[
 	read_params/2
@@ -62,7 +51,8 @@ vino(get, Params, Url) :- !,
 	reply_json_dict(List).
 
 vino(post, Params, Url) :- !,
-	create_vino(Params, NVino),
+	create_vino(Params, VinoID),
+	get_short_vino_vino(VinoID, NVino),
 	inject_url(NVino, Url, Vino),
 	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet en JSON 
 

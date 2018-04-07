@@ -7,6 +7,7 @@
 	list_plats/1,
     create_vino/2,	%% C
     list_vino/2,	%% R
+    get_vino/2,	get_short_vino/2,	%% R
     update_vino/2,	%% U
     delete_vino/2,	%% D
 	inject_url/3
@@ -17,11 +18,13 @@
 :-ensure_loaded('../bot/db.prolog').
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	get(+Vino.Id, -Vino)
 %
 %	Donne le vino correspondant à l'ID.
 %
-get(Id, _{id:Id, nom:Nom,couleur:Couleur,
+get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 				 nez:Nez, bouche:Bouche, plats : Accompagne,
 				 services : Service, annee:An, origine:Orig,
 				 description:Descr, appellation:Appel, 
@@ -31,33 +34,16 @@ get(Id, _{id:Id, nom:Nom,couleur:Couleur,
 	db_description(Id, Descr),
 	db_nez(Id, Nez), db_bouche(Id, Bouche),	
 	db_avec(Id, Accompagne), db_pour(Id, Service).
-	% directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
 
-
-%	get_short(+Vino.Id, -Vino)
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	get_short_vino(+Vino.Id, -Vino)
 %
 %	Donne un version court du vino correspondant à l'ID.
 %
-get_short(Id, _{id:Id, nom:Nom, couleur:Couleur,
+get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
 				annee:An, origin:Orig,appellation:Appel}) :-
 	db_vin(Id, Nom,An, Orig, Appel,Couleur).
-	%directory_file_path(Location, Id, Url). % Contruit l'URL vers le détail de ce vino
-
-
-%	inject_url(+Vino, +Url, -NVino).
-%
-%	Injecte l'URL pour obtenir ce vino.
-%
-inject_url([],_,[]).
-
-inject_url([Vino | RestVinos], Url, [NVino | NRestVinos]) :- 
-	inject_url(Vino, Url, NVino), 
-	inject_url(RestVinos, Url, NRestVinos), !. 
-
-inject_url(Vino, Url, NVino) :-
-	Vino >:< _{id:Id},
-	directory_file_path(Url, Id, Location),
-	NVino = Vino.put(url, Location). 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,15 +52,16 @@ inject_url(Vino, Url, NVino) :-
 %	Donne le vin correspondant à l'ID specifié
 %
 list_vino(Params, Vino) :-
-	nonvar(Params.id), !, get(Params.id, Vino).
+	nonvar(Params.id), !, get_vino(Params.id, Vino).
 
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	list(+Vino.Id, -ListVino)
 %
 %	Donne tout les vinos correspondants à l'ID.
 %
 list_vino(Params, List) :-
-	findall(Vino, get_short(Params.id, Vino), List).
+	findall(Vino, get_short_vino(Params.id, Vino), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,7 +69,7 @@ list_vino(Params, List) :-
 %
 %	Ajoute un nouveau Vino dans la 'DB'.
 %
-create_vino(Params, Vino) :-
+create_vino(Params, Id) :-
 	
 	generate_id(Id), 
 	
@@ -110,10 +97,8 @@ create_vino(Params, Vino) :-
 	% Cree && Persiste le Vino
 	create_vin(Id, Nom, An, Orig, Appel, Couleur),
 	create_prix(Id,Htva,Tvac), create_bouche(Id,Bouche),	create_nez(Id,Nez),
-	create_pour(Id, Services), create_avec(Id, Plats), create_description(Id,Descr),
+	create_pour(Id, Services), create_avec(Id, Plats), create_description(Id,Descr).
 	
-	get_short(Id, Vino).
-
 generate_id(Id) :- 
 	uuid(Uuid), 						% Genere un Uuid
 	split_string(Uuid,"-","",[First|_]),	% Garde ke la 1er partie de l'Uuid
@@ -122,6 +107,23 @@ generate_id(Id) :-
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
 set_def_value(_, _).
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	inject_url(+Vino, +Url, -NVino).
+%
+%	Injecte l'URL pour obtenir ce vino.
+%
+inject_url([],_,[]).
+
+inject_url([Vino | RestVinos], Url, [NVino | NRestVinos]) :- 
+	inject_url(Vino, Url, NVino), 
+	inject_url(RestVinos, Url, NRestVinos), !. 
+
+inject_url(Vino, Url, NVino) :-
+	Vino >:< _{id:Id},
+	directory_file_path(Url, Id, Location),
+	NVino = Vino.put(url, Location). 
 
 %%%
 % filter_list(+Predicat,+List,-FilteredList).
