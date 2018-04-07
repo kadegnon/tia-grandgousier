@@ -98,7 +98,7 @@ list_vino(Params, Vino) :-
 	nonvar(Params.id), !, get(Params.id, Params.url, Vino).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	list(+Vino.Id, -Vino)
+%	list(+Vino.Id, -ListVino)
 %
 %	Donne tout les vinos correspondants à l'ID.
 %

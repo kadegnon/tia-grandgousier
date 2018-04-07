@@ -27,7 +27,7 @@
 ]).
 
 :-use_module('../routes',[
-	read_query/2
+	read_params/2
 ]).
 
 :- set_setting(http:cors, [*]).
@@ -48,7 +48,7 @@ vino_handler(Request,_) :-
 	]),
 	format('~n').				% empty body
 vino_handler(Request,Uri) :-
-	read_query(Request, Query),
+	read_params(Request, Query),
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
