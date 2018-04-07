@@ -35,6 +35,10 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 	db_nez(Id, Nez), db_bouche(Id, Bouche),	
 	db_avec(Id, Accompagne), db_pour(Id, Service).
 
+get_vino(Id,_) :- 
+	atomic_concat('Vino not found with Id:', Id, Msg),
+	throw((not_found, Msg)).
+
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	get_short_vino(+Vino.Id, -Vino)
@@ -43,7 +47,7 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 %
 get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
 				annee:An, origin:Orig,appellation:Appel}) :-
-	db_vin(Id, Nom,An, Orig, Appel,Couleur).
+	!, db_vin(Id, Nom, An, Orig, Appel,Couleur).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

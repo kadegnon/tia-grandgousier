@@ -23,6 +23,9 @@
 :- set_setting(http:cors, [*]).
 
 
+error_msg(not_found, 404).
+
+
 
 /******************************************************
 *
@@ -42,31 +45,49 @@ vino_handler(Request,Uri) :-
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	vino(Method, Params, Url).
+	gspy(send_error_reply),
+	catch(
+		(vino(Method, Params, Url, Response),reply_json_dict(Response)),
+		E,(send_error_reply(E))
+	)
+	.
 
 
-vino(get, Params, Url) :- !,
+vino(get, Params, Url, List) :- !,
 	Params >:< _{id:VinoID}, 
 	list_vino(VinoID, Vinos),
-	inject_url(Vinos, Url, List),
-	reply_json_dict(List).
+	inject_url(Vinos, Url, List).
 
-vino(post, Params, Url) :- !,
+vino(post, Params, Url, Vino) :- !,
 	create_vino(Params, VinoID),
 	get_short_vino_vino(VinoID, NVino),
-	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet en JSON 
+	inject_url(NVino, Url, Vino).
 
-vino(put, Params, Url) :- !,
+vino(put, Params, Url, Vino) :- !,
 	update_vino(Params, NVino),
-	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet sous forme de JSON 
+	inject_url(NVino, Url, Vino).
 
-vino(delete, Params, _) :- !,
-	delete_vino(Params.id, DVino),
-	reply_json_dict(DVino).
+vino(delete, Params, _, DVino) :- !,
+	delete_vino(Params.id, DVino).
 
+	
+send_error_reply((Err_Type,Err_Msg)) :-
+	error_msg(Err_Type, Code),!,
+	reply_json_dict(_{
+		error: Err_Msg,
+		status: Code
+	}, [
+		status(Code)
+	]).
 
+send_error_reply(_) :-
+	reply_json_dict(_{
+		error: 'Kaboum !!! Internal Error',
+		status: 500,
+		cause : 'api'
+	}, [
+		status(500)
+	]).
 /******************************************************
 *
 *	Handler pour requete vers les listings 
