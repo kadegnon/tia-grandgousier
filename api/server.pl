@@ -49,7 +49,7 @@ start_server :- 	default_server_port(Port), start_server(Port).
 %	Starts the server on the provided port.
 %
 start_server(Port) :-
-	format(user_error, '[SERVER] API starting ... ~n', []),
+	format(user_error, '[SERVER] API starting on ~w ... ~n', [Port]),
 	http_server(http_dispatch, [
 		port(Port),		% Where to listen for request 	[8081]
 		workers(6),		% Numbers of Workers threads in the pool [6]

@@ -46,7 +46,8 @@ vino_handler(Request,Uri) :-
 
 
 vino(get, Params, Url) :- !,
-	list_vino(Params, Vinos),
+	Params >:< _{id:VinoID}, 
+	list_vino(VinoID, Vinos),
 	inject_url(Vinos, Url, List),
 	reply_json_dict(List).
 
@@ -62,7 +63,7 @@ vino(put, Params, Url) :- !,
 	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet sous forme de JSON 
 
 vino(delete, Params, _) :- !,
-	delete_vino(Params, DVino),
+	delete_vino(Params.id, DVino),
 	reply_json_dict(DVino).
 
 

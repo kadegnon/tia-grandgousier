@@ -51,8 +51,8 @@ get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
 %
 %	Donne le vin correspondant à l'ID specifié
 %
-list_vino(Params, Vino) :-
-	nonvar(Params.id), !, get_vino(Params.id, Vino).
+list_vino(Id, Vino) :-
+	nonvar(Id), !, get_vino(Id, Vino).
 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -60,8 +60,8 @@ list_vino(Params, Vino) :-
 %
 %	Donne tout les vinos correspondants à l'ID.
 %
-list_vino(Params, List) :-
-	findall(Vino, get_short_vino(Params.id, Vino), List).
+list_vino(Id, List) :-
+	findall(Vino, get_short_vino(Id, Vino), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,11 +69,11 @@ list_vino(Params, List) :-
 %
 %	Ajoute un nouveau Vino dans la 'DB'.
 %
-create_vino(Params, Id) :-
+create_vino(Vino, Id) :-
 	
 	generate_id(Id), 
 	
-	Params >:< _{nom:Nom, 		htva:Htva,
+	Vino >:< _{nom:Nom, 		htva:Htva,
 				annee:An,		origine:Orig,
 				nez:Nez,		bouche:Bouche, 
 				couleur:Couleur,plats:Plats,
@@ -150,9 +150,9 @@ filter_list(Pred, List, Filtered) :- exclude(Pred, List, Filtered).
 %
 %	Modifie un Vino dans la 'DB'.
 %
-update_vino(Params, NVino) :-
-	delete_vino(Params, DVino),
-	New = DVino.put(Params),
+update_vino(Vino, NVino) :-
+	delete_vino(Vino.id, DVino),
+	New = DVino.put(Vino),
 	create_vino(New, NVino).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,15 +160,15 @@ update_vino(Params, NVino) :-
 %
 %	Supprime un  Vino dans la 'DB'.
 %
-delete_vino(Params, DVino) :-
-	get(Params.id, Params.url ,DVino),
-	delete_prix(Params.id),
-	delete_pour(Params.id),
-	delete_avec(Params.id),
-	delete_bouche(Params.id),
-	delete_nez(Params.id),
-	delete_description(Params.id),
-	delete_vin(Params.id).
+delete_vino(Id, DVino) :-
+	get_short_vino(Id ,DVino),
+	delete_prix(Id),
+	delete_pour(Id),
+	delete_avec(Id),
+	delete_bouche(Id),
+	delete_nez(Id),
+	delete_description(Id),
+	delete_vin(Id).
 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
