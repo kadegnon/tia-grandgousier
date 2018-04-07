@@ -23,7 +23,8 @@
 	list_vino/2,
     create_vino/2,
     update_vino/2,
-    delete_vino/2
+    delete_vino/2,
+	inject_url/3
 ]).
 
 :-use_module('../routes',[
@@ -48,31 +49,31 @@ vino_handler(Request,_) :-
 	]),
 	format('~n').				% empty body
 vino_handler(Request,Uri) :-
-	read_params(Request, Query),
+	read_params(Request, Params),
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	Params = Query.put(url,Url),
-	vino(Method, Params).
+	vino(Method, Params, Url).
 
 
-vino(get, Params) :- !,
-	list_vino(Params, List),
+vino(get, Params, Url) :- !,
+	list_vino(Params, Vinos),
+	inject_url(Vinos, Url, List),
 	reply_json_dict(List).
 
-vino(post, Params) :- !,
+vino(post, Params, Url) :- !,
 	create_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet en JSON 
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet en JSON 
 
-vino(put, Params) :- !,
+vino(put, Params, Url) :- !,
 	update_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet sous forme de JSON 
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet sous forme de JSON 
 
-vino(delete, Params) :- !,
+vino(delete, Params, _) :- !,
 	delete_vino(Params, DVino),
 	reply_json_dict(DVino).
-
-
 
 
 /******************************************************
