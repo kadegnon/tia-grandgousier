@@ -9,8 +9,8 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vnom')">Le nom est requis.</span>
           <input type="text" id="vnom" name="vnom" placeholder="Nom de vin"
-                v-model="vin.nom" v-validate="'required'"
-                :class="{'form-input': true, 'error': errors.has('vname') }"
+                v-model.lazy.trim="vin.nom" v-validate="'required'"
+                :class="{'form-input': true, 'error': errors.has('vnom') }"
           >
         </div>
       </div>
@@ -22,7 +22,7 @@
           <span class="text-danger" v-show="errors.has('vappel')">L'appellation est requis</span>
           <select id="vappel" name="vappel"
                 :class="{'form-input select': true, 'error': errors.has('vappel') }"
-                v-model="vin.appellation" v-validate="'required'"
+                v-model.lazy="vin.appellation" v-validate="'required'"
           >
             <template v-for="(appel,index) in getListSelect('appellations')" >
               <option :key="index" :value="appel.value" :selected="id && appel.value == vin.appellation">{{appel.name}}</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="form-control">
           <input type="text" id="vorigine" name="vorigine" placeholder="Origine de vin"
-                v-model="vin.origine" :class="{'form-input': true, 'error': errors.has('vorigine') }"
+                v-model.lazy.trim="vin.origine" :class="{'form-input': true, 'error': errors.has('vorigine') }"
           >
         </div>
       </div>
@@ -48,7 +48,7 @@
           <span class="text-danger" v-show="errors.has('vannee')">L'année est requis</span>
           <input type="number" id="vannee" name="vannee" step="1" placeholder="Année d'embouteillage du vin"
                 :class="{'form-input': true, 'error': errors.has('vannee') }"
-                v-model="vin.annee"  v-validate="'required|numeric|min:4|max:4'"
+                v-model.lazy.number="vin.annee"  v-validate="'required|numeric|min:4|max:4'"
                 v-bind:max="new Date().getFullYear()+1"
           >
         </div>
@@ -59,24 +59,13 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vhtva')">Le prix HTVA est requis</span>
-          <input type="number" id="vhtva" name="vhtva"  step="0.01" placeholder="Prix H.T.V.A."
+          <input type="number" id="vhtva" name="vhtva" step="0.01" min="0" placeholder="Prix H.T.V.A."
                 :class="{'form-input': true, 'error': errors.has('vhtva') }"
-                v-model="vin.htva" v-validate="'required|decimal:2'"
+                v-model.lazy.number="vin.htva" v-validate="'required|decimal'"
           >
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="vtvac">T.V.A.C.</label>
-        </div>
-        <div class="form-control">
-          <span class="text-danger" v-show="errors.has('vtvac')">Le prix TVAC est requis</span>
-          <input type="number" id="vtvac" name="vtvac"  step="0.01" placeholder="Prix T.V.A.C."
-                v-model="vin.tvac" v-validate="'required|decimal:2'"
-                :class="{'form-input': true, 'error': errors.has('vtvac') }"
-          >
-        </div>
-      </div>
+
       <hr style="width:110%;margin:15px 0;">
       <div class="form-group">
         <div class="form-label">
@@ -109,7 +98,7 @@
         </div>
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vnez')">Un nez pour ce vin</span>
-          <v-select multiple push-tags taggable id="vnez" name="vnez"  v-model="vin.nez" >
+          <v-select multiple push-tags taggable id="vnez" name="vnez"  v-model.lazy="vin.nez" >
             <span slot="no-options">Aucun nez pour ce vin.</span>
           </v-select>
         </div>
@@ -121,7 +110,7 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vbouche')">La bouche pour ce vin</span>
           <textarea id="vbouche" name="vbouche" placeholder="La bouche du vin." style="height:125px"
-              v-model="vin.bouche"   v-validate="'required'"
+              v-model.lazy.trim="vin.bouche"   v-validate="'required'"
               :class="{'form-input': true, error: errors.has('vbouche')}" ></textarea>
         </div>
       </div>
@@ -132,7 +121,7 @@
         <div class="form-control">
           <span class="text-danger" v-show="errors.has('vdescrip')">La description est requis</span>
           <textarea id="vdescrip" name="vdescrip" placeholder="Description du vin" style="height:150px"
-              v-model="vin.description"   v-validate="'required'"
+              v-model.lazy.trim="vin.description"   v-validate="'required'"
               :class="{'form-input': true, /*'error': errors.has('vdescrip') */}" ></textarea>
         </div>
       </div>
@@ -155,9 +144,8 @@ const _list = {
 const _defaultVin = ({
   nom: '', annee: 2017, origine: '',
   description: '', appellation: undefined,
+  nez : [], bouche : '',  htva: 0.1,
   services : [], plats : [],
-  nez : [], bouche : '',
-  htva: 0.1,  tvac: 0.2
 });
 export default {
   name: "vinDetails",
@@ -227,7 +215,8 @@ export default {
       }
     },
     saveVin() {
-      const warnMsg = _ => {
+      const warnMsg = e => {
+        console.log(e);
         this.$bus.$emit(
           "msg-warning",
           "Certains informations sont manquantes !"
@@ -245,16 +234,16 @@ export default {
             return this.$bus.$emit("vin-add", vinInput);
           }
         })
-        .catch(warnMsg);
     },
 
     prepareInput() {
+      const textToPhrase = txt => txt.split(/[\n\r.]/)
+                                      .filter(s => (s.trim() !== ''));
+
       return Object.assign({}, this.vin, {
-        annee: Number.parseInt(this.vin.annee),
-        htva: Number.parseFloat(this.vin.htva),
-        tvac: Number.parseFloat(this.vin.tvac),
-        bouche: this.vin.bouche.split("\n"),
-        description: this.vin.description.split("\n")
+        // tvac : Number.parseFloat(this.vin.htva * 1.21),
+        bouche: textToPhrase(this.vin.bouche),
+        description: textToPhrase(this.vin.description)
       });
     }
   }

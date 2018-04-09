@@ -1,9 +1,9 @@
 :- module(db,[
 	init_vin_db/1,
-	service/1,
-	plat/1,
-	appellation/1,
-	circonstance/1,
+	service/2,
+	plat/2,
+	appellation/2,
+	circonstance/2,
 	couleur/1,
 
 	create_vin/6,
@@ -34,11 +34,13 @@
 :- use_module(library(persistency)).
 :- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier
 
+:- load_files([
+	'./db/service',
+	'./db/plat',
+	'./db/appellation',
+	'./db/circonstance'
+], [if(not_loaded)]).
 
-:-ensure_loaded('./db/service').
-:-ensure_loaded('./db/plat').
-:-ensure_loaded('./db/appellation').
-:-ensure_loaded('./db/circonstance').
 
 
 :- persistent
@@ -49,12 +51,12 @@
 			appelation:atom,
 			couleur:atom
 		),
-		prix(id:atom, htva:float,tvac:float),
-		pour(id:atom,service:list),
-		accompagne(id:atom,plat:list),
-		nez(id:atom,text:list),
-		bouche(id:atom,text:list),
-		description(id:atom,text:list).
+		prix(id:atom, htva:number, tvac:number),
+		pour(id:atom, service:list),
+		accompagne(id:atom, plat:list),
+		nez(id:atom, text:list),
+		bouche(id:atom, text:list),
+		description(id:atom, text:list).
 
 
 init_vin_db(Dir) :-

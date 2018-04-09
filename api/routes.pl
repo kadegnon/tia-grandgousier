@@ -1,5 +1,5 @@
 :- module(routes, [
-    read_query/2
+    read_params/2
 ]).
 
 :- use_module(library(http/http_dispatch)).
@@ -83,7 +83,7 @@ vino_route_handler(Request) :-
 	vino_handler(Request,api_vino(.)).
 
 
-read_query(Request, Dict) :-
+read_params(Request, Dict) :-
 	option(content_length(Len), Request), Len > 0, !,
 	http_read_json_dict(Request, Dict0,[
 		value_string_as(atom)
@@ -92,9 +92,9 @@ read_query(Request, Dict) :-
 		->  Dict = Dict0.put(id,ID)
 		;   Dict = Dict0
 	).
-read_query(Request, _{id:ID}) :-
+read_params(Request, _{id:ID}) :-
 	request_path_id(Request, ID), !.
-read_query(_, empty{id:_}).
+read_params(_, empty{id:_}).
 
 request_path_id(Request, ID) :-
 	option(path_info(ID), Request).

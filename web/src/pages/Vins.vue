@@ -19,8 +19,6 @@
 import * as ApiVino from "@/services/api-vino";
 import VinList from '@/components/VinList';
 
-const API_URL_TO_VINO = 'vino/';
-
 export default {
   name: "vins",
   components : {
@@ -72,7 +70,7 @@ export default {
       const sendList = (type) => list  => this.$bus.$emit('list-select',[type,list.sort()]);
 
       const warnFor = (type) => _ => {
-        this.$bus.$emit('msg-error','Impossible de recuperer la liste pour les '+ type);
+        this.$bus.$emit('msg-error','Impossible d\'obtenir la liste pour les '+ type);
       }
 
       let typeList = 'appellations';
@@ -95,7 +93,10 @@ export default {
     getDetailsVin(id){
       ApiVino.getDetailsVin(id)
         .then(details => this.$bus.$emit('vin-details#'+id, details))
-        .catch( _ => this.$bus.$emit('msg-error','Impossible de recuperer le vin '+ id));
+        .catch( _ => {
+          this.$bus.$emit('msg-error','Impossible d\'obtenir les details du vin !');
+          this.$router.replace({path: '/vins'});
+        });
     },
 
     add(newVin){
@@ -105,7 +106,7 @@ export default {
           this.list.push(vin);
           console.log(this.list);
           this.$bus.$emit('msg-success',vin.nom + ' ajouté!');
-          this.$router.replace({path: '/vins'});
+          this.$router.push({path: '/vins'});
         })
         .catch(_ => this.$bus.$emit('msg-error','Erreur lors de l\'ajout de \''+newVin.nom+'\''));
     },
@@ -130,6 +131,9 @@ export default {
           .then(_ => {
             this.list.splice(this.list.findIndex(v => v.id == id), 1);
             this.$bus.$emit('msg-warning','Vin supprimé !');
+            if(this.selected == id){
+              this.$router.replace({path: '/vins'});
+            }
           })
           .catch(_ => this.$bus.$emit('msg-error','Erreur lors de la suppression du vin !'));
       }
@@ -138,7 +142,7 @@ export default {
     getListVins () {
       ApiVino.getListVins()
         .then(vins => this.list = vins)
-        .catch(_ => this.$bus.$emit('msg-error','Impossible de recuperer le catalogue des vins'));
+        .catch(_ => this.$bus.$emit('msg-error','Impossible d\'obtenir le catalogue des vins'));
     }
   }
 };

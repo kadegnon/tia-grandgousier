@@ -14,23 +14,16 @@
 :- use_module(library(option)).
 
 
-:- use_module('../vino_ctrl',[
-	list_circonstances/1,
-	list_appellations/1,
-	list_couleurs/1,
-	list_services/1,
-	list_plats/1,
-	list_vino/2,
-    create_vino/2,
-    update_vino/2,
-    delete_vino/2
-]).
+:- use_module('../vino_ctrl').
 
 :-use_module('../routes',[
-	read_query/2
+	read_params/2
 ]).
 
 :- set_setting(http:cors, [*]).
+
+
+error_msg(not_found, 404).
 
 
 
@@ -48,31 +41,57 @@ vino_handler(Request,_) :-
 	]),
 	format('~n').				% empty body
 vino_handler(Request,Uri) :-
-	read_query(Request, Query),
+	read_params(Request, Params),
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	Params = Query.put(url,Url),
-	vino(Method, Params).
+  % gspy(vino),
+	catch(
+		(vino(Method, Params, Url, Response),reply_json_dict(Response)),
+		E,(send_error_reply(E))
+	).
 
 
-vino(get, Params) :- !,
-	list_vino(Params, List),
-	reply_json_dict(List).
+vino(get, Params, Url, List) :- !,
+	Params >:< _{id:VinoID}, 
+	list_vino(VinoID, Vinos),
+	inject_url(Vinos, Url, List).
 
-vino(post, Params) :- !,
-	create_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet en JSON 
+vino(post, Params, Url, Vino) :- !,
+	create_vino(Params, VinoID),
+	get_short_vino(VinoID, NVino),
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple en JSON 
 
-vino(put, Params) :- !,
-	update_vino(Params, NVino),
-	reply_json_dict(NVino).		% Renvoie le nouveau Vino complet sous forme de JSON 
+vino(put, Params, Url) :- !,
+	update_vino(Params, NVinoID),
+	get_short_vino(NVinoID, NVino),
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
 
-vino(delete, Params) :- !,
-	delete_vino(Params, DVino),
+vino(delete, Params, _) :- !,
+	delete_vino(Params.id, DVino),
 	reply_json_dict(DVino).
 
 
+	
+send_error_reply((Err_Type,Err_Msg)) :-
+	error_msg(Err_Type, Code),!,
+	reply_json_dict(_{
+		error: Err_Msg,
+		status: Code
+	}, [
+		status(Code)
+	]).
+
+send_error_reply(_) :-
+	reply_json_dict(_{
+		error: 'Kaboum !!! Internal Error',
+		status: 500,
+		cause : 'api'
+	}, [
+		status(500)
+	]).
 
 
 /******************************************************
@@ -88,25 +107,35 @@ vino(delete, Params) :- !,
 appellations_handler(_) :-
 	cors_enable,
 	list_appellations(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 circonstances_handler(_) :-
 	cors_enable,
 	list_circonstances(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 couleurs_handler(_) :-
 	cors_enable,
 	list_couleurs(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 services_handler(_) :-
 	cors_enable,
 	list_services(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 plats_handler(_) :-
 	cors_enable,
 	list_plats(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
+list_2_obj([], []).
+list_2_obj([(Name, Val) | T], [Obj | T_2_Obj]) :-
+	Obj = _{name:Name, value:Val},
+	list_2_obj(T, T_2_Obj).
+list_2_obj(_, []).
