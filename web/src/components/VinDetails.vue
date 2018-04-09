@@ -25,7 +25,7 @@
                 v-model="vin.appellation" v-validate="'required'"
           >
             <template v-for="(appel,index) in getListSelect('appellations')" >
-              <option :key="index" :value="appel" :selected="id && appel == vin.appellation">{{appel}}</option>
+              <option :key="index" :value="appel.value" :selected="id && appel.value == vin.appellation">{{appel.name}}</option>
             </template>
           </select>
         </div>
@@ -84,7 +84,7 @@
         </div>
         <div class="form-control">
           <v-select multiple taggable id="vservices" name="vservices"  placeholder="Pour quelle service"
-                v-model="vin.services" :options="getListSelect('services')"
+                v-model="vin.services" label="name" :options="getListSelect('services')"
           >
           <span slot="no-options">Ooups ! Service inconnu.</span>
           </v-select>
@@ -97,7 +97,7 @@
         <div class="form-control">
           <v-select id="vplats" name="vplats" placeholder="Avec quelle plat"
                 multiple taggable
-                v-model="vin.plats" :options="getListSelect('plats')"
+                v-model="vin.plats" label="name" :options="getListSelect('plats')"
           >
           <span slot="no-options">Ooups ! Plat inconnu.</span>
           </v-select>
