@@ -50,7 +50,7 @@ question_handler(Request) :-
 	http_parameters(Request, [ 
 		question(Question, [default("fin")])
 	]),
-
+	gspy(ggs),
 	ggs(Question).
 
 

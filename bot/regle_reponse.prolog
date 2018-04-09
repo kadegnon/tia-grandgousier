@@ -9,10 +9,10 @@
 
 
 
-
 reponse(non, [ non, '.' ]).
 reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
-
+reponse(non_dispose, [non , ',', je , ne,dispose, pas ,de, vins]).
+	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).

@@ -18,22 +18,21 @@ regle_rep(vins, 22, [ quels, vins, de, Origine, avezvous ], Rep) :-
 
 	
 %% lvins_selon_appellation(+Appellation, -Lvins).
-%%    Liste les vins selon l' appellation
+%
+%	Liste les vins selon l' appellation
 lvins_selon_appellation(Appel, Lvins) :-
-    findall( (Vin,Nom,An,Appel) , get_appellation_vins(Appel,Vin,Nom, An), Lvins).
+    findall( (Vin,Nom,An,Appel) , db_vin(Id,Nom,An,_,Appel,_), Lvins).
 	
-get_appellation_vins(Appel,Id,Nom, An) :-	db_vin(Id,Nom,An,_,Appel,_).
-
 	
 %% lvins_selon_appellation(+Appellation, -Lvins).
-%%    Liste les vins selon l' appellation
+%
+%	Liste les vins selon l' appellation
 lvins_selon_origin(Origin, Lvins) :-
-    findall( (Vin,Nom,An,Origin) , get_origine_vins(Origin,Vin,Nom,An), Lvins).
-
-get_origine_vins(Origin,Id,Nom, An) :-	db_vin(Id,Nom,An,Origin,_,_).
+    findall( (Vin,Nom,An,Origin) , db_vin(Id,Nom,An,Origin,_,_), Lvins).
 
 
-%% rep_lvins_min_max(+ListVinsId, -Reponse)
+%% rep_lvins_min_max(+ListVinsId, -Reponse).
+%
 %     Genere la liste de reponses pour les vins convenants.
 rep_lvins_criteres([], [Resp]) :- reponse(non, Resp).
 rep_lvins_criteres([H|T], [ Resp | L]) :-  
@@ -45,8 +44,8 @@ rep_litems_selon_criteres([(VinId,Nom,An,Critere)|L], [Irep|Ll]) :-
 	db_prix(VinId,Prix,_),
 	db_nez(VinId,Nez), atomics_to_string(Nez, " ", Mots),
 	append(
-		[ '- \t ', Nom,'de', An,',', Critere ],
-		[ 'un', 'vin', Mots, 'à', Prix, 'EUR'],
+		[ '- \t ', Nom,'de', An,','],
+		[ 'un', 'vin', de , , Critere, Mots, 'à', Prix, 'EUR'],
 		Irep
 	),
 	rep_litems_selon_criteres(L,Ll).
