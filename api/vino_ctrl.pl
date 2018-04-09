@@ -29,8 +29,7 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 				 services : Service, annee:An, origine:Orig,
 				 description:Descr, appellation:Appel, 
 				 htva:Htva,tvac:Tvac}) :-
-	db_vin(Id, Nom, An, Orig, A,Couleur),		% Recup le vin dynamikement
-	appellation(Appel, A),
+	db_vin(Id, Nom, An, Orig, Appel,Couleur),		% Recup le vin dynamikement
 	db_prix(Id, Htva, Tvac),
 	db_description(Id, Descr),
 	db_nez(Id, Nez), db_bouche(Id, Bouche),	

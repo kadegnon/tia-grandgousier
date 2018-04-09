@@ -42,7 +42,7 @@ vino_handler(Request,Uri) :-
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	gspy(vino),
+	% gspy(vino),
 	vino(Method, Params, Url).
 
 

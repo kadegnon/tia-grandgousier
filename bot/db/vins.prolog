@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru', 2013, 'bourgogne_rouge','les_chaboeufs','blanc')).
+assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru', 2013,'Normandie' ,'bourgogne_rouge','blanc')).
 assert(vin(beaumes_de_venise_2015,'Beaumes de Venise', 2015, 'venise','rhone_rouge','rouge')).
 assert(prix(beaumes_de_venise_2015, 12.34, 87.45)).
 assert(nez(beaumes_de_venise_2015,[intensement, 'parfumé'])).
