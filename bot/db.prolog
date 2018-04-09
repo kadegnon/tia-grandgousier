@@ -1,9 +1,9 @@
 :- module(db,[
 	init_vin_db/1,
-	service/1,
-	plat/1,
-	appellation/1,
-	circonstance/1,
+	service/2,
+	plat/2,
+	appellation/2,
+	circonstance/2,
 	couleur/1,
 
 	create_vin/6,

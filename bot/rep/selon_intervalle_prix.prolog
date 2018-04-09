@@ -23,15 +23,19 @@ prix_vin_min_max(Vin,P,Min,Max) :-
 
 %% rep_lvins_min_max(+ListVinsId, -Reponse)
 %     Genere la liste de reponses pour les vins convenants.
-rep_lvins_min_max([], [Resp]) :- reponse(non, Resp).
+rep_lvins_min_max([], [Resp]) :- 
+	reponse(non_dispose, R),
+	append(R, [dans, cet, intervalle, de, prix,'.'], Resp).
+	
 rep_lvins_min_max([H|T], [ Resp | L]) :-  
     reponse(oui_dispose, Resp),
     rep_litems_vin_min_max([H|T],L).
 
 rep_litems_vin_min_max([],[]) :- !.
 rep_litems_vin_min_max([(VinId,P)|L], [Irep|Ll]) :-
-   db_vin(VinId,Nom,_,_,Appellation,_),
-   Irep = [ '-  ', Nom, '(', Appellation, ') à', P, 'EUR' ],
+   db_vin(VinId,Nom,_,_,A,_),
+   appellation(Appel, A),
+   Irep = [ '-  ', Nom, '(', Appel, ') à', P, 'EUR' ],
    rep_litems_vin_min_max(L,Ll).
 
 

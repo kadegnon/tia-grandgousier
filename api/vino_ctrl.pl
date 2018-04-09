@@ -33,7 +33,8 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 	db_prix(Id, Htva, Tvac),
 	db_description(Id, Descr),
 	db_nez(Id, Nez), db_bouche(Id, Bouche),	
-	db_avec(Id, Accompagne), db_pour(Id, Service).
+	db_avec(Id, Accompagne),
+	db_pour(Id, Service).
 
 get_vino(Id,_) :- 
 	atomic_concat('Vino not found with Id:', Id, Msg),
@@ -47,7 +48,8 @@ get_vino(Id,_) :-
 %
 get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
 				annee:An, origin:Orig,appellation:Appel}) :-
-	!, db_vin(Id, Nom, An, Orig, Appel,Couleur).
+	!, db_vin(Id, Nom,An, Orig, A,Couleur),
+	appellation(Appel, A).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,7 +183,7 @@ delete_vino(Id, DVino) :-
 %	Donne tous les appellations.
 %
 list_appellations(List) :-
-	findall(Appel,appellation(Appel),List).
+	findall( (Appel,Val),appellation(Appel, Val),List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,7 +192,7 @@ list_appellations(List) :-
 %	Donne tous les couleurs possibles pour un vin.
 %
 list_couleurs(List) :- 
-	findall(Col, couleur(Col), List).
+	findall( (Col,Val), couleur(Col, Val), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -199,7 +201,7 @@ list_couleurs(List) :-
 %	Donne tous les services possibles pour se servir un vin.
 %
 list_services(List) :- 
-	findall(Serv, service(Serv), List).
+	findall( (Serv,Val), service(Serv, Val), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -208,7 +210,7 @@ list_services(List) :-
 %	Donne tous les plats possibles pour accompagner un vin.
 %
 list_plats(List) :- 
-	findall(Plat, plat(Plat), List).
+	findall((Plat,Val), plat(Plat,Val), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,5 +219,5 @@ list_plats(List) :-
 %	Donne tous les circonstances possibles pour boire un vin.
 %
 list_circonstances(List) :- 
-	findall(Cir, circonstance(Cir), List).
+	findall( (Cir,Val), circonstance(Cir,Val), List).
 

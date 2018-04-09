@@ -45,12 +45,11 @@ vino_handler(Request,Uri) :-
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	gspy(send_error_reply),
+  % gspy(vino),
 	catch(
 		(vino(Method, Params, Url, Response),reply_json_dict(Response)),
 		E,(send_error_reply(E))
-	)
-	.
+	).
 
 
 vino(get, Params, Url, List) :- !,
@@ -60,15 +59,20 @@ vino(get, Params, Url, List) :- !,
 
 vino(post, Params, Url, Vino) :- !,
 	create_vino(Params, VinoID),
-	get_short_vino_vino(VinoID, NVino),
-	inject_url(NVino, Url, Vino).
+	get_short_vino(VinoID, NVino),
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple en JSON 
 
-vino(put, Params, Url, Vino) :- !,
-	update_vino(Params, NVino),
-	inject_url(NVino, Url, Vino).
+vino(put, Params, Url) :- !,
+	update_vino(Params, NVinoID),
+	get_short_vino(NVinoID, NVino),
+	inject_url(NVino, Url, Vino),
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
 
-vino(delete, Params, _, DVino) :- !,
-	delete_vino(Params.id, DVino).
+vino(delete, Params, _) :- !,
+	delete_vino(Params.id, DVino),
+	reply_json_dict(DVino).
+
 
 	
 send_error_reply((Err_Type,Err_Msg)) :-
@@ -88,6 +92,8 @@ send_error_reply(_) :-
 	}, [
 		status(500)
 	]).
+
+
 /******************************************************
 *
 *	Handler pour requete vers les listings 
@@ -101,25 +107,35 @@ send_error_reply(_) :-
 appellations_handler(_) :-
 	cors_enable,
 	list_appellations(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 circonstances_handler(_) :-
 	cors_enable,
 	list_circonstances(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 couleurs_handler(_) :-
 	cors_enable,
 	list_couleurs(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 services_handler(_) :-
 	cors_enable,
 	list_services(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 plats_handler(_) :-
 	cors_enable,
 	list_plats(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
+list_2_obj([], []).
+list_2_obj([(Name, Val) | T], [Obj | T_2_Obj]) :-
+	Obj = _{name:Name, value:Val},
+	list_2_obj(T, T_2_Obj).
+list_2_obj(_, []).
