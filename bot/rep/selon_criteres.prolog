@@ -34,7 +34,9 @@ lvins_selon_origin(Origin, Lvins) :-
 %% rep_lvins_min_max(+ListVinsId, -Reponse).
 %
 %     Genere la liste de reponses pour les vins convenants.
-rep_lvins_criteres([], [Resp]) :- reponse(non, Resp).
+
+%% rep_lvins_criteres([],[aucun]).
+rep_lvins_criteres([], [Resp, [aucun]]) :- reponse(non_dispose, Resp).
 rep_lvins_criteres([H|T], [ Resp | L]) :-  
     reponse(oui_dispose, Resp),
     rep_litems_selon_criteres([H|T],L).
