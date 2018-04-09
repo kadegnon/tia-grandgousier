@@ -21,14 +21,14 @@ regle_rep(vins, 22, [ quels, vins, de, Origine, avezvous ], Rep) :-
 %
 %	Liste les vins selon l' appellation
 lvins_selon_appellation(Appel, Lvins) :-
-    findall( (Vin,Nom,An,Appel) , db_vin(Id,Nom,An,_,Appel,_), Lvins).
+    findall( (Id,Nom,An,Appel) , db_vin(Id,Nom,An,_,Appel,_), Lvins).
 	
 	
 %% lvins_selon_appellation(+Appellation, -Lvins).
 %
 %	Liste les vins selon l' appellation
 lvins_selon_origin(Origin, Lvins) :-
-    findall( (Vin,Nom,An,Origin) , db_vin(Id,Nom,An,Origin,_,_), Lvins).
+    findall( (Id,Nom,An,Origin) , db_vin(Id,Nom,An,Origin,_,_), Lvins).
 
 
 %% rep_lvins_min_max(+ListVinsId, -Reponse).
@@ -45,7 +45,7 @@ rep_litems_selon_criteres([(VinId,Nom,An,Critere)|L], [Irep|Ll]) :-
 	db_nez(VinId,Nez), atomics_to_string(Nez, " ", Mots),
 	append(
 		[ '- \t ', Nom,'de', An,','],
-		[ 'un', 'vin', de , , Critere, Mots, 'à', Prix, 'EUR'],
+		[ 'un', 'vin', de , Critere, Mots, 'à', Prix, 'EUR'],
 		Irep
 	),
 	rep_litems_selon_criteres(L,Ll).

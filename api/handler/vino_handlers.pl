@@ -42,7 +42,7 @@ vino_handler(Request,Uri) :-
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
-	% gspy(vino),
+	gspy(vino),
 	vino(Method, Params, Url).
 
 
@@ -82,25 +82,35 @@ vino(delete, Params, _) :- !,
 appellations_handler(_) :-
 	cors_enable,
 	list_appellations(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 circonstances_handler(_) :-
 	cors_enable,
 	list_circonstances(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 couleurs_handler(_) :-
 	cors_enable,
 	list_couleurs(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 services_handler(_) :-
 	cors_enable,
 	list_services(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
 plats_handler(_) :-
 	cors_enable,
 	list_plats(List),
-	reply_json_dict(List).
+	list_2_obj(List,Obj),
+	reply_json_dict(Obj).
 
+list_2_obj([], []).
+list_2_obj([(Name, Val) | T], [Obj | T_2_Obj]) :-
+	Obj = _{name:Name, value:Val},
+	list_2_obj(T, T_2_Obj).
+list_2_obj(_, []).

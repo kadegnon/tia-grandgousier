@@ -3,21 +3,22 @@
 *	Base de Connaissance
 ****************************************/
 %%
-%   circonstance(+atom).
+%   circonstance(Nom, NomAtom).
 %
-circonstance('repas de pâques').
-circonstance('repas de noel').
-circonstance('walking dinner').
-circonstance('soirée de mariage - dansante').
-circonstance('repas de mariage').
-circonstance('reception de mariage').
-circonstance('banquet').
-circonstance('communion').
-circonstance('buffet varié').
-circonstance('cocktails').
-circonstance('desserts').
-circonstance('repas gastronomique').
-circonstance('repas gourmet').
-circonstance('plats de tous les jours').
-circonstance('barbecue').
-circonstance('aperitif').
+
+circonstance('aperitif', 'aperitif').
+circonstance('banquet', 'banquet').
+circonstance('barbecue', 'barbecue').
+circonstance('buffet varié', 'buffet_varié').
+circonstance('cocktails', 'cocktails').
+circonstance('communion', 'communion').
+circonstance('desserts', 'desserts').
+circonstance('plats de tous les jours', 'plats_de_tous_les_jours').
+circonstance('reception de mariage', 'reception_de_mariage').
+circonstance('repas de mariage', 'repas_de_mariage').
+circonstance('repas de noel', 'repas_de_noel').
+circonstance('repas de pâques', 'repas_de_pâques').
+circonstance('repas gourmet', 'repas_gourmet').
+circonstance('repas gastronomique', 'repas_gastronomique').
+circonstance('soirée de mariage dansante', 'soirée_de_mariage_dansante').
+circonstance('walking dinner', 'walking_dinner').
