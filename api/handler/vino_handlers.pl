@@ -42,6 +42,7 @@ vino_handler(Request,Uri) :-
 	cors_enable,
 	option(method(Method), Request),
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
+	% gspy(vino),
 	vino(Method, Params, Url).
 
 
@@ -53,14 +54,15 @@ vino(get, Params, Url) :- !,
 
 vino(post, Params, Url) :- !,
 	create_vino(Params, VinoID),
-	get_short_vino_vino(VinoID, NVino),
+	get_short_vino(VinoID, NVino),
 	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet en JSON 
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple en JSON 
 
 vino(put, Params, Url) :- !,
-	update_vino(Params, NVino),
+	update_vino(Params, NVinoID),
+	get_short_vino(NVinoID, NVino),
 	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino complet sous forme de JSON 
+	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
 
 vino(delete, Params, _) :- !,
 	delete_vino(Params.id, DVino),
