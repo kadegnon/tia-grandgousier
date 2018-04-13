@@ -34,7 +34,7 @@ produire_reponse(L,Rep) :-
    match_pattern(Pattern,L),
    call(Body), !.
 
-produire_reponse(_, [['So', comman],['Je', ne, comprends,pas]]) :- !.
+produire_reponse(_, [[je, ne, comprends,pas,votre,requete]]) :- !.
 
 
 match_pattern(Pattern,Lmots) :-
