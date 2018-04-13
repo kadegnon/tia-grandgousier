@@ -1,7 +1,7 @@
 % convience  script  that  allows  for  starting  the  server  from  the
 % commandline using
 %
-%    % swipl app.pl
+%    % swipl -s app.pl -g api
 
 :- set_prolog_flag(verbose, silent).
 
@@ -9,11 +9,23 @@
     init_vin_db/1
 ]).
 
+
 :- use_module('./api/server').
 
+:- use_module('./bot/grandgousier-elm').
 
 
-run :- init_vin_db('./bot/db'), start_server.
+:- initialization init_vin_db('./bot/db').
 
 
-:- initialization run.
+ggs	:- grandgousier.
+
+api :- start_server.
+
+
+
+%% By default, exec ggs
+
+% :- ggs.
+
+
