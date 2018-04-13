@@ -1,16 +1,27 @@
 
 :- module(ecrire_reponse,[
-    ecrire_reponse/1
+    ecrire_reponse/1,
+	flatten_reponse/2
 ]).
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% flatten_reponse(+LLignes, ).  
+%	Ecrit une suite de lignes de texte 
+%  		+Lignes : Une liste de liste mots atomisés
+%	
 
-/* --------------------------------------------------------------------- */
-/*                                                                       */
-/*        ECRIRE_REPONSE : ecrit une suite de lignes de texte            */
-/*                                                                       */
-/* --------------------------------------------------------------------- */
+flatten_reponse([], []).
+flatten_reponse([As|T], [String | FlatR]) :-
+    atomics_to_string(As, " ", String),
+    flatten_reponse(T, FlatR).
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ecrire_reponse(+LLignes).  
+%	Ecrit une suite de lignes de texte 
+%  		+Lignes : Une liste de liste mots atomisés
+%	
 ecrire_reponse(L) :-
    nl, write('GGS :'),
    ecrire_li_reponse(L,1,1).
