@@ -22,6 +22,8 @@ reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
 
 :- load_files([
 	'./rep/selon_intervalle_prix',
-	'./rep/selon_criteres'
+	'./rep/selon_criteres',
+	'./rep/details-description',
+	'./rep/details-nez'
 
 ], [if(not_loaded)]).
