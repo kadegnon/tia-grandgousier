@@ -33,7 +33,7 @@ assert(description(les_chaboeufs_2013,[
   'Sur une parcelle escarpée, pierreuse',
   'Superbe'
 ])).
-assert(prix(les_chaboeufs_2013, 42.35, 45.76)).
+assert(prix(les_chaboeufs_2013, 32.35, 45.76)).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
