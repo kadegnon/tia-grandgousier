@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru', 2013,'normandie' ,'bourgogne_rouge','blanc')).
+assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges', 2013,'normandie' ,'bourgogne_rouge','blanc')).
 assert(vin(beaumes_de_venise_2015,'Beaumes de Venise', 2015, 'venise','rhone_rouge','rouge')).
 assert(prix(beaumes_de_venise_2015, 12.34, 87.45)).
 assert(nez(beaumes_de_venise_2015,[intensement, 'parfumé'])).
@@ -34,6 +34,27 @@ assert(description(les_chaboeufs_2013,[
   'Superbe'
 ])).
 assert(prix(les_chaboeufs_2013, 32.35, 45.76)).
+
+assert(vin(fleur_pomys_2012,'La Fleur de Pomys', 2012, 'Sainte-Estephe','bordeaux_rouge','rouge')).
+assert(prix(fleur_pomys_2012, 17.65, 21.36)).
+assert(nez(fleur_pomys_2012,[empyreumatique, annonce, un, vin,complexe,et, 'concentre'])).
+assert(bouche(fleur_pomys_2012,
+  [  'les aromes de myrtille et de cassis se melent a des notes glorales et a un boise bien integre',
+     'Les saveurs sont riches et concentrees, avec beaucoup de densite' ,
+     'la finale laisse le souvenir d\' un Saint-Estephe a la fois complet, dense et race.'
+  ])).
+assert(description(fleur_pomys_2012,[ 
+  'Propriete du Nord du Haut-Medoc reposant aur le terroir argillo-graveleux a l\'origine de vins plus charpentes',
+  'La robe est profonde'
+])).
+
+
+assert(vin(chambolle_musigy_2012,'Chambolle-Musigny', 2012, 'Les Noirots','vallee_du_rhone_et_languedoc','rouge')).
+assert(prix(chambolle_musigy_2012, 52.77, 63.85)).
+assert(nez(chambolle_musigy_2012,[complexe,intense,de,fruits,rouges,'d\'epices (notes de poivres)',meles,a,des,nuances,empyreumatiques,et,de,'sous-bois'])).
+assert(bouche(chambolle_musigy_2012,  ['Complexe avec des saveurs denses, concentrees et enrobees'])).
+assert(description(chambolle_musigy_2012,['Grand vin opulent, puissant, race et long'])).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

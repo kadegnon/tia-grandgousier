@@ -7,7 +7,7 @@
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
 
-regle_rep(plus,4,[pourriezvous,men,dire,plus,sur, le, VinNom], Rep) :-
+regle_rep(plus,4,[pourriezvous,men,dire,plus,sur, VinNom], Rep) :-
     db_vin(VinID,VinNom,_,_,_,_), !,
     rep_vin_description(VinID, Rep).
 
