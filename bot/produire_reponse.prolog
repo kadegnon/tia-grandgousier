@@ -50,8 +50,11 @@ sublist(SL,[_|T]) :- sublist(SL,T).
 nom_vins_uniforme(Lmots,L_mots_unif) :-
    L1 = Lmots,
    replace_vin([beaumes,de,venise],'Beaumes de Venise',L1,L2),
-   replace_vin(['nuitssaintgeorges', '1er', cru],'Nuits-Saint-Georges 1er Cru',L2,L3),
-   replace_vin([les,chaboeufs],'les chaboeufs',L3,L),
+   replace_vin(['nuitssaintgeorges'],'Nuits-Saint-Georges',L2,L3),
+   replace_vin([les,chaboeufs],'les chaboeufs',L3,L4),
+   replace_vin([la, fleur, de, pomys],'La Fleur de Pomys',L4,L5),
+   replace_vin(['chambollemusigny'],'Chambolle-Musigny',L5,L),
+   
    L_mots_unif = L.
    
 replace_vin(L,X,In,Out) :-

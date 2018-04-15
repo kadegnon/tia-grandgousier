@@ -133,6 +133,7 @@ appellation('st veran', 'st_veran').
 appellation('ste croix du mont', 'ste_croix_du_mont').
 appellation('tavel', 'tavel').
 appellation('vacqueyras', 'vacqueyras').
+appellation('vallee du rhone et languedoc', 'vallee_du_rhone_et_languedoc').
 appellation('ventoux', 'ventoux').
 appellation('vin de pays - igp blanc', 'vin_de_pays___igp_blanc').
 appellation('vin de pays - igp rose', 'vin_de_pays___igp_rose').
