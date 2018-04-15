@@ -23,7 +23,8 @@ reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
 :- load_files([
 	'./rep/selon_intervalle_prix',
 	'./rep/selon_criteres',
-	'./rep/details-description',
-	'./rep/details-nez'
+	'./rep/details_description',
+	'./rep/details_nez',
+	'./rep/details_bouche'
 
 ], [if(not_loaded)]).
