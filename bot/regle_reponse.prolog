@@ -5,7 +5,7 @@
 :- ensure_loaded('./db.prolog').
 
 
-:- multifile produire_reponse:regle_rep/4.
+:- multifile regle_rep/4.
 
 
 
