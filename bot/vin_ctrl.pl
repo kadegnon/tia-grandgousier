@@ -1,30 +1,31 @@
-﻿% Export vino predicats
-:- module(vino_ctrl,[
+﻿% Export vin predicats
+:- module(vin_ctrl,[
 	list_circonstances/1,
 	list_appellations/1,
 	list_couleurs/1,
 	list_services/1,
 	list_plats/1,
-    create_vino/2,	%% C
-    list_vino/2,	%% R
-    get_vino/2,	get_short_vino/2,	%% R
-    update_vino/2,	%% U
-    delete_vino/2,	%% D
+	create_vin/2,	%% C
+	list_vin/2,	%% R
+	get_vin/2,	%% R
+	get_short_vin/2,%% R
+	update_vin/2,	%% U
+	delete_vin/2,	%% D
 	inject_url/3
 ]).
 
 :- use_module(library(uuid)).			%% Pour pouvoir creer des ID pour les nv vins
 
-:-ensure_loaded('../bot/db.prolog').
+:-ensure_loaded('db.prolog').
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	get(+Vino.Id, -Vino)
+%	get(+Vin.Id, -Vin)
 %
-%	Donne le vino correspondant à l'ID.
+%	Donne le vin correspondant à l'ID.
 %
-get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
+get_vin(Id, _{id:Id, nom:Nom,couleur:Couleur,
 				 nez:Nez, bouche:Bouche, plats : Accompagne,
 				 services : Service, annee:An, origine:Orig,
 				 description:Descr, appellation:Appel, 
@@ -36,50 +37,50 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 	db_avec(Id, Accompagne),
 	db_pour(Id, Service).
 
-get_vino(Id,_) :- 
-	atomic_concat('Vino not found with Id:', Id, Msg),
+get_vin(Id,_) :- 
+	atomic_concat('Vin not found with Id:', Id, Msg),
 	throw((not_found, Msg)).
 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	get_short_vino(+Vino.Id, -Vino)
+%	get_short_vin(+Vin.Id, -Vin)
 %
-%	Donne un version court du vino correspondant à l'ID.
+%	Donne un version court du vin correspondant à l'ID.
 %
-get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
+get_short_vin(Id, _{id:Id, nom:Nom, couleur:Couleur,
 				annee:An, origin:Orig,appellation:Appel}) :-
 	!, db_vin(Id, Nom,An, Orig, A,Couleur),
 	appellation(Appel, A).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	list(+Vino.Id, -Vino)
+%	list(+Vin.Id, -Vin)
 %
 %	Donne le vin correspondant à l'ID specifié
 %
-list_vino(Id, Vino) :-
-	nonvar(Id), !, get_vino(Id, Vino).
+list_vin(Id, Vin) :-
+	nonvar(Id), !, get_vin(Id, Vin).
 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	list(+Vino.Id, -ListVino)
+%	list(+Vin.Id, -ListVin)
 %
-%	Donne tout les vinos correspondants à l'ID.
+%	Donne tout les vins correspondants à l'ID.
 %
-list_vino(Id, List) :-
-	findall(Vino, get_short_vino(Id, Vino), List).
+list_vin(Id, List) :-
+	findall(Vin, get_short_vin(Id, Vin), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	create(+Vino, -NVino.Id).
+%	create(+Vin, -NVin.Id).
 %
-%	Ajoute un nouveau Vino dans la 'DB'.
+%	Ajoute un nouveau Vin dans la 'DB'.
 %
-create_vino(Vino, Id) :-
+create_vin(Vin, Id) :-
 	
 	generate_id(Id), 
 	
-	Vino >:< _{nom:Nom, 		htva:Htva,
+	Vin >:< _{nom:Nom, 	htva:Htva,
 				annee:An,		origine:Orig,
 				nez:Nez,		bouche:Bouche, 
 				couleur:Couleur,plats:Plats,
@@ -100,7 +101,7 @@ create_vino(Vino, Id) :-
 	set_def_value(Bouche, 	[]),
 	set_def_value(Nez, 		[]),
 	
-	% Cree && Persiste le Vino
+	% Cree && Persiste le Vin
 	create_vin(Id, Nom, An, Orig, Appel, Couleur),
 	create_prix(Id,Htva,Tvac), create_bouche(Id,Bouche),	create_nez(Id,Nez),
 	create_pour(Id, Services), create_avec(Id, Plats), create_description(Id,Descr).
@@ -130,20 +131,20 @@ set_def_value(_, _).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	inject_url(+Vino, +Url, -NVino).
+%	inject_url(+Vin, +Url, -NVin).
 %
-%	Injecte l'URL pour obtenir ce vino.
+%	Injecte l'URL pour obtenir ce vin.
 %
 inject_url([],_,[]).
 
-inject_url([Vino | RestVinos], Url, [NVino | NRestVinos]) :- 
-	inject_url(Vino, Url, NVino), 
-	inject_url(RestVinos, Url, NRestVinos), !. 
+inject_url([Vin | RestVins], Url, [NVin | NRestVins]) :- 
+	inject_url(Vin, Url, NVin), 
+	inject_url(RestVins, Url, NRestVins), !. 
 
-inject_url(Vino, Url, NVino) :-
-	Vino >:< _{id:Id},
+inject_url(Vin, Url, NVin) :-
+	Vin >:< _{id:Id},
 	directory_file_path(Url, Id, Location),
-	NVino = Vino.put(url, Location). 
+	NVin = Vin.put(url, Location). 
 
 %%%
 % filter_list(+Predicat,+List,-FilteredList).
@@ -152,22 +153,22 @@ filter_list(Pred, List, Filtered) :- exclude(Pred, List, Filtered).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	update(+Dict, -Vino)
+%	update(+Dict, -Vin)
 %
-%	Modifie un Vino dans la 'DB'.
+%	Modifie un Vin dans la 'DB'.
 %
-update_vino(Vino, NVino) :-
-	delete_vino(Vino.id, DVino),
-	New = DVino.put(Vino),
-	create_vino(New, NVino).
+update_vin(Vin, NVin) :-
+	delete_vin(Vin.id, DVin),
+	New = DVin.put(Vin),
+	create_vin(New, NVin).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	delete(+Dict, -Vino)
+%	delete(+Dict, -Vin)
 %
-%	Supprime un  Vino dans la 'DB'.
+%	Supprime un  Vin dans la 'DB'.
 %
-delete_vino(Id, DVino) :-
-	get_short_vino(Id ,DVino),
+delete_vin(Id, DVin) :-
+	get_short_vin(Id ,DVin),
 	delete_prix(Id),
 	delete_pour(Id),
 	delete_avec(Id),

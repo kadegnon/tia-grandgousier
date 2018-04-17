@@ -14,7 +14,7 @@
 :- use_module(library(option)).
 
 
-:- use_module('../vino_ctrl').
+:- use_module('../../bot/vin_ctrl').
 
 :-use_module('../routes',[
 	read_params/2
@@ -54,23 +54,23 @@ vino_handler(Request,Uri) :-
 
 vino(get, Params, Url, List) :- !,
 	Params >:< _{id:VinoID}, 
-	list_vino(VinoID, Vinos),
+	list_vin(VinoID, Vinos),
 	inject_url(Vinos, Url, List).
 
 vino(post, Params, Url, Vino) :- !,
-	create_vino(Params, VinoID),
-	get_short_vino(VinoID, NVino),
+	create_vin(Params, VinoID),
+	get_short_vin(VinoID, NVino),
 	inject_url(NVino, Url, Vino),
 	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple en JSON 
 
 vino(put, Params, Url) :- !,
 	update_vino(Params, NVinoID),
-	get_short_vino(NVinoID, NVino),
+	get_short_vin(NVinoID, NVino),
 	inject_url(NVino, Url, Vino),
 	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
 
 vino(delete, Params, _) :- !,
-	delete_vino(Params.id, DVino),
+	delete_vin(Params.id, DVino),
 	reply_json_dict(DVino).
 
 
