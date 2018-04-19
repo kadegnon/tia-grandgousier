@@ -1,5 +1,29 @@
 
-:- use_module(library(lists)).
+ :- include('./_lib/crisp_includes').
+
+:- ensure_loaded('vins.mock').      %% Load all mocks vins
+
+:- ensure_loaded('../regle_reponse').
+
+
+
+/*****************************************************************************/
+% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
+%
+% True  if Reponse = [[]] for incorrect VinNom
+% True  if Reponse = [[this,is,an,example, of, 'Nez']]
+
+
+describe(regle_rep_nez/4, [
+    fail-regle_rep(vins,_,[ auriezvous, des, vins, entre,10, et, 20, eur ], _)
+
+]).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+
+
+
 
 
 
