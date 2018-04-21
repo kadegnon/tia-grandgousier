@@ -19,7 +19,7 @@ db_vin('4c23dabc','Ch. La Fleur Baudron',2014,'Lussac-Saint-Emilion',bordeaux_ro
 
 
 db_prix(b477d59c,5.66,6.848).
-db_prix('4c23dabc',6.18,7.47).
+db_prix('4c23dabc',16.18,7.47).
 
 db_bouche(b477d59c,['Jolie robe grenat aux reflets rubis']).
 db_bouche('4c23dabc',['Très plaisant, riche, et de beaux tanins associés à un boisé bien intégré','Un bordeaux très complet']).

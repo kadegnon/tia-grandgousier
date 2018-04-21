@@ -14,9 +14,18 @@
 % True  if Reponse = [[this,is,an,example, of, 'Nez']]
 
 
-describe(regle_rep_nez/4, [
-    fail-regle_rep(vins,_,[ auriezvous, des, vins, entre,10, et, 20, eur ], _)
-
+describe(regle_rep_prix, [
+    regle_rep(vins,_,
+				[auriezvous, des, vins, entre,30, et, 50, eur ], 
+				[[non,',',je,ne,dispose,pas,de,vins,dans,cet,intervalle,de,prix,'.']])
+/*	,fail-regle_rep(vins,_,
+				[auriezvous, des, vins, entre,1, et, 3, eur ], 
+				[[non,',',je,ne,dispose,pas,de,vins,dans,cet,intervalle,de,prix,'.']])
+	,regle_rep(vins,_,
+				[auriezvous,des,vins,entre,5, et,10,eur ], 
+				[Rep]),
+	length(Rep,1)
+*/
 ]).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
