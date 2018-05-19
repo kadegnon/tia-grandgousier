@@ -118,7 +118,7 @@ generate_id(Id) :-
 
 %	set_def_value(+TermA, +TermB).
 %
-%	Essayie d'unifier TermA avec TermB.
+%	Essaie d'unifier TermA avec TermB.
 %
 set_def_value(Val,  Default) :- var(Val), !, Val = Default.
 set_def_value([H|T], Default) :- 

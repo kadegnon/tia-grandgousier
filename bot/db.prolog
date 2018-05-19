@@ -108,9 +108,10 @@ db_pour(VinId,Atom_List) :-	pour(VinId,Atom_List).
 db_pour(_,[]).
 
 
-db_avec(VinId,Atom_List) :-	accompagne(VinId,Atom_List).
-db_avec(_,[]).
+db_avec(VinId,Atom_List) :-	db_accompagne(VinId,Atom_List).
 
+db_accompagne(VinId,Atom_List) :-	accompagne(VinId,Atom_List).
+db_accompagne(_,[]).
 
 db_bouche(VinId,Atom_List) :-	bouche(VinId,Atom_List).
 db_bouche(_,[]).
