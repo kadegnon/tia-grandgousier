@@ -76,7 +76,7 @@ list_vino(Id, List) :-
 %	Ajoute un nouveau Vino dans la 'DB'.
 %
 create_vino(Vino, Id) :-
-	
+
 	generate_id(Id), 
 	
 	Vino >:< _{nom:Nom, 		htva:Htva,
@@ -166,8 +166,8 @@ update_vino(Vino, NVino) :-
 %
 %	Supprime un  Vino dans la 'DB'.
 %
-delete_vino(Id, DVino) :-
-	get_short_vino(Id ,DVino),
+delete_vino(Id, Vino) :-
+	get_short_vino(Id ,Vino),
 	delete_prix(Id),
 	delete_pour(Id),
 	delete_avec(Id),
@@ -183,7 +183,7 @@ delete_vino(Id, DVino) :-
 %	Donne tous les appellations.
 %
 list_appellations(List) :-
-	findall( (Appel,Val),appellation(Appel, Val),List).
+	findall( (AppelId,AppelNom),appellation(AppelId,AppelNom),List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -192,7 +192,7 @@ list_appellations(List) :-
 %	Donne tous les couleurs possibles pour un vin.
 %
 list_couleurs(List) :- 
-	findall( (Col,Val), couleur(Col, Val), List).
+	findall( (ColId,VolNom), couleur(ColId, VolNom), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,7 +201,7 @@ list_couleurs(List) :-
 %	Donne tous les services possibles pour se servir un vin.
 %
 list_services(List) :- 
-	findall( (Serv,Val), service(Serv, Val), List).
+	findall( (ServId, Nom), service(ServId, Nom), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -210,7 +210,7 @@ list_services(List) :-
 %	Donne tous les plats possibles pour accompagner un vin.
 %
 list_plats(List) :- 
-	findall((Plat,Val), plat(Plat,Val), List).
+	findall((PlatId,PlatNom), plat(PlatId,PlatNom,_), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,5 +219,5 @@ list_plats(List) :-
 %	Donne tous les circonstances possibles pour boire un vin.
 %
 list_circonstances(List) :- 
-	findall( (Cir,Val), circonstance(Cir,Val), List).
+	findall( (CircId, CircNom), circonstance(CircId, CircNom), List).
 

@@ -81,7 +81,8 @@ create_prix(VinId,PrixHtva, PrixTvac) :-	assert_prix(VinId,PrixHtva, PrixTvac).
 
 create_pour(VinId,Atom_List) :-	assert_pour(VinId,Atom_List).
 
-create_avec(VinId,Atom_List) :-	assert_accompagne(VinId,Atom_List).
+create_avec(VinId,Atom_List) :-	create_accompagne(VinId,Atom_List).
+create_accompagne(VinId,Atom_List) :-	assert_accompagne(VinId,Atom_List).
 
 create_bouche(VinId,Atom_List) :-	assert_bouche(VinId,Atom_List).
 
@@ -136,7 +137,9 @@ delete_prix(VinId) :-			retractall_prix(VinId,_,_).
 
 delete_pour(VinId) :-			retractall_pour(VinId,_).
 
-delete_avec(VinId) :-			retractall_accompagne(VinId,_).
+delete_avec(VinId) :-			delete_accompagne(VinId,_).
+
+delete_accompagne(VinId) :-		retractall_accompagne(VinId,_).
 
 
 delete_bouche(VinId) :-			retractall_bouche(VinId,_).

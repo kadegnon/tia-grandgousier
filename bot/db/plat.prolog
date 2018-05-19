@@ -3,169 +3,170 @@
 *	Base de Connaissance
 ****************************************/
 %%
-%   plat(Nom, NomAtom).
+%   plat(NomAtom, Nom, Type).
 %
-plat('agneau', 'agneau').
-plat('artichauds', 'artichauds').
-plat('asperges', 'asperges').
-plat('assortiment vapeur dim sum', 'assortiment_vapeur_dim_sum').
-plat('bar', 'bar').
-plat('barbecue', 'barbecue').
-plat('biche', 'biche').
-plat('blanquette de veau', 'blanquette_de_veau').
-plat('bleus roquefort stilton ambert vercors', 'bleus_roquefort_stilton_ambert_vercors').
-plat('boeuf', 'boeuf').
-plat('boeuf grillé', 'boeuf_grillé').
-plat('boeuf poellé - steak', 'boeuf_poellé___steak').
-plat('boudin', 'boudin').
-plat('boudin aux choux', 'boudin_aux_choux').
-plat('boudin compote', 'boudin_compote').
-plat('bouillabaisse', 'bouillabaisse').
-plat('bécasse', 'bécasse').
-plat('cabillaud', 'cabillaud').
-plat('caille', 'caille').
-plat('calamars', 'calamars').
-plat('canard', 'canard').
-plat('canard laqué', 'canard_laqué').
-plat('carbonnades flamandes', 'carbonnades_flamandes').
-plat('carpaccio de boeuf', 'carpaccio_de_boeuf').
-plat('carpaccio de poisson', 'carpaccio_de_poisson').
-plat('carré dagneau', 'carré_dagneau').
-plat('cassoulet', 'cassoulet').
-plat('chapon', 'chapon').
-plat('charcuteries', 'charcuteries').
-plat('chevreuil', 'chevreuil').
-plat('chicons au gratin', 'chicons_au_gratin').
-plat('choucroute', 'choucroute').
-plat('civet lièvre biche marcassin sanglier', 'civet_lièvre_biche_marcassin_sanglier').
-plat('cochon de lait', 'cochon_de_lait').
-plat('confit oie ou canard', 'confit_oie_ou_canard').
-plat('coq au vin', 'coq_au_vin').
-plat('couscous', 'couscous').
-plat('crevettes', 'crevettes').
-plat('croquette de crevette', 'croquette_de_crevette').
-plat('croûtes fleuries camembert brie', 'croûtes_fleuries_camembert_brie').
-plat('croûtes lavées epoisses vacherin munster', 'croûtes_lavées_epoisses_vacherin_munster').
-plat('crustacés', 'crustacés').
-plat('crèpes salées', 'crèpes_salées').
-plat('cuisses de grenouilles', 'cuisses_de_grenouilles').
-plat('côte de porc', 'côte_de_porc').
-plat('côtes grillées marcassin biche chevreuil', 'côtes_grillées_marcassin_biche_chevreuil').
-plat('desserts aux fruits exotiques', 'desserts_aux_fruits_exotiques').
-plat('desserts aux fruits rouges etou noirs', 'desserts_aux_fruits_rouges_etou_noirs').
-plat('dinde farcie', 'dinde_farcie').
-plat('dinde rotie', 'dinde_rotie').
-plat('entrecôte grillée', 'entrecôte_grillée').
-plat('entrée chaude', 'entrée_chaude').
-plat('entrée froide', 'entrée_froide').
-plat('escalope de veau à la milanaise', 'escalope_de_veau_à_la_milanaise').
-plat('escargots', 'escargots').
-plat('faisan', 'faisan').
-plat('filet américain', 'filet_américain').
-plat('foie gras froid', 'foie_gras_froid').
-plat('foie gras poêlé', 'foie_gras_poêlé').
-plat('fondue bourguignonne', 'fondue_bourguignonne').
-plat('fondue savoyarde', 'fondue_savoyarde').
-plat('fromage de chèvre', 'fromage_de_chèvre').
-plat('fromage frais', 'fromage_frais').
-plat('fruits de mer', 'fruits_de_mer').
-plat('gambas', 'gambas').
-plat('gibier à plume', 'gibier_à_plume').
-plat('gibier à poils', 'gibier_à_poils').
-plat('gigot dagneau', 'gigot_dagneau').
-plat('gâteaux secs', 'gâteaux_secs').
-plat('hachis parmentier', 'hachis_parmentier').
-plat('homard', 'homard').
-plat('huîtres', 'huîtres').
-plat('jambon braisé', 'jambon_braisé').
-plat('jambonneau', 'jambonneau').
-plat('langouste', 'langouste').
-plat('lapin', 'lapin').
-plat('lasagne', 'lasagne').
-plat('lievre', 'lievre').
-plat('lotte', 'lotte').
-plat('magret', 'magret').
-plat('marcassin', 'marcassin').
-plat('melon jambon cru', 'melon_jambon_cru').
-plat('moule frites', 'moule_frites').
-plat('moules', 'moules').
-plat('navarin dagneau', 'navarin_dagneau').
-plat('omelette', 'omelette').
-plat('onglet à léchalotte', 'onglet_à_léchalotte').
-plat('osso bucco', 'osso_bucco').
-plat('paella', 'paella').
-plat('pain de viande', 'pain_de_viande').
-plat('perdreau', 'perdreau').
-plat('pierrade', 'pierrade').
-plat('pizzas', 'pizzas').
-plat('plat asiatique viande parfumé coriandre menthe', 'plat_asiatique_viande_parfumé_coriandre_menthe').
-plat('plat asiatique viande sauce aigre-douce', 'plat_asiatique_viande_sauce_aigre_douce').
-plat('plat asiatique viande sauce onctueuse', 'plat_asiatique_viande_sauce_onctueuse').
-plat('plat asiatique viande épicécurrypimentgingembre', 'plat_asiatique_viande_épicécurrypimentgingembre').
-plat('plateau de fromages', 'plateau_de_fromages').
-plat('poisson au four', 'poisson_au_four').
-plat('poisson de riviere truite sandre', 'poisson_de_riviere_truite_sandre').
-plat('poisson fumé saumon elbot', 'poisson_fumé_saumon_elbot').
-plat('poissoncrustacé prépa aigre-douce asiatique', 'poissoncrustacé_prépa_aigre_douce_asiatique').
-plat('poissoncrustacé prépa parfumée asiatique', 'poissoncrustacé_prépa_parfumée_asiatique').
-plat('poissoncrustacé prépa épicée asiatique', 'poissoncrustacé_prépa_épicée_asiatique').
-plat('poissons en sauce crémeuse ou épicée', 'poissons_en_sauce_crémeuse_ou_épicée').
-plat('poissons grillés thon espadon', 'poissons_grillés_thon_espadon').
-plat('poissons pochés', 'poissons_pochés').
-plat('poissons vapeur ou papillotte', 'poissons_vapeur_ou_papillotte').
-plat('porc', 'porc').
-plat('poularde', 'poularde').
-plat('poulet fermier', 'poulet_fermier').
-plat('poulet rôti', 'poulet_rôti').
-plat('préparation gibier sauce relevée poivrade', 'préparation_gibier_sauce_relevée_poivrade').
-plat('pâte pressée cuite reblochon st nectaire', 'pâte_pressée_cuite_reblochon_st_nectaire').
-plat('pâtes', 'pâtes').
-plat('pâtes pressées comté beaufort gruyère', 'pâtes_pressées_comté_beaufort_gruyère').
-plat('rable de lièvre', 'rable_de_lièvre').
-plat('raclette', 'raclette').
-plat('ris de veau', 'ris_de_veau').
-plat('rizpâtes prépa peu épicée asiatique', 'rizpâtes_prépa_peu_épicée_asiatique').
-plat('rizpâtes prépa épicée asiatique', 'rizpâtes_prépa_épicée_asiatique').
-plat('rognons de veau', 'rognons_de_veau').
-plat('rosbeef', 'rosbeef').
-plat('roti de veau', 'roti_de_veau').
-plat('rouget', 'rouget').
-plat('rouleaux de printemps', 'rouleaux_de_printemps').
-plat('saint jacques', 'saint_jacques').
-plat('salade de fruits', 'salade_de_fruits').
-plat('salade estivale fraicheur', 'salade_estivale_fraicheur').
-plat('salades fraicheur', 'salades_fraicheur').
-plat('sanglier', 'sanglier').
-plat('saumon', 'saumon').
-plat('saumon fumé', 'saumon_fumé').
-plat('scampis', 'scampis').
-plat('sole', 'sole').
-plat('steak frites', 'steak_frites').
-plat('sushis', 'sushis').
-plat('taboulé', 'taboulé').
-plat('tajine', 'tajine').
-plat('tapas', 'tapas').
-plat('tarte salée', 'tarte_salée').
-plat('tartes aux fruits', 'tartes_aux_fruits').
-plat('terrine de gibier', 'terrine_de_gibier').
-plat('terrine de poisson', 'terrine_de_poisson').
-plat('thon', 'thon').
-plat('tomate crevète', 'tomate_crevète').
-plat('tomate mozzarella', 'tomate_mozzarella').
-plat('tomates farcies', 'tomates_farcies').
-plat('tournedos rossini', 'tournedos_rossini').
-plat('tourteau', 'tourteau').
-plat('turbot', 'turbot').
-plat('veau', 'veau').
-plat('viande blanche grillée', 'viande_blanche_grillée').
-plat('viande blanche poêlée', 'viande_blanche_poêlée').
-plat('viandes blanches en sauce', 'viandes_blanches_en_sauce').
-plat('viandes blanches rôties', 'viandes_blanches_rôties').
-plat('viandes mijotées', 'viandes_mijotées').
-plat('viandes rouges grillées', 'viandes_rouges_grillées').
-plat('viandes rouges poêlées', 'viandes_rouges_poêlées').
-plat('viandes rouges rôties', 'viandes_rouges_rôties').
-plat('volaille à la crème', 'volaille_à_la_crème').
-plat('waterzooi', 'waterzooi').
-plat('waterzooi de poissons', 'waterzooi_de_poissons').
-plat('waterzooi de poulet', 'waterzooi_de_poulet').
+plat('agneau', 'agneau', 'viande rouge').
+plat('artichauds', 'artichauds', 'légumes').
+plat('asperges', 'asperges', 'légumes').
+plat('assortiment_vapeur_dim_sum', 'assortiment vapeur dim sum', 'asiatique').
+plat('bar', 'bar','poisson').
+% plat('barbecue', 'barbecue',).
+% plat('biche', 'biche',).
+plat('blanquette_de_veau', 'blanquette de veau', 'viande blanche').
+plat('bleus_roquefort_stilton_ambert_vercors', 'bleus roquefort stilton ambert vercors','fromages').
+plat('boeuf', 'boeuf','viande rouge').
+plat('boeuf_grillé', 'boeuf grillé','viande rouge').
+plat('boeuf_poellé_steak', 'boeuf poellé - steak','viande rouge').
+plat('boudin', 'boudin','viande blanche').
+plat('boudin_aux_choux', 'boudin aux choux', 'belges').
+plat('boudin_compote', 'boudin compote', 'belges').
+plat('bouillabaisse', 'bouillabaisse','poisson').
+% plat('bécasse', 'bécasse',).
+plat('cabillaud', 'cabillaud','poisson').
+% plat('caille', 'caille',).
+plat('calamars', 'calamars','entrée').
+plat('canard', 'canard', 'volaille').
+plat('canard_laqué', 'canard laqué','asiatique').
+plat('carbonnades_flamandes', 'carbonnades flamandes', 'belges').
+plat('carpaccio_de_boeuf', 'carpaccio de boeuf','entrée').
+plat('carpaccio_de_poisson', 'carpaccio de poisson','entrée').
+plat('carré_dagneau', 'carré dagneau','viande rouge').
+plat('cassoulet', 'cassoulet', 'divers').
+plat('chapon', 'chapon', 'volaille').
+plat('charcuteries', 'charcuteries','entrée').
+% plat('chevreuil', 'chevreuil',).
+plat('chicons_au_gratin', 'chicons au gratin', 'belges').
+plat('choucroute', 'choucroute', 'divers').
+% plat('civet_lièvre_biche_marcassin_sanglier', 'civet lièvre biche marcassin sanglier',).
+plat('cochon_de_lait', 'cochon de lait','viande blanche').
+plat('confit_oie_ou_canard', 'confit oie ou canard', 'volaille').
+plat('coq_au_vin', 'coq au vin', 'volaille').
+plat('couscous', 'couscous', 'divers').
+plat('crevettes', 'crevettes', 'fruits_de_mer').
+plat('croquette_de_crevette', 'croquette de crevette', 'belges').
+plat('croûtes_fleuries_camembert_brie', 'croûtes fleuries camembert brie','fromages').
+plat('croûtes_lavées_epoisses_vacherin_munster', 'croûtes lavées epoisses vacherin munster','fromages').
+plat('crustacés', 'crustacés','fruits_de_mer').
+plat('crèpes_salées', 'crèpes salées', 'belges').
+plat('cuisses_de_grenouilles', 'cuisses de grenouilles','entrée').
+plat('côte_de_porc', 'côte de porc', 'viande blanche').
+% plat('côtes_grillées_marcassin_biche_chevreuil', 'côtes grillées marcassin biche chevreuil',).
+plat('desserts_aux_fruits_exotiques', 'desserts aux fruits exotiques', 'dessert').
+plat('desserts_aux_fruits_rouges_etou_noirs', 'desserts aux fruits rouges etou noirs', 'dessert').
+plat('dinde_farcie', 'dinde farcie', 'volaille').
+plat('dinde_rotie', 'dinde rotie', 'volaille').
+plat('entrecôte_grillée', 'entrecôte grillée','viande rouge').
+plat('entrée_chaude', 'entrée chaude','entrée').
+plat('entrée_froide', 'entrée froide','entrée').
+plat('escalope_de_veau_à_la_milanaise', 'escalope de veau à la milanaise', 'italiennes').
+plat('escargots', 'escargots','entrée').
+% plat('faisan', 'faisan',).
+plat('filet_américain', 'filet américain', 'belges').
+plat('foie_gras_froid', 'foie gras froid','entrée').
+plat('foie_gras_poêlé', 'foie gras poêlé','entrée').
+plat('fondue_bourguignonne', 'fondue bourguignonne', 'divers').
+plat('fondue_savoyarde', 'fondue savoyarde', 'fromages').
+plat('fromage_de_chèvre', 'fromage de chèvre','fromages').
+plat('fromage_frais', 'fromage frais','fromages').
+plat('fruits_de_mer', 'fruits de mer','fruits_de_mer').
+plat('gambas', 'gambas','fruits_de_mer').
+% plat('gibier_à_plume', 'gibier à plume',).
+% plat('gibier_à_poils', 'gibier à poils',).
+plat('gigot_dagneau', 'gigot dagneau','viande rouge').
+plat('gâteaux_secs', 'gâteaux secs','dessert').
+plat('hachis_parmentier', 'hachis parmentier', 'divers').
+plat('homard', 'homard','fruits_de_mer').
+plat('huîtres', 'huîtres','fruits_de_mer').
+plat('jambon_braisé', 'jambon braisé','viande blanche').
+plat('jambonneau', 'jambonneau','viande blanche').
+plat('langouste', 'langouste','fruits_de_mer').
+% plat('lapin', 'lapin',).
+plat('lasagne', 'lasagne', 'italiennes').
+% plat('lievre', 'lievre',).
+plat('lotte', 'lotte','poisson').
+plat('magret', 'magret', 'volaille').
+% plat('marcassin', 'marcassin',).
+plat('melon_jambon_cru', 'melon jambon cru','entrée').
+plat('moule_frites', 'moule frites', 'belges').
+plat('moules', 'moules','fruits_de_mer').
+plat('navarin_dagneau', 'navarin dagneau','viande rouge').
+plat('omelette', 'omelette', 'divers').
+plat('onglet_à_léchalotte', 'onglet à léchalotte','viande rouge').
+plat('osso_bucco', 'osso bucco', 'italiennes').
+plat('paella', 'paella', 'divers').
+plat('pates', 'pates', 'italiennes').
+plat('pain_de_viande', 'pain de viande', 'belges').
+% plat('perdreau', 'perdreau',).
+plat('pierrade', 'pierrade', 'divers').
+plat('pizzas', 'pizzas', 'italiennes').
+plat('plat_asiatique_viande_parfumé_coriandre_menthe', 'plat asiatique viande parfumé coriandre menthe','asiatique').
+plat('plat_asiatique_viande_sauce_aigre_douce', 'plat asiatique viande sauce aigre-douce','asiatique').
+plat('plat_asiatique_viande_sauce_onctueuse', 'plat asiatique viande sauce onctueuse','asiatique').
+plat('plat_asiatique_viande_épicé_curry_piment_gingembre', 'plat asiatique viande épicé curry piment gingembre','asiatique').
+plat('plateau_de_fromages', 'plateau de fromages','fromages').
+plat('poisson_au_four', 'poisson au four', 'poisson').
+plat('poisson_de_riviere_truite_sandre', 'poisson de riviere truite sandre', 'poisson').
+plat('poisson_fumé_saumon_elbot', 'poisson fumé saumon elbot', 'poisson').
+plat('poisson_crustacé_prépa_aigre_douce_asiatique', 'poisson crustacé prépa aigre-douce asiatique', 'poisson asiatique').
+plat('poisson_crustacé_prépa_parfumée_asiatique', 'poisson crustacé prépa parfumée asiatique', 'poisson asiatique').
+plat('poisson_crustacé_prépa_épicée_asiatique', 'poisson crustacé prépa épicée asiatique', 'poisson asiatique').
+plat('poissons_en_sauce_crémeuse_ou_épicée', 'poissons en sauce crémeuse ou épicée', 'poisson').
+plat('poissons_grillés_thon_espadon', 'poissons grillés thon espadon', 'poisson').
+plat('poissons_pochés', 'poissons pochés', 'poisson').
+plat('poissons_vapeur_ou_papillotte', 'poissons vapeur ou papillotte', 'poisson').
+plat('porc', 'porc','viande blanche').
+plat('poularde', 'poularde', 'volaille').
+plat('poulet_fermier', 'poulet fermier', 'volaille').
+plat('poulet_rôti', 'poulet rôti', 'volaille').
+% plat('préparation_gibier_sauce_relevée_poivrade', 'préparation gibier sauce relevée poivrade',).
+% plat('pâte_pressée_cuite_reblochon_st_nectaire', 'pâte pressée cuite reblochon st nectaire',).
+plat('pâtes', 'pâtes', 'italiennes').
+% plat('pâtes_pressées_comté_beaufort_gruyère', 'pâtes pressées comté beaufort gruyère',).
+% plat('rable_de_lièvre', 'rable de lièvre',).
+plat('raclette', 'raclette','fromages').
+plat('ris_de_veau', 'ris de veau','viande blanche').
+plat('rizpâtes_prépa_peu_épicée_asiatique', 'riz pâtes prépa peu épicée asiatique', 'asiatique').
+plat('rizpâtes_prépa_épicée_asiatique', 'riz pâtes prépa épicée asiatique', 'asiatique').
+plat('rognons_de_veau', 'rognons de veau','viande blanche').
+plat('rosbeef', 'rosbeef','viande rouge').
+plat('roti_de_veau', 'roti de veau','viande blanche').
+plat('rouget', 'rouget','poisson').
+plat('rouleaux_de_printemps', 'rouleaux de printemps', 'asiatique').
+plat('saint_jacques', 'saint jacques','fruits_de_mer').
+plat('salade_de_fruits', 'salade de fruits','dessert').
+% plat('salade_estivale_fraicheur', 'salade estivale fraicheur', 'legumes' ).
+plat('salades_fraicheur', 'salades fraicheur', 'légumes').
+% plat('sanglier', 'sanglier',).
+plat('saumon', 'saumon','poisson').
+plat('saumon_fumé', 'saumon fumé','entrée').
+plat('scampis', 'scampis','entrée').
+plat('sole', 'sole','poisson').
+plat('steak_frites', 'steak frites', 'belges').
+plat('sushis', 'sushis', 'asiatique').
+plat('taboulé', 'taboulé','entrée').
+plat('tajine', 'tajine',  'divers').
+plat('tapas', 'tapas','entrée').
+plat('tarte_salée', 'tarte salée','entrée').
+plat('tartes_aux_fruits', 'tartes aux fruits','dessert').
+% plat('terrine_de_gibier', 'terrine de gibier',).
+plat('terrine_de_poisson', 'terrine de poisson','entrée').
+plat('thon', 'thon','poisson').
+plat('tomate_crevète', 'tomate crevète', 'belges').
+plat('tomate_mozzarella', 'tomate mozzarella','entrée').
+plat('tomates_farcies', 'tomates farcies', 'légumes').
+plat('tournedos_rossini', 'tournedos rossini', 'viande rouge').
+plat('tourteau', 'tourteau','fruits_de_mer').
+plat('turbot', 'turbot','poisson').
+plat('veau', 'veau','viande blanche').
+plat('viande_blanche_grillée', 'viande blanche grillée','viande blanche').
+plat('viande_blanche_poêlée', 'viande blanche poêlée','viande blanche').
+plat('viandes_blanches_en_sauce', 'viandes blanches en sauce', 'viande blanche').
+plat('viandes_blanches_rôties', 'viandes blanches rôties', 'viande blanche').
+plat('viandes_mijotées', 'viandes mijotées', 'viande rouge').
+plat('viandes_rouges_grillées', 'viandes rouges grillées', 'viande rouge').
+plat('viandes_rouges_poêlées', 'viandes rouges poêlées', 'viande rouge').
+plat('viandes_rouges_rôties', 'viandes rouges rôties', 'viande rouge').
+plat('volaille_à_la_crème', 'volaille à la crème', 'volaille').
+plat('waterzooi', 'waterzooi', 'belges').
+plat('waterzooi_de_poissons', 'waterzooi de poissons', 'poisson').
+plat('waterzooi_de_poulet', 'waterzooi de poulet', 'volaille').
