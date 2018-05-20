@@ -46,12 +46,12 @@ write.  You may want to add write access to
 
 :- use_module(library(http/http_unix_daemon)).
 
-:- use_module('./bot/db.prolog',[
+:- use_module('./expert/db.prolog',[
   init_vin_db/1
 ]).
 
 :- use_module('./api/server').
 
-:- init_vin_db('./bot/db').
+:- init_vin_db('./expert/db').
 
 :- initialization http_daemon.

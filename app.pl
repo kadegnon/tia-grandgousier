@@ -5,17 +5,17 @@
 
 :- set_prolog_flag(verbose, silent).
 
-:- use_module('./bot/db.prolog',[
+:- use_module('./expert/db.prolog',[
     init_vin_db/1
 ]).
 
 
 :- use_module('./api/server').
 
-:- use_module('./bot/grandgousier-elm').
+:- use_module('./expert/grandgousier-elm').
 
 
-:- initialization init_vin_db('./bot/db').
+:- initialization init_vin_db('./expert/db').
 
 
 ggs	:- grandgousier.

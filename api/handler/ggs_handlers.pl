@@ -10,7 +10,7 @@
 :- use_module(library(option)).
 
 
-:- use_module('../../bot/grandgousier-elm',[
+:- use_module('../../expert/grandgousier-elm',[
 	intro/1 as ggs_intro,
 	grandgousier/2 as ggs_question
 ]).

@@ -14,7 +14,7 @@
 
 :- use_module(library(uuid)).			%% Pour pouvoir creer des ID pour les nv vins
 
-:-ensure_loaded('../bot/db.prolog').
+:-ensure_loaded('../expert/db.prolog').
 
 
 
