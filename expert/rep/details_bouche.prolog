@@ -11,9 +11,8 @@ regle_rep(bouche,51,[ que, donne, le, VinNom, en , bouche ], Rep) :-
    db_vin(VinID,VinNom,_,_,_,_), !,
    rep_vin_bouche(VinID, Rep).
 
-regle_rep(bouche,5,_,Rep) :- !,
-    reponse(pas_de_vin, R),
-    append(R, [dans, notre, catalogue],Rep).
+regle_rep(bouche,5,_, [Rep]) :- !,
+    reponse(pas_de_vin, Rep).
 
 rep_vin_bouche(VinId, [Mots]) :- 
 	db_bouche(VinId,Mots),

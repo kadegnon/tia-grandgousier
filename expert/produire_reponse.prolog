@@ -4,7 +4,11 @@
 ]).
 
 
-:- ensure_loaded('./regle_reponse').
+:- ensure_loaded([
+	'./regle_reponse',
+	'./lire_question',
+	'./db'
+]).
 
 
 
@@ -51,22 +55,39 @@ sublist(SL,[_|T]) :- sublist(SL,T).
 
 nom_vins_uniforme(Lmots,L_mots_unif) :-
    L1 = Lmots,
-   
-   
-   replace_vin( ('Beaumes de Venise', [beaumes,de,venise]), L1,L2),
-   replace_vin( ('Nuits-Saint-Georges', ['nuitssaintgeorges']) ,L2,L3),
-   replace_vin( ('les chaboeufs', [les,chaboeufs]), L3,L4),
-   replace_vin( ('La Fleur de Pomys', [la, fleur, de, pomys]), L4,L5),
-   replace_vin( ('Chambolle-Musigny', ['chambollemusigny']), L5,L),
+   replace_vin([beaumes,de,venise],'Beaumes de Venise',L1,L2),
+   replace_vin(['nuitssaintgeorges'],'Nuits-Saint-Georges',L2,L3),
+   replace_vin([les,chaboeufs],'les chaboeufs',L3,L4),
+   replace_vin([la, fleur, de, pomys],'La Fleur de Pomys',L4,L5),
+   replace_vin(['chambollemusigny'],'Chambolle-Musigny',L5,L),
    
    L_mots_unif = L.
    
+replace_vin(L,X,In,Out) :-
+   append(L,Suf,In), !, Out = [X|Suf].
+replace_vin(_,_,[],[]) :- !.
+replace_vin(L,X,[H|In],[H|Out]) :-
+   replace_vin(L,X,In,Out).
+
+
+
+/*
+nom_vins_uniforme(Lmots,L_mots_unif) :-
+   L1 = Lmots,
    
+   findall( (Nom, Nom_Atoms)
+		,( db_vin(_,Nom,_,_,_,_), lire_question(Nom, Nom_Atoms) )
+		,LVins
+	),
+	
+	write(LVins),
    
+   L_mots_unif = L.
+   
+
 replace_vin( (Nom, Nom_Atoms), In, Out) :-
    append(Nom_Atoms, Suf, In), !, Out = [Nom | Suf].
-replace_vin(Vin,[H|In],[H|Out]) :-
-   replace_vin(Vin, In, Out).
+replace_vin(Vin,[H|In],[H|Out]) :- replace_vin(Vin, In, Out).
 replace_vin(_,[],[]) :- !.
 
-
+*/

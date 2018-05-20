@@ -12,8 +12,7 @@ regle_rep(plus,41,[pourriezvous,men,dire,plus,sur, VinNom], Rep) :-
     rep_vin_description(VinID, Rep).
 
 regle_rep(plus,4,_,[Rep]) :- !,
-    reponse(pas_de_vin, R),
-    append(R, [dans, notre, catalogue],Rep).
+    reponse(pas_de_vin, Rep).
 
 rep_vin_description(VinId, [List_Descr, List_Nez, List_Bouche]) :- 
     db_description(VinId, List_Descr), !,
