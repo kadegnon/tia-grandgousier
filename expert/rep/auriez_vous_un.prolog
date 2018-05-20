@@ -13,7 +13,7 @@ regle_rep(auriez, 71 , [vous, auriez, un, Vin], Rep):-
 
 
 graves(Graves, Gvin):- 
-	findall((Id, Nom, An), get_vin(Id, Nom, An, Graves), Gvin).
+	findall((Id, Nom, An), get_vin_by(Id, Nom, An, Graves), Gvin).
 
 get_vin_by(Id, Nom, An, Critere):- db_vin(Id, Nom, An, _, Critere, _) ; db_vin(Id, Nom, An, Critere, _, _).
 
@@ -26,7 +26,6 @@ rep_Gvins([], [Rep]):- reponse(non_dispose, Rep).
 rep_Gvins([H|T], [Rep| L]):-
 	reponse(oui_conseille, Rep),
 	rep_item_Gvins([H | T], L).
-	
 	
 rep_item_Gvins([], []) :- !.
 rep_item_Gvins([(VinId, Nom, An) | L], [Rep|T]):-
