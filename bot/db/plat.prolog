@@ -30,7 +30,7 @@ plat('canard_laqué', 'canard laqué','asiatique').
 plat('carbonnades_flamandes', 'carbonnades flamandes', 'belges').
 plat('carpaccio_de_boeuf', 'carpaccio de boeuf','entrée').
 plat('carpaccio_de_poisson', 'carpaccio de poisson','entrée').
-plat('carré_dagneau', 'carré dagneau','viande rouge').
+plat('carré_dagneau', 'carré dagneau agneau','viande rouge').
 plat('cassoulet', 'cassoulet', 'divers').
 plat('chapon', 'chapon', 'volaille').
 plat('charcuteries', 'charcuteries','entrée').
@@ -52,7 +52,7 @@ plat('cuisses_de_grenouilles', 'cuisses de grenouilles','entrée').
 plat('côte_de_porc', 'côte de porc', 'viande blanche').
 % plat('côtes_grillées_marcassin_biche_chevreuil', 'côtes grillées marcassin biche chevreuil',).
 plat('desserts_aux_fruits_exotiques', 'desserts aux fruits exotiques', 'dessert').
-plat('desserts_aux_fruits_rouges_etou_noirs', 'desserts aux fruits rouges etou noirs', 'dessert').
+plat('desserts_aux_fruits_rouges', 'desserts aux fruits', 'dessert').
 plat('dinde_farcie', 'dinde farcie', 'volaille').
 plat('dinde_rotie', 'dinde rotie', 'volaille').
 plat('entrecôte_grillée', 'entrecôte grillée','viande rouge').
@@ -72,7 +72,7 @@ plat('fruits_de_mer', 'fruits de mer','fruits_de_mer').
 plat('gambas', 'gambas','fruits_de_mer').
 % plat('gibier_à_plume', 'gibier à plume',).
 % plat('gibier_à_poils', 'gibier à poils',).
-plat('gigot_dagneau', 'gigot dagneau','viande rouge').
+plat('gigot_dagneau', 'gigot dagneau agneau','viande rouge').
 plat('gâteaux_secs', 'gâteaux secs','dessert').
 plat('hachis_parmentier', 'hachis parmentier', 'divers').
 plat('homard', 'homard','fruits_de_mer').
@@ -89,7 +89,7 @@ plat('magret', 'magret', 'volaille').
 plat('melon_jambon_cru', 'melon jambon cru','entrée').
 plat('moule_frites', 'moule frites', 'belges').
 plat('moules', 'moules','fruits_de_mer').
-plat('navarin_dagneau', 'navarin dagneau','viande rouge').
+plat('navarin_dagneau', 'navarin dagneau agneau','viande rouge').
 plat('omelette', 'omelette', 'divers').
 plat('onglet_à_léchalotte', 'onglet à léchalotte','viande rouge').
 plat('osso_bucco', 'osso bucco', 'italiennes').

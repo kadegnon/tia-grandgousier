@@ -9,6 +9,7 @@
 couleur('blanc').
 couleur('rosé').
 couleur('rouge').
+couleur('mousseux').
 
 %%
 %   appellation(+nom,+atom).
@@ -25,10 +26,12 @@ appellation('beaune ier cru', 'beaune_ier_cru').
 appellation('beaune rouge', 'beaune_rouge').
 appellation('blaye rouge', 'blaye_rouge').
 appellation('bonnes mares', 'bonnes_mares').
+appellation('bordeaux', 'bordeaux').
 appellation('bordeaux blanc', 'bordeaux_blanc').
 appellation('bordeaux rouge', 'bordeaux_rouge').
 appellation('bordeaux superieur rouge', 'bordeaux_superieur_rouge').
 appellation('bourgogne', 'bourgogne').
+appellation('bourgogne blanc', 'bourgogne_blanc').
 appellation('bourgogne rouge', 'bourgogne_rouge').
 appellation('bourgueil', 'bourgueil').
 appellation('buzet', 'buzet').

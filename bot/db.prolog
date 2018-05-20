@@ -1,6 +1,5 @@
 :- module(db,[
 	init_vin_db/1,
-	service/2,
 	plat/3,
 	appellation/2,
 	circonstance/2,
@@ -39,7 +38,6 @@
 :- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier de vins ajoutés
 
 :- load_files([
-	'./db/service',
 	'./db/plat',
 	'./db/appellation',
 	'./db/circonstance'
@@ -56,7 +54,7 @@
 			couleur:atom
 		),
 		prix(id:atom, htva:number, tvac:number),
-		pour(id:atom, service:list),
+		pour(id:atom, circonstance:list),
 		accompagne(id:atom, plat:list),
 		nez(id:atom, text:list),
 		bouche(id:atom, text:list),
