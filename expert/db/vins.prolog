@@ -97,8 +97,7 @@ assert(bouche('ecba35ea',['fin et concentré','avec des saveurs d\'une grande un
 assert(nez('ecba35ea',['Parfumée','arômes de griottes et de fruits des bois','associés','à de iolies notes épicées'])).
 assert(pour('ecba35ea',[])).
 assert(accompagne('ecba35ea',[])).
-assert(description('ecba35ea',['Cuvée issue de vignes de la Côte de Nuits.','Parfumée avec des arômes de griottes et de fruits des bois associés à de iolies notes épicées.', 'Un Bourgogne à la fois fin et concentré. avec des saveurs
-d\'une grande unité.', 'L\'ensemble est généreux, frais, tendre et gourmand. Beaucoup de plénitude. Tres polyvalent.'])).
+assert(description('ecba35ea',['Cuvée issue de vignes de la Côte de Nuits.','Parfumée avec des arômes de griottes et de fruits des bois associés à de iolies notes épicées.', 'Un Bourgogne à la fois fin et concentré. avec des saveurs d\'une grande unité.', 'L\'ensemble est généreux, frais, tendre et gourmand. Beaucoup de plénitude. Tres polyvalent.'])).
 
 assert(vin('4db490c4','Hautes Côtes de Nuits',2014,'Côte-de-Nuits','bourgogne','rouge')).
 assert(prix('4db490c4',12.53, 15.16)).
@@ -132,21 +131,13 @@ assert(pour('53c3c9f8',[aperitif])).
 assert(accompagne('53c3c9f8',[carpaccio_de_poisson,crustacés,fruits_de_mer])).
 assert(description('53c3c9f8',['La vérité, la ﬁnesse et l\'élégance à l\'état pur','Champagne très digeste, non dosé, brut 100%', 'Composé en grande majorité de pinot noir (80%)', 'L\'assemblage est complété par 20% de chardonnay', 'Champagne d\'apéritif par excellence'])).
 
-assert(vin('53c3c9f8','Champagne extra Brut',2018,'j. vesselle à bouzy','champagne','mousseux')).
-assert(prix('53c3c9f8',20.06, 24.17)).
-assert(bouche('53c3c9f8',[superbe, finesse])).
-assert(nez('53c3c9f8',[superbe, finesse])).
-assert(pour('53c3c9f8',[aperitif])).
-assert(accompagne('53c3c9f8',[carpaccio_de_poisson,crustacés,fruits_de_mer])).
-assert(description('53c3c9f8',['La vérité, la ﬁnesse et l\'élégance à l\'état pur','Champagne très digeste, non dosé, brut 100%', 'Composé en grande majorité de pinot noir (80%)', 'L\'assemblage est complété par 20% de chardonnay', 'Champagne d\'apéritif par excellence'])).
-
 assert(vin('2638f900','Champagne Brut Œil de Perdrix',2018,'j. vesselle à bouzy','champagne','mousseux')).
 assert(prix('2638f900',20.22, 24.47)).
 assert(bouche('2638f900',['grande intensité aromatique', rare, 'loin des grandes séries'])).
 assert(nez('2638f900',['issu de raisins surmaturés', 'teinte ambrée'])).
 assert(pour('2638f900',[desserts])).
 assert(accompagne('2638f900',[poisson_au_four,homar,cochon_de_lait,desserts_aux_fruits_rouges])).
-assert(description('2638f900',['La vérité, la ﬁnesse et l\'élégance à l\'état pur','Champagne très digeste, non dosé, brut 100%', 'Composé en grande majorité de pinot noir (80%)', 'L\'assemblage est complété par 20% de chardonnay', 'Champagne d\'apéritif par excellence'])).
+assert(description('53c3c9f8',['Superbe blanc des Noirs avec raisins supernaturels'])).
 
 assert(vin('f8b30078','Madiran Vieilles Vignes',2006,'j. vesselle à bouzy','bordeaux_rouge','rouge')).
 assert(prix('f8b30078',8.20, 9.92)).
