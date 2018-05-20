@@ -37,11 +37,11 @@
 :- use_module(library(persistency)).
 :- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier de vins ajoutés
 
-:- load_files([
+:- ensure_loaded([
 	'./db/plat',
 	'./db/appellation',
 	'./db/circonstance'
-], [if(not_loaded)]).
+]).
 
 
 
@@ -75,6 +75,7 @@ init_vin_db(Dir) :-
 *******************************************************/
 
 create_vin(Id,Nom,An,Origine,Appellation,Couleur) :-
+	
 	assert_vin(Id,Nom,An,Origine,Appellation,Couleur).
 
 

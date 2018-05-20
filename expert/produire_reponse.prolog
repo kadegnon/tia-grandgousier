@@ -35,6 +35,7 @@ produire_reponse(L,Rep) :-
    mclef(M,_), member(M,L),
    clause(regle_rep(M,_,Pattern,Rep),Body),
    match_pattern(Pattern,L),
+   write(L),
    call(Body), !.
 
 produire_reponse(_, [[je, ne, comprends,pas,votre,requete]]) :- !.

@@ -11,7 +11,7 @@ regle_rep(plus,4,[pourriezvous,men,dire,plus,sur, VinNom], Rep) :-
     db_vin(VinID,VinNom,_,_,_,_), !,
     rep_vin_description(VinID, Rep).
 
-regle_rep(plus,4,_,Rep) :- !,
+regle_rep(plus,4,_,[Rep]) :- !,
     reponse(pas_de_vin, R),
     append(R, [dans, notre, catalogue],Rep).
 
