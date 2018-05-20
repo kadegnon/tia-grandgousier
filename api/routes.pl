@@ -27,7 +27,6 @@
 	appellations_handler/1,
 	circonstances_handler/1,
 	couleurs_handler/1,
-	services_handler/1,
 	plats_handler/1
 ]).
 
@@ -74,7 +73,7 @@ http:location(api_plats, 		 api(plats), []).				% /api/plats
 :- http_handler(api_appellations(.), appellations_handler,[]).
 :- http_handler(api_circonstances(.), circonstances_handler,[]).
 :- http_handler(api_couleurs(.), couleurs_handler,[]).
-:- http_handler(api_services(.), services_handler,[]).
+:- http_handler(api_services(.), circonstances_handler,[]).
 :- http_handler(api_plats(.), plats_handler,[]).
 
 

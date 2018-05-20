@@ -122,12 +122,6 @@ couleurs_handler(_) :-
 	list_2_obj(List,Obj),
 	reply_json_dict(Obj).
 
-services_handler(_) :-
-	cors_enable,
-	list_services(List),
-	list_2_obj(List,Obj),
-	reply_json_dict(Obj).
-
 plats_handler(_) :-
 	cors_enable,
 	list_plats(List),
