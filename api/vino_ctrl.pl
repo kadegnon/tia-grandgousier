@@ -3,7 +3,6 @@
 	list_circonstances/1,
 	list_appellations/1,
 	list_couleurs/1,
-	list_services/1,
 	list_plats/1,
     create_vino/2,	%% C
     list_vino/2,	%% R
@@ -25,7 +24,7 @@
 %	Donne le vino correspondant à l'ID.
 %
 get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
-				 nez:Nez, bouche:Bouche, plats : Accompagne,
+				 nez:Nez, bouche:Bouche, plats : Plats,
 				 services : Service, annee:An, origine:Orig,
 				 description:Descr, appellation:Appel, 
 				 htva:Htva,tvac:Tvac}) :-
@@ -33,7 +32,7 @@ get_vino(Id, _{id:Id, nom:Nom,couleur:Couleur,
 	db_prix(Id, Htva, Tvac),
 	db_description(Id, Descr),
 	db_nez(Id, Nez), db_bouche(Id, Bouche),	
-	db_avec(Id, Accompagne),
+	db_avec(Id, Plats),
 	db_pour(Id, Service).
 
 get_vino(Id,_) :- 
@@ -196,12 +195,12 @@ list_couleurs(List) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	list(-Services)
+%	list(-Circonstances)
 %
-%	Donne tous les services possibles pour se servir un vin.
+%	Donne tous les circonstances possibles pour boire un vin.
 %
-list_services(List) :- 
-	findall( (ServId, Nom), service(ServId, Nom), List).
+list_circonstances(List) :- 
+	findall( (CircId, CircNom), circonstance(CircId, CircNom), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -212,12 +211,4 @@ list_services(List) :-
 list_plats(List) :- 
 	findall((PlatId,PlatNom), plat(PlatId,PlatNom,_), List).
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	list(-Circonstances)
-%
-%	Donne tous les circonstances possibles pour boire un vin.
-%
-list_circonstances(List) :- 
-	findall( (CircId, CircNom), circonstance(CircId, CircNom), List).
 
