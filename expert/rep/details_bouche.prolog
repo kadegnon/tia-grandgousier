@@ -7,7 +7,7 @@
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
 
-regle_rep(bouche,5,[ que, donne, le, VinNom, en , bouche ], Rep) :-
+regle_rep(bouche,51,[ que, donne, le, VinNom, en , bouche ], Rep) :-
    db_vin(VinID,VinNom,_,_,_,_), !,
    rep_vin_bouche(VinID, Rep).
 

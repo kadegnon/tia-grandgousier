@@ -27,9 +27,7 @@ lvins_selon_critere(Critere, Lvins) :-
     findall( (Id,Nom,An,Critere) , get_vin(Id,Nom,An,Critere), Lvins).
 	
 
-get_vin(Id,Nom,An,Appel) :- db_vin(Id,Nom,An,_,Appel,_).
-
-get_vin(Id,Nom,An,Origin) :- db_vin(Id,Nom,An,Origin,_,_).
+get_vin(Id,Nom,An,Critere) :- db_vin(Id,Nom,An,_,Critere,_) ; db_vin(Id,Nom,An,Critere,_,_).
 
 
 

@@ -7,7 +7,7 @@
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
 
-regle_rep(cuisiner,6, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
+regle_rep(cuisiner,61, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
     db_vins_plat(Plat,LVinID),
     write(LVinID),
     rep_lvins_avec(LVinID, Rep).

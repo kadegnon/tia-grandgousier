@@ -12,7 +12,7 @@
 reponse(non, [ non, '.' ]).
 reponse(oui_conseille, [oui , ',', je , vous, conseille]).
 reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
-reponse(non_dispose, [non , ',', je , ne,dispose, pas ,de, vins]).
+reponse(non_dispose, [non , ',', je , ne,dispose, pas ,de, ce, vin]).
 reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
 
 	
@@ -28,6 +28,7 @@ reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
 	'./rep/details_description',
 	'./rep/details_nez',
 	'./rep/details_bouche',
-	'./rep/cuisiner_plat'
+	'./rep/cuisiner_plat',
+	'./rep/auriez_vous_un'
 
 ]).

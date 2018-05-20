@@ -7,7 +7,7 @@
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
 
-regle_rep(nez,3,[ quel, nez, presente, le, VinNom ],Rep) :-
+regle_rep(nez,31,[ quel, nez, presente, le, VinNom ],Rep) :-
    db_vin(VinID,VinNom,_,_,_,_), !,
    rep_vin_nez(VinID, Rep).
 
