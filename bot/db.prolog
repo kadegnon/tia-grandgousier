@@ -1,7 +1,7 @@
 :- module(db,[
 	init_vin_db/1,
 	service/2,
-	plat/2,
+	plat/3,
 	appellation/2,
 	circonstance/2,
 	couleur/1,
@@ -10,6 +10,7 @@
 	create_prix/3,
 	create_pour/2,
 	create_avec/2,
+	create_accompagne/2,
 	create_nez/2,
 	create_bouche/2,
 	create_description/2,
@@ -18,6 +19,8 @@
 	db_prix/3,
 	db_pour/2,
 	db_avec/2,
+	db_accompagne/2,
+	db_vins_plat/2,
 	db_nez/2,
 	db_bouche/2,
 	db_description/2,
@@ -26,13 +29,14 @@
 	delete_prix/1,
 	delete_pour/1,
 	delete_avec/1,
+	delete_accompagne/1,
 	delete_bouche/1,
 	delete_nez/1,
 	delete_description/1
 ]).
 
 :- use_module(library(persistency)).
-:- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier
+:- use_module(library(filesex)). 		%% Pour pouvoir creer le fichier de vins ajoutés
 
 :- load_files([
 	'./db/service',
@@ -108,11 +112,46 @@ db_prix(VinId,PrixHtva, PrixTvac) :-	prix(VinId,PrixHtva, PrixTvac).
 db_pour(VinId,Atom_List) :-	pour(VinId,Atom_List).
 db_pour(_,[]).
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	db_avec(+PlatAtom, -VinList)
+%
+%	Donne les vins correspondants au plat specifié
+%
 db_avec(VinId,Atom_List) :-	db_accompagne(VinId,Atom_List).
-
 db_accompagne(VinId,Atom_List) :-	accompagne(VinId,Atom_List).
 db_accompagne(_,[]).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	db_vins_plat(+PlatAtom, -VinList)
+%
+%	Donne les vins correspondants au plat specifié
+%
+db_vins_plat(Plat, Vins) :-
+	findall(PlatID, get_plat(Plat, PlatID), Plats),
+	get_vins_by_plat(Plats, [], Vins).
+
+	%%findall([Id,Nom,Appel,Col], db_vin(Id,Nom,_,_,Appel,Col), Vins).
+
+
+get_vins_by_plat([],Acc,Acc).
+get_vins_by_plat([Plat | T ], Prev ,Acc) :-
+	findall(
+		VinID,
+		(accompagne(VinID, List), member(Plat, List)),
+		L
+	),
+	union(L, Prev, LVins),
+	get_vins_by_plat(T, LVins, Acc).
+
+
+get_plat(Plat, PlatID) :-
+	plat(PlatID,PlatNom,PlatType),
+	(
+		(atomic_list_concat(LN, ' ', PlatNom), member(Plat, LN)) % Cherche dans le nom du plat
+		;(atomic_list_concat(LT, ' ', PlatType), member(Plat, LT)) % Cherche dans les types du plat,
+	).
+
+
 
 db_bouche(VinId,Atom_List) :-	bouche(VinId,Atom_List).
 db_bouche(_,[]).

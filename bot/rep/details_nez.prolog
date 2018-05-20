@@ -16,3 +16,4 @@ regle_rep(nez,3,_,[Rep]) :- !,
     append(R, [dans, notre, liste],Rep).
 
 rep_vin_nez(VinId, [Mots]) :- db_nez(VinId,Mots),!.
+rep_vin_nez(_, [[aucune, nez, pour, ce, vin]]).

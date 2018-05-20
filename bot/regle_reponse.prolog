@@ -10,6 +10,7 @@
 
 
 reponse(non, [ non, '.' ]).
+reponse(oui_conseille, [oui , ',', je , vous, conseille]).
 reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
 reponse(non_dispose, [non , ',', je , ne,dispose, pas ,de, vins]).
 reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
@@ -19,12 +20,14 @@ reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
+%% Load all regles_rep created
 
-:- load_files([
+:- ensure_loaded([
 	'./rep/selon_intervalle_prix',
 	'./rep/selon_criteres',
 	'./rep/details_description',
 	'./rep/details_nez',
-	'./rep/details_bouche'
+	'./rep/details_bouche',
+	'./rep/cuisiner_plat'
 
-], [if(not_loaded)]).
+]).

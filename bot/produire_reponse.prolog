@@ -10,12 +10,13 @@
 
 %% mclef(mot, priorite).
 
-mclef(vin,5).
-mclef(vins,5).
+mclef(cuisiner,10).
 mclef(prix,10).
 mclef(plus,10).
 mclef(bouche,10).
 mclef(nez,10).
+mclef(vin,5).
+mclef(vins,5).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
