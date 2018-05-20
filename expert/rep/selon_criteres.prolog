@@ -6,13 +6,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
-
-
-regle_rep(vins, 21, [ quels, vins, de, Critere, avezvous], Rep) :-
-    lvins_selon_critere(Critere, Lvins),
+regle_rep(vin, 21, [ quel, vin, de, Critere | _], Rep) :- !, 
+	rep(Critere, Rep).
+regle_rep(vins, 22, [ quels, vins, de, Critere | _], Rep) :-
+    rep(Critere, Rep).
+	
+	
+rep(Critere, Rep) :-
+	lvins_selon_critere(Critere, Lvins),
     rep_lvins_criteres(Lvins,Rep).
 	
 
+	
+	
 	
 %% lvins_selon_critere(+Appellation, -Lvins).
 %
