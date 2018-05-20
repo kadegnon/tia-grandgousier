@@ -9,6 +9,7 @@
 
 regle_rep(cuisiner,6, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
     db_vins_plat(Plat,LVinID),
+    write(LVinID),
     rep_lvins_avec(LVinID, Rep).
 
 regle_rep(cuisiner,6,_,[[plat, inconnue, dans, notre, catalogue]]).
@@ -18,9 +19,8 @@ regle_rep(cuisiner,6,_,[[plat, inconnue, dans, notre, catalogue]]).
 rep_lvins_avec([], [[aucun, vin, accompagne, pour, ce, plat]]).
 
 rep_lvins_avec(LVinID, [ Resp | L]) :- 
-    
     random_select(VinID, LVinID, _),
-    db_vin(VinID,_,_,_,Appel,Col),
+    db_vin(VinID,_,_,_,_,Col),
     db_nez(VinID, Nez),
     db_bouche(VinID, Bouche),
 
@@ -54,8 +54,8 @@ collect([], []).
 collect([(_, Vn) | T], [Vn | Rs ] ):-   collect(T, Rs).
 
 find_match(_, [], []).
-find_match(A, [(A, V) | T], [(A, V) | R]):-  find_match(Appel, T, R).
-find_match(A, [(_, V) | T], R) :-  find_match(A, T, R).
+find_match(A, [(A, V) | T], [(A, V) | R]):-  find_match(A, T, R).
+find_match(A, [(_, _) | T], R) :-  find_match(A, T, R).
 
 
 rep_litems_vin_avec([], []) :- !.
