@@ -3,7 +3,6 @@
 	appellations_handler/1,
 	circonstances_handler/1,
 	couleurs_handler/1,
-	services_handler/1,
 	plats_handler/1
 
 ]).
