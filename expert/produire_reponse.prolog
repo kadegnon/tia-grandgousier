@@ -53,6 +53,7 @@ sublist(SL,L) :-
    prefix(SL,L), !.
 sublist(SL,[_|T]) :- sublist(SL,T).
 
+/*
 nom_vins_uniforme(Lmots,L_mots_unif) :-
    L1 = Lmots,
    replace_vin([beaumes,de,venise],'Beaumes de Venise',L1,L2),
@@ -69,25 +70,23 @@ replace_vin(_,_,[],[]) :- !.
 replace_vin(L,X,[H|In],[H|Out]) :-
    replace_vin(L,X,In,Out).
 
+*/
 
 
-/*
 nom_vins_uniforme(Lmots,L_mots_unif) :-
-   L1 = Lmots,
-   
    findall( (Nom, Nom_Atoms)
 		,( db_vin(_,Nom,_,_,_,_), lire_question(Nom, Nom_Atoms) )
 		,LVins
 	),
-	
-	write(LVins),
-   
-   L_mots_unif = L.
-   
+	replace_vin_acc(LVins, Lmots, L_mots_unif).
+
+
+replace_vin_acc([], Acc, Acc).    
+replace_vin_acc([H | T], Acc, L_mots_unif) :-
+    replace_vin(H, Acc, Acc_new),
+    replace_vin_acc(T, Acc_new , L_mots_unif).
 
 replace_vin( (Nom, Nom_Atoms), In, Out) :-
    append(Nom_Atoms, Suf, In), !, Out = [Nom | Suf].
-replace_vin(Vin,[H|In],[H|Out]) :- replace_vin(Vin, In, Out).
 replace_vin(_,[],[]) :- !.
-
-*/
+replace_vin(Vin,[H|In],[H|Out]) :- replace_vin(Vin, In, Out).
