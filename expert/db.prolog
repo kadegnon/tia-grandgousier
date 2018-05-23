@@ -125,12 +125,7 @@ db_accompagne(_,[]).
 %
 %	Donne les vins correspondants au plat specifié
 %
-db_vins_plat(Plat, Vins) :-
-	findall(PlatID, get_plat(Plat, PlatID), Plats),
-	get_vins_by_plat(Plats, [], Vins).
-
-	%%findall([Id,Nom,Appel,Col], db_vin(Id,Nom,_,_,Appel,Col), Vins).
-
+db_vins_plat(Plats, Vins) :-	get_vins_by_plat(Plats, [], Vins).
 
 get_vins_by_plat([],Acc,Acc).
 get_vins_by_plat([Plat | T ], Prev ,Acc) :-
@@ -141,15 +136,6 @@ get_vins_by_plat([Plat | T ], Prev ,Acc) :-
 	),
 	union(L, Prev, LVins),
 	get_vins_by_plat(T, LVins, Acc).
-
-
-get_plat(Plat, PlatID) :-
-	plat(PlatID,PlatNom,PlatType),
-	(
-		(atomic_list_concat(LN, ' ', PlatNom), member(Plat, LN)) % Cherche dans le nom du plat
-		;(atomic_list_concat(LT, ' ', PlatType), member(Plat, LT)) % Cherche dans les types du plat,
-	).
-
 
 
 db_bouche(VinId,Atom_List) :-	bouche(VinId,Atom_List).

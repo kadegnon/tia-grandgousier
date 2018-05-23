@@ -8,12 +8,18 @@
 
 
 regle_rep(cuisiner,61, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
-    db_vins_plat(Plat,LVinID),
-    write(LVinID),
+	findall(PlatID, get_plat(Plat, PlatID), Plats),
+    db_vins_plat(Plat, LVinID),
     rep_lvins_avec(LVinID, Rep).
 
-regle_rep(cuisiner,6,_,[[plat, inconnue, dans, notre, catalogue]]).
+regle_rep(cuisiner,62,_,[[plat, inconnue, dans, notre, catalogue]]).
 
+get_plat(Plat, PlatID) :-
+	plat(PlatID, PlatNom, PlatType),
+	(
+		(atomic_list_concat(LN, ' ', PlatNom), member(Plat, LN)) % Cherche dans le nom du plat
+		;(atomic_list_concat(LT, ' ', PlatType), member(Plat, LT)) % Cherche dans les types du plat,
+	).
 
 
 rep_lvins_avec([], [[aucun, vin, accompagne, pour, ce, plat]]).
