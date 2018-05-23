@@ -34,7 +34,7 @@ rep_lvins_min_max([H|T], [ Resp | L]) :-
 rep_litems_vin_min_max([],[]) :- !.
 rep_litems_vin_min_max([(VinId,P)|L], [Irep|Ll]) :-
    db_vin(VinId,Nom,_,_,A,_),
-   appellation(Appel, A),
+   appellation(A, Appel),
    Irep = [ '-  ', Nom, '(', Appel, ') à', P, 'EUR' ],
    rep_litems_vin_min_max(L,Ll).
 

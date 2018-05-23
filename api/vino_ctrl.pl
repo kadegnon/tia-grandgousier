@@ -48,7 +48,7 @@ get_vino(Id,_) :-
 get_short_vino(Id, _{id:Id, nom:Nom, couleur:Couleur,
 				annee:An, origin:Orig,appellation:Appel}) :-
 	!, db_vin(Id, Nom,An, Orig, A,Couleur),
-	appellation(Appel, A).
+	appellation(A, Appel).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,7 +182,7 @@ delete_vino(Id, Vino) :-
 %	Donne tous les appellations.
 %
 list_appellations(List) :-
-	findall( (AppelId,AppelNom),appellation(AppelId,AppelNom),List).
+	findall( (AppelId,AppelNom), appellation(AppelId,AppelNom),List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -15,134 +15,134 @@ couleur('mousseux').
 %   appellation(+nom,+atom).
 %
 
-appellation('aloxe corton', 'aloxe_corton').
+appellation('aloxe_corton', 'aloxe corton').
 appellation('alsace', 'alsace').
 appellation('aucune', 'aucune').
 appellation('bandol', 'bandol').
 appellation('beaujolais', 'beaujolais').
-appellation('beaujolais villages', 'beaujolais_villages').
-appellation('beaumes de venise', 'beaumes_de_venise').
-appellation('beaune ier cru', 'beaune_ier_cru').
-appellation('beaune rouge', 'beaune_rouge').
-appellation('blaye rouge', 'blaye_rouge').
-appellation('bonnes mares', 'bonnes_mares').
+appellation('beaujolais_villages', 'beaujolais villages').
+appellation('beaumes_de_venise', 'beaumes de venise').
+appellation('beaune_ier_cru', 'beaune ier cru').
+appellation('beaune_rouge', 'beaune rouge').
+appellation('blaye_rouge', 'blaye rouge').
+appellation('bonnes_mares', 'bonnes mares').
 appellation('bordeaux', 'bordeaux').
-appellation('bordeaux blanc', 'bordeaux_blanc').
-appellation('bordeaux rouge', 'bordeaux_rouge').
-appellation('bordeaux superieur rouge', 'bordeaux_superieur_rouge').
+appellation('bordeaux_blanc', 'bordeaux blanc').
+appellation('bordeaux_rouge', 'bordeaux rouge').
+appellation('bordeaux_superieur_rouge', 'bordeaux superieur rouge').
 appellation('bourgogne', 'bourgogne').
-appellation('bourgogne blanc', 'bourgogne_blanc').
-appellation('bourgogne rouge', 'bourgogne_rouge').
+appellation('bourgogne_blanc', 'bourgogne blanc').
+appellation('bourgogne_rouge', 'bourgogne rouge').
 appellation('bourgueil', 'bourgueil').
 appellation('buzet', 'buzet').
 appellation('cairanne', 'cairanne').
-appellation('canon fronsac', 'canon_fronsac').
+appellation('canon_fronsac', 'canon fronsac').
 appellation('cassis', 'cassis').
 appellation('castillon', 'castillon').
-appellation('chabl ler cru', 'chabl_ler_cru').
+appellation('chabl_ler_cru', 'chabl ler cru').
 appellation('chablis', 'chablis').
-appellation('chambolle musigny', 'chambolle_musigny').
-appellation('chambolle musigny 1er cru', 'chambolle_musigny_1er_cru').
+appellation('chambolle_musigny', 'chambolle musigny').
+appellation('chambolle_musigny_1er_cru', 'chambolle musigny 1er cru').
 appellation('champagne', 'champagne').
-appellation('chassagne montrachet 1er cru', 'chassagne_montrachet_1er_cru').
-appellation('chateauneuf du pape', 'chateauneuf_du_pape').
+appellation('chassagne_montrachet_1er_cru', 'chassagne montrachet 1er cru').
+appellation('chateauneuf_du_pape', 'chateauneuf du pape').
 appellation('cheverny', 'cheverny').
 appellation('chinon', 'chinon').
 appellation('chiroubles', 'chiroubles').
-appellation('clos de la roche grand cru', 'clos_de_la_roche_grand_cru').
+appellation('clos_de_la_roche_grand_cru', 'clos de la roche grand cru').
 appellation('cognac', 'cognac').
 appellation('corbières', 'corbières').
-appellation('corton grand cru', 'corton_grand_cru').
-appellation('cote de beaune', 'cote_de_beaune').
-appellation('cote de brouilly', 'cote_de_brouilly').
-appellation('cote de nuits villages', 'cote_de_nuits_villages').
-appellation('cote rotie', 'cote_rotie').
-appellation('cotes de duras', 'cotes_de_duras').
+appellation('corton_grand_cru', 'corton grand cru').
+appellation('cote_de_beaune', 'cote de beaune').
+appellation('cote_de_brouilly', 'cote de brouilly').
+appellation('cote_de_nuits_villages', 'cote de nuits villages').
+appellation('cote_rotie', 'cote rotie').
+appellation('cotes_de_duras', 'cotes de duras').
 appellation('cremant', 'cremant').
-appellation('crozes hermitage rouge', 'crozes_hermitage_rouge').
-appellation('eau-de-vie', 'eau_de_vie').
+appellation('crozes_hermitage_rouge', 'crozes hermitage rouge').
+appellation('eau_de_vie', 'eau-de-vie').
 appellation('faugeres', 'faugeres').
 appellation('fixin', 'fixin').
 appellation('fleurie', 'fleurie').
-appellation('gevrey chambertin', 'gevrey_chambertin').
-appellation('gevrey chambertin 1er cru', 'gevrey_chambertin_1er_cru').
+appellation('gevrey_chambertin', 'gevrey chambertin').
+appellation('gevrey_chambertin_1er_cru', 'gevrey chambertin 1er cru').
 appellation('gigondas', 'gigondas').
 appellation('givry', 'givry').
-appellation('gratte-cul eau-de-vie', 'gratte_cul_eau_de_vie').
-appellation('graves blanc', 'graves_blanc').
-appellation('graves rouge', 'graves_rouge').
+appellation('gratte_cul_eau_de_vie', 'gratte-cul eau-de-vie').
+appellation('graves_blanc', 'graves blanc').
+appellation('graves_rouge', 'graves rouge').
 appellation('grillet', 'grillet').
-appellation('haut medoc', 'haut_medoc').
+appellation('haut_medoc', 'haut medoc').
 appellation('hermitage', 'hermitage').
 appellation('irancy', 'irancy').
-appellation('kirsch eau-de-vie', 'kirsch_eau_de_vie').
-appellation('lalande de pomerol', 'lalande_de_pomerol').
+appellation('kirsch_eau_de_vie', 'kirsch eau-de-vie').
+appellation('lalande_de_pomerol', 'lalande de pomerol').
 appellation('lirac', 'lirac').
-appellation('listrac haut medoc', 'listrac_haut_medoc').
+appellation('listrac_haut_medoc', 'listrac haut medoc').
 appellation('luberon', 'luberon').
-appellation('lussac st emilion', 'lussac_st_emilion').
-appellation('macon villages', 'macon_villages').
+appellation('lussac_st_emilion', 'lussac st emilion').
+appellation('macon_villages', 'macon villages').
 appellation('madiran', 'madiran').
-appellation('marc de bourgogne', 'marc_de_bourgogne').
-appellation('marc de gewurztraminer', 'marc_de_gewurztraminer').
+appellation('marc_de_bourgogne', 'marc de bourgogne').
+appellation('marc_de_gewurztraminer', 'marc de gewurztraminer').
 appellation('margaux', 'margaux').
 appellation('marmandais', 'marmandais').
 appellation('medoc', 'medoc').
 appellation('mercurey', 'mercurey').
-appellation('meursault 1er cru', 'meursault_1er_cru').
-appellation('mirabelle eau-de-vie', 'mirabelle_eau_de_vie').
-appellation('montagne st emilion', 'montagne_st_emilion').
-appellation('montlouis moelleux', 'montlouis_moelleux').
+appellation('meursault_1er_cru', 'meursault 1er cru').
+appellation('mirabelle_eau_de_vie', 'mirabelle eau-de-vie').
+appellation('montagne_st_emilion', 'montagne st emilion').
+appellation('montlouis_moelleux', 'montlouis moelleux').
 appellation('morgon', 'morgon').
-appellation('moulin a vent', 'moulin_a_vent').
+appellation('moulin_a_vent', 'moulin a vent').
 appellation('moulis', 'moulis').
 appellation('muscadet', 'muscadet').
-appellation('muscat beaumes de venise bl', 'muscat_beaumes_de_venise_bl').
-appellation('nuits st georges', 'nuits_st_georges').
-appellation('nuits st georges 1er cru', 'nuits_st_georges_1er_cru').
+appellation('muscat_beaumes_de_venise_bl', 'muscat beaumes de venise bl').
+appellation('nuits_st_georges', 'nuits st georges').
+appellation('nuits_st_georges_1er_cru', 'nuits st georges 1er cru').
 appellation('pauillac', 'pauillac').
 appellation('pineau', 'pineau').
 appellation('pomerol', 'pomerol').
 appellation('pommard', 'pommard').
-appellation('pouilly fuisse', 'pouilly_fuisse').
-appellation('pouilly fume', 'pouilly_fume').
-appellation('pouilly vinzelles', 'pouilly_vinzelles').
-appellation('provence rose', 'provence_rose').
-appellation('puligny-montrachet', 'puligny_montrachet').
-appellation('quart de chaumes', 'quart_de_chaumes').
+appellation('pouilly_fuisse', 'pouilly fuisse').
+appellation('pouilly_fume', 'pouilly fume').
+appellation('pouilly_vinzelles', 'pouilly vinzelles').
+appellation('provence_rose', 'provence rose').
+appellation('puligny_montrachet', 'puligny-montrachet').
+appellation('quart_de_chaumes', 'quart de chaumes').
 appellation('rasteau', 'rasteau').
 appellation('rhone', 'rhone').
-appellation('rhone rose', 'rhone_rose').
-appellation('rhone rouge', 'rhone_rouge').
-appellation('rhone villages', 'rhone_villages').
+appellation('rhone_rose', 'rhone rose').
+appellation('rhone_rouge', 'rhone rouge').
+appellation('rhone_villages', 'rhone villages').
 appellation('roussillon', 'roussillon').
-appellation('saint-romain', 'saint_romain').
+appellation('saint_romain', 'saint-romain').
 appellation('sancerre', 'sancerre').
-appellation('sancerre rouge', 'sancerre_rouge').
-appellation('saumur brut', 'saumur_brut').
-appellation('saumur champigny', 'saumur_champigny').
+appellation('sancerre_rouge', 'sancerre rouge').
+appellation('saumur_brut', 'saumur brut').
+appellation('saumur_champigny', 'saumur champigny').
 appellation('sauternes', 'sauternes').
 appellation('savennieres', 'savennieres').
 appellation('savigny', 'savigny').
-appellation('savigny ier cru', 'savigny_ier_cru').
-appellation('st amour', 'st_amour').
-appellation('st denis', 'st_denis').
-appellation('st emilion', 'st_emilion').
-appellation('st estephe', 'st_estephe').
-appellation('st joseph', 'st_joseph').
-appellation('st julien', 'st_julien').
-appellation('st nicolas de bourgueil', 'st_nicolas_de_bourgueil').
-appellation('st veran', 'st_veran').
-appellation('ste croix du mont', 'ste_croix_du_mont').
+appellation('savigny_ier_cru', 'savigny ier cru').
+appellation('st_amour', 'st amour').
+appellation('st_denis', 'st denis').
+appellation('st_emilion', 'st emilion').
+appellation('st_estephe', 'st estephe').
+appellation('st_joseph', 'st joseph').
+appellation('st_julien', 'st julien').
+appellation('st_nicolas_de_bourgueil', 'st nicolas de bourgueil').
+appellation('st_veran', 'st veran').
+appellation('ste_croix_du_mont', 'ste croix du mont').
 appellation('tavel', 'tavel').
 appellation('vacqueyras', 'vacqueyras').
-appellation('vallee du rhone et languedoc', 'vallee_du_rhone_et_languedoc').
+appellation('vallee_du_rhone_et_languedoc', 'vallee du rhone et languedoc').
 appellation('ventoux', 'ventoux').
-appellation('vin de pays - igp blanc', 'vin_de_pays___igp_blanc').
-appellation('vin de pays - igp rose', 'vin_de_pays___igp_rose').
-appellation('vin de pays - igp rouge', 'vin_de_pays___igp_rouge').
-appellation('vire-clesse', 'vire_clesse').
+appellation('vin_de_pays___igp_blanc', 'vin de pays - igp blanc').
+appellation('vin_de_pays___igp_rose', 'vin de pays - igp rose').
+appellation('vin_de_pays___igp_rouge', 'vin de pays - igp rouge').
+appellation('vire_clesse', 'vire-clesse').
 appellation('volnay', 'volnay').
-appellation('vosne romanee', 'vosne_romanee').
-appellation('vosne romanee 1er cru', 'vosne_romanee_1er_cru').
+appellation('vosne_romanee', 'vosne romanee').
+appellation('vosne_romanee_1er_cru', 'vosne romanee 1er cru').
 appellation('vouvray', 'vouvray').

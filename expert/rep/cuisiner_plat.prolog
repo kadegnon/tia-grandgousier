@@ -46,7 +46,7 @@ group_by_appellation(LVins, Group) :-
 
 get_vins_et_appellation([], []).
 get_vins_et_appellation([ VinId | T], [(Appel, Nom) | L ]) :-
-    db_vin(VinId,Nom,_,_,A,_), appellation(Appel, A),
+    db_vin(VinId,Nom,_,_,A,_), appellation(A, Appel),
     get_vins_et_appellation(T, L).
     
 group_by([], Group, Group).
