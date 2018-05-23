@@ -8,31 +8,24 @@
 
 
 regle_rep(auriez, 71 , [vous, auriez, un, Vin], Rep):- 
-	graves(Vin, GVin), 
-	rep_Gvins(GVin, Rep).
+	lvins_selon_critere(Vin, LVins),  %% Definit dans rep/selon_criteres.prolog
+	rep_Lvins(LVins, Rep).
 
-
-graves(Graves, Gvin):- 
-	findall((Id, Nom, An), get_vin_by(Id, Nom, An, Graves), Gvin).
-
-get_vin_by(Id, Nom, An, Critere):- db_vin(Id, Nom, An, _, Critere, _) ; db_vin(Id, Nom, An, Critere, _, _).
-
-
-regle_rep(plus,4,_,[Rep]) :- !,	reponse(pas_de_vin, Rep).
+regle_rep(plus,72, _, [Rep]) :- !,	reponse(pas_de_vin, Rep).
 	
 
-rep_Gvins([], [Rep]):- reponse(non_dispose, Rep).
+rep_Lvins([], [Rep]):- reponse(non_dispose, Rep).
 	
-rep_Gvins([H|T], [Rep| L]):-
+rep_Lvins([H|T], [Rep| L]):-
 	reponse(oui_conseille, Rep),
-	rep_item_Gvins([H | T], L).
+	rep_item_Lvins([H | T], L).
 	
-rep_item_Gvins([], []) :- !.
-rep_item_Gvins([(VinId, Nom, An) | L], [Rep|T]):-
+rep_item_Lvins([], []) :- !.
+rep_item_Lvins([(VinId, Nom, An, _) | L], [Rep|T]):-
 	db_prix(VinId, Prix, _),
 	append(
 		[ '- \t ',Nom, An ],
 		['(', Prix, 'EUR', 'la', 'bouteille', ')'],
 		Rep
 	),	
-	rep_item_Gvins(L, T).
+	rep_item_Lvins(L, T).

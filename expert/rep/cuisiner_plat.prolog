@@ -9,7 +9,7 @@
 
 regle_rep(cuisiner,61, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
 	findall(PlatID, get_plat(Plat, PlatID), Plats),
-    db_vins_plat(Plat, LVinID),
+    db_vins_plat(Plats, LVinID),
     rep_lvins_avec(LVinID, Rep).
 
 regle_rep(cuisiner,62,_,[[plat, inconnue, dans, notre, catalogue]]).
