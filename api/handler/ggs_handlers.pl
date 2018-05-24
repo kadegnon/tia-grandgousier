@@ -12,7 +12,7 @@
 
 :- use_module('../../expert/grandgousier-elm',[
 	intro/1 as ggs_intro,
-	grandgousier/2 as ggs_question
+	grandgousier/3 as ggs_question
 ]).
 
 :- set_setting(http:cors, [get, post]).
@@ -55,8 +55,12 @@ question_handler(Request) :-
 
 
 ggs(Question) :-
-	ggs_question(Question, GGSResponse),
-	reply_json_dict(_{'reponse' : GGSResponse}).
+	ggs_question(Question, Q_Atoms, GGSResponse),
+	reply_json_dict(_{
+		'question'	: Question, 
+		'requete'	: Q_Atoms,
+		'reponse'	: GGSResponse
+	}).
 
 ggs(_) :-
 	Err = 'Invalid or Missing parameter (?question)', 
