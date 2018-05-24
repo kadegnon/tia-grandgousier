@@ -191,7 +191,7 @@ list_appellations(List) :-
 %	Donne tous les couleurs possibles pour un vin.
 %
 list_couleurs(List) :- 
-	findall( (ColId,VolNom), couleur(ColId, VolNom), List).
+	findall(ColNom, couleur(ColNom), List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

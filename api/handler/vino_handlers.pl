@@ -118,8 +118,7 @@ circonstances_handler(_) :-
 couleurs_handler(_) :-
 	cors_enable,
 	list_couleurs(List),
-	list_2_obj(List,Obj),
-	reply_json_dict(Obj).
+	reply_json_dict(List).
 
 plats_handler(_) :-
 	cors_enable,
@@ -128,7 +127,7 @@ plats_handler(_) :-
 	reply_json_dict(Obj).
 
 list_2_obj([], []).
-list_2_obj([(Name, Val) | T], [Obj | T_2_Obj]) :-
+list_2_obj([(Val, Name) | T], [Obj | T_2_Obj]) :-
 	Obj = _{name:Name, value:Val},
 	list_2_obj(T, T_2_Obj).
 list_2_obj(_, []).
