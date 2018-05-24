@@ -32,7 +32,7 @@ assert(description(beaumes_de_venise_2015,[
   'grand vin'
 ])).
 
-assert(vin(les_chaboeufs_2013,'Nuits—Saint-Georges 1er Cru \'Les Chaboeufs\'', 2013, 'normandie' ,'bourgogne','blanc')).
+assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru \'Les Chaboeufs\'', 2013, 'normandie' ,'bourgogne','blanc')).
 assert(prix(les_chaboeufs_2013, 35, 42.35)).
 assert(nez(les_chaboeufs_2013,[intensement, 'élégant'])).
 assert(bouche(les_chaboeufs_2013,['belle epaisseur', 'puissant', 'riche', 'rond', 'genereux', 'longueur superbe'])).
