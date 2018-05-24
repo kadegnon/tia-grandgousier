@@ -127,7 +127,7 @@
       </div>
       <div class="form-group">
         <input class="btn" type="submit"
-              :value="id ? 'Modifier' :'Sauvegarder'" :disabled="errors.any()">
+              :value="$route.params.id ? 'Modifier' :'Sauvegarder'" :disabled="errors.any()">
       </div>
     </form>
   </article>
@@ -187,19 +187,7 @@ export default {
   },
   methods: {
     prepareListSelect([type, list]) {
-      switch (type) {
-        case "plats":
-          _list.plats = list;
-          break;
-        case "services":
-          _list.services = list;
-          return;
-        case "appellations":
-          _list.appellations = list;
-          return;
-        default:
-          break;
-      }
+      _list[type] = list;
     },
     prepareVin(details) {
       Object.assign(this.vin, details, {
@@ -216,7 +204,6 @@ export default {
     },
     saveVin() {
       const warnMsg = e => {
-        console.log(e);
         this.$bus.$emit(
           "msg-warning",
           "Certains informations sont manquantes !"
@@ -227,6 +214,7 @@ export default {
         .validateAll()
         .then(isValid => {
           if (!isValid) return warnMsg();
+          this.id = this.$route.params.id;
           const vinInput = this.prepareInput();
           if (this.id) {
             return this.$bus.$emit("vin-modif", this.id, vinInput);
@@ -242,6 +230,8 @@ export default {
 
       return Object.assign({}, this.vin, {
         // tvac : Number.parseFloat(this.vin.htva * 1.21),
+        plats : this.vin.plats.map(p => p.value),
+        services : this.vin.services.map(s => s.value),
         bouche: textToPhrase(this.vin.bouche),
         description: textToPhrase(this.vin.description)
       });
