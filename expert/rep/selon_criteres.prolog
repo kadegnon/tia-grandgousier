@@ -45,7 +45,7 @@ get_vin_by_appellation(Appelation, Id, Nom, An):-
 %% rep_lvins_criteres([],[aucun]).
 rep_lvins_criteres([], [Resp, de, ce, genre]) :- reponse(non_dispose, Resp).
 rep_lvins_criteres([H|T], [ Resp | L]) :-  
-    reponse(oui_dispose, Resp),
+    reponse(oui_conseille, Resp),
     rep_litems_selon_criteres([H|T],L).
 
 rep_litems_selon_criteres([],[]) :- !.

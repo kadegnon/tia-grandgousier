@@ -11,7 +11,7 @@ regle_rep(auriez, 71 , [vous, auriez, un, Vin], Rep):-
 	lvins_selon_critere(Vin, LVins),  %% Definit dans rep/selon_criteres.prolog
 	rep_Lvins(LVins, Rep).
 
-regle_rep(plus,72, _, [Rep]) :- !,	reponse(pas_de_vin, Rep).
+regle_rep(plus,72, _, [Rep, de, ce ,genre ]) :- !,	reponse(pas_de_vin, Rep).
 	
 
 rep_Lvins([], [Rep]):- reponse(non_dispose, Rep).
