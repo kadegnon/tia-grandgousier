@@ -1,7 +1,9 @@
 :- module(ggs,[
-    intro/1,
+	intro/1,
+    ggs/0,
+    grandgousier/0,
     grandgousier/2,
-    grandgousier/0
+	grandgousier/3
     
 ]).
 
@@ -26,6 +28,8 @@ intro([
 /*                                                                       */
 /* --------------------------------------------------------------------- */
 
+ggs :- grandgousier.
+
 grandgousier :- 
 
    nl, nl, nl,
@@ -42,8 +46,10 @@ grandgousier :-
 
 fin(L) :- member(fin,L).
 
+grandgousier(Question, Ligne_reponse) :- 
+	grandgousier(Question, _ , Ligne_reponse).
 
-grandgousier(Question, Ligne_reponse) :-
+grandgousier(Question, L_Mots, Ligne_reponse) :-
     lire_question(Question, L_Mots),  
     produire_reponse(L_Mots, M_ligne_reponse),
     flatten_reponse(M_ligne_reponse, Ligne_reponse).

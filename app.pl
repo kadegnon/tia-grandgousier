@@ -18,7 +18,6 @@
 :- initialization init_vin_db('./expert/db').
 
 
-ggs	:- grandgousier.
 
 api :- start_server.
 
