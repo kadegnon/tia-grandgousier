@@ -9,11 +9,11 @@
 
 
 
-reponse(non, [ non, '.' ]).
-reponse(oui_conseille, [oui , ',', je , vous, conseille]).
-reponse(oui_dispose, [oui , ',', je , dispose, de , ':', '\n']).
-reponse(non_dispose, [non , ',', je , ne,dispose, pas ,de, ce, vin]).
-reponse(pas_de_vin, [ce, vin, n, '\'', existe, pas]).
+reponse(non, [ 'Non', '.' ]).
+reponse(oui_conseille, ['Oui' , ',', je , vous, conseille]).
+reponse(oui_dispose, ['Oui' , ',', je , dispose, de , ':', '\n']).
+reponse(non_dispose, ['Non' , ',', je , ne,dispose, pas ,de, ce, vin]).
+reponse(pas_de_vin, ['Ce', vin, 'n\'est', pas, dans , notre, catalogue]).
 
 	
 

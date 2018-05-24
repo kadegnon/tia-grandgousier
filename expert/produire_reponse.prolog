@@ -41,7 +41,7 @@ produire_reponse(L,Rep) :-
    match_pattern(Pattern,L),
    call(Body), !.
 
-produire_reponse(_, [[je, ne, comprends,pas,votre,requete]]) :- !.
+produire_reponse(_, [['Je', ne, comprends,pas,votre,requete]]) :- !.
 
 
 match_pattern(Pattern,Lmots) :-
@@ -52,25 +52,6 @@ sublist(SL,L) :-
    prefix(SL,L), !.
 sublist(SL,[_|T]) :- sublist(SL,T).
 
-/*
-nom_vins_uniforme(Lmots,L_mots_unif) :-
-   L1 = Lmots,
-   replace_vin([beaumes,de,venise],'Beaumes de Venise',L1,L2),
-   replace_vin(['nuitssaintgeorges'],'Nuits-Saint-Georges',L2,L3),
-   replace_vin([les,chaboeufs],'les chaboeufs',L3,L4),
-   replace_vin([la, fleur, de, pomys],'La Fleur de Pomys',L4,L5),
-   replace_vin(['chambollemusigny'],'Chambolle-Musigny',L5,L),
-   
-   L_mots_unif = L.
-   
-replace_vin(L,X,In,Out) :-
-   append(L,Suf,In), !, Out = [X|Suf].
-replace_vin(_,_,[],[]) :- !.
-replace_vin(L,X,[H|In],[H|Out]) :-
-   replace_vin(L,X,In,Out).
-
-*/
-
 
 nom_vins_uniforme(Lmots,L_mots_unif) :-
    findall( (Nom, Nom_Atoms)
@@ -78,7 +59,6 @@ nom_vins_uniforme(Lmots,L_mots_unif) :-
 		,LVins
 	),
 	replace_vin_acc(LVins, Lmots, L_mots_unif).
-
 
 replace_vin_acc([], Acc, Acc).    
 replace_vin_acc([H | T], Acc, L_mots_unif) :-
