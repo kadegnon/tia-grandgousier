@@ -20,22 +20,21 @@
 
 assert(vin(beaumes_de_venise_2015,'Beaumes de Venise', 2015, 'venise','rhone_rouge','rouge')).
 assert(prix(beaumes_de_venise_2015, 12.34, 87.45)).
-assert(nez(beaumes_de_venise_2015,[intensement, 'parfumé'])).
+assert(nez(beaumes_de_venise_2015,['intensément', 'parfumé'])).
 assert(bouche(beaumes_de_venise_2015,
   [  'les aromes de fraise, de violette cotoient les nuances' ,
      'de baies de genevrier, de sureau et une delicate touche' ,
      'de fleur d\'oranger. Cette intensite se poursuit en' ,
-     'bouche avec des saveurs juteuses, racees et tres elegantes'
+     'bouche avec des saveurs juteuses, racees et très élégantes'
   ])).
 assert(description(beaumes_de_venise_2015,[ 
-  'vignoble situe au sud-est des Dentelles de Montmirail',
-  'grand vin'
+  'grand vin', ' d\'un vignoble situé au sud-est des Dentelles de Montmirail'
 ])).
 
 assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru \'Les Chaboeufs\'', 2013, 'normandie' ,'bourgogne','blanc')).
 assert(prix(les_chaboeufs_2013, 35, 42.35)).
-assert(nez(les_chaboeufs_2013,[intensement, 'élégant'])).
-assert(bouche(les_chaboeufs_2013,['belle epaisseur', 'puissant', 'riche', 'rond', 'genereux', 'longueur superbe'])).
+assert(nez(les_chaboeufs_2013,['intensément', 'élégant'])).
+assert(bouche(les_chaboeufs_2013,['une belle epaisseur', 'puissant', 'riche', 'rond', 'genereux', 'longueur superbe'])).
 assert(description(les_chaboeufs_2013,[ 
   'Sur une parcelle escarpée, pierreuse',
   'Belle intensité aromatique ou se mêlent, avec élégance, les notes de griotte, de sous-bois (feuilles mortes) et de champignon'
@@ -43,22 +42,22 @@ assert(description(les_chaboeufs_2013,[
 
 assert(vin(fleur_pomys_2012,'La Fleur de Pomys', 2012, 'Sainte-Estephe','bordeaux_rouge','rouge')).
 assert(prix(fleur_pomys_2012, 17.65, 21.36)).
-assert(nez(fleur_pomys_2012,[empyreumatique, annonce, un, vin,complexe,et, 'concentre'])).
+assert(nez(fleur_pomys_2012,[empyreumatique, annoncant, un, vin,complexe,et, 'concentré'])).
 assert(bouche(fleur_pomys_2012,
-  [  'les aromes de myrtille et de cassis se melent a des notes glorales et a un boise bien integre',
+  [  'les aromes de myrtille et de cassis se mêlent à des notes glorales et à un boisé bien integré',
      'Les saveurs sont riches et concentrees, avec beaucoup de densite' ,
      'la finale laisse le souvenir d\' un Saint-Estephe a la fois complet, dense et race.'
   ])).
 assert(accompagne(fleur_pomys_2012,[viandes_rouges_grillées,carré_dagneau,entrecôte_grillée])).
 assert(description(fleur_pomys_2012,[ 
-  'Propriete du Nord du Haut-Medoc reposant aur le terroir argillo-graveleux a l\'origine de vins plus charpentes',
+  'Propriete du Nord du Haut-Medoc reposant sur le terroir argillo-graveleux à l\'origine de vins plus charpentes',
   'La robe est profonde'
 ])).
 
 
 assert(vin(chambolle_musigy_2012,'Chambolle-Musigny', 2012, 'Les Noirots','vallee_du_rhone_et_languedoc','rouge')).
 assert(prix(chambolle_musigy_2012, 52.77, 63.85)).
-assert(nez(chambolle_musigy_2012,[complexe,intense,de,fruits,rouges,'d\'epices (notes de poivres)',meles,a,des,nuances,empyreumatiques,et,de,'sous-bois'])).
+assert(nez(chambolle_musigy_2012,[complexe,intense,de,fruits,rouges,'d\'epices (notes de poivres)',meles,'à',des,nuances,empyreumatiques,et,de,'sous-bois'])).
 assert(accompagne(chambolle_musigy_2012,[coq_au_vin,croûtes_fleuries_camembert_brie])).
 assert(bouche(chambolle_musigy_2012,  ['Complexe avec des saveurs denses, concentrees et enrobees'])).
 assert(description(chambolle_musigy_2012,['Grand vin opulent, puissant, race et long'])).
@@ -77,8 +76,8 @@ assert(description(b477d59c,['Un jolie vin, classique, polyvalent, avec un bel �
 
 assert(vin('4c23dabc','Ch. La Fleur Baudron',2014,'Lussac-Saint-Emilion',bordeaux_rouge,'')).
 assert(prix('4c23dabc',6.18,7.47)).
-assert(bouche('4c23dabc',['Très plaisant, riche, et de beaux tanins associés à un boisé bien intégré','Un bordeaux très complet'])).
-assert(nez('4c23dabc',['aromes de fruits compots','epices fines','nuance florale (violette)'])).
+assert(bouche('4c23dabc',['Un bordeaux très complet',', très plaisant', riche, et,de, beaux, tanins, 'associés à', 'un boisé bien intégré'])).
+assert(nez('4c23dabc',['avec des aromes de fruits compots','epices fines','nuance florale (violette)'])).
 assert(pour('4c23dabc',[])).
 assert(accompagne('4c23dabc',[confit_oie_ou_canard])).
 assert(description('4c23dabc',['Magnifique terroir à l\'arrière de Lussac-Saint-Emillion reposant sur des sols graveleuxx et argilocalcaires',' Robe soutenue','Un bordeaux très complet'])).
@@ -109,7 +108,7 @@ assert(description('4db490c4',['Le Vignoble des Hautes Côtes se situe sur le pl
 
 assert(vin('4e0e9c2c','Hermitage rouge',2007,'Côte-de-Nuits','vallee_du_rhone_et_languedoc','rouge')).
 assert(prix('4e0e9c2c',28.08, 33.98)).
-assert(bouche('4e0e9c2c',['grande harmonie','très homogène','avec une belle profondeur','aucune dureté'])).
+assert(bouche('4e0e9c2c',['une grande harmonie','très homogène','avec une belle profondeur',et,'aucune dureté'])).
 assert(nez('4e0e9c2c',['bouquet complexe','très profond','associant les fruits noirs','les agrumes','à des notes de tabac et de réglisse'])).
 assert(pour('4e0e9c2c',[])).
 assert(accompagne('4e0e9c2c',[confit_oie_ou_canard, agneau, gigot_dagneau,boeuf_grillé,tournedos_rossini,gibier_à_poils,cassoulet])).
@@ -137,7 +136,7 @@ assert(bouche('2638f900',['grande intensité aromatique', rare, 'loin des grande
 assert(nez('2638f900',['issu de raisins surmaturés', 'teinte ambrée'])).
 assert(pour('2638f900',[desserts])).
 assert(accompagne('2638f900',[poisson_au_four,homar,cochon_de_lait,desserts_aux_fruits_rouges])).
-assert(description('53c3c9f8',['Superbe blanc des Noirs avec raisins supernaturels'])).
+assert(description('2638f900',['Superbe blanc des Noirs avec raisins supernaturels'])).
 
 assert(vin('f8b30078','Madiran Vieilles Vignes',2006,'j. vesselle à bouzy','bordeaux_rouge','rouge')).
 assert(prix('f8b30078',8.20, 9.92)).
