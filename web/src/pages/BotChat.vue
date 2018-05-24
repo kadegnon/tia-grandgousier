@@ -5,7 +5,7 @@
       <span v-else title="Ecouter la reponse du bot">Auto-Speak 🔊</span>
     </a>
     <!-- <swich-button :swich="autoSpeak" :labels="{checked: 'Foo', unchecked: 'Bar'}"/> -->
-    <h1>Bot Chat </h1>
+    <h1>Grandgousier Chat </h1>
     <transition-group name="msg-list" id="msg-list" tag="ul" ref="msgList">
       <chat-msg  class="msg" :key="msg.time"
         v-for="msg in msgs"  :msg="msg"
