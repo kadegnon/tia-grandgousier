@@ -153,3 +153,25 @@ assert(nez('2fe4f328',['sous le charme des fruits (pomme, coing)', 'avec des not
 assert(pour('2fe4f328',[entrée, préparations_asiatiques, poisson, fruits_de_mer_et_crustacés])).
 assert(accompagne('2fe4f328',[entrée_chaude,calamars,escargots,saumon_fumé,scampis,fruits_de_mer,crustacés,poissons_grillés_thon_espadon,poissons_pochés, poissons_en_sauce_crémeuse_ou_épicée,poisson_au_four,bar, thon,turbot,rouget, blanquette_de_veau, paella, croquette_de_crevette, tomate_crevète, poisson_crustacé_prépa_aigre_douce_asiatique, assortiment_vapeur_dim_sum])).
 assert(description('2fe4f328',['Magniﬁque expression du cépage Chardonnay sur un terroir de Bourgogne','Un Bourgogne blanc comme on les aime ! Délicieux'])).
+
+assert(vin(bc386d02,poil,2017,'Bruxelles',chablis,'')).
+assert(prix(bc386d02,45,54.449999999999996)).
+assert(bouche(bc386d02,['Delicat','et piquant ','à souhait'])).
+assert(nez(bc386d02,[puant,enflammé])).
+assert(pour(bc386d02,[_{name:poisson,value:poisson},_{name:'viande blanche',value:viande_blanche},_{name:volaille,value:volaille}])).
+assert(accompagne(bc386d02,[_{name:'poulet rôti',value:poulet_rôti},_{name:'steak frites',value:steak_frites},_{name:paella,value:paella},_{name:'carbonnades flamandes',value:carbonnades_flamandes}])).
+assert(description(bc386d02,['Vin de bruxelles'])).
+retractall(prix(bc386d02,_,_),1).
+retractall(pour(bc386d02,_),1).
+retractall(accompagne(bc386d02,_),1).
+retractall(bouche(bc386d02,_),1).
+retractall(nez(bc386d02,_),1).
+retractall(description(bc386d02,_),1).
+retractall(vin(bc386d02,_,_,_,_,_),1).
+assert(vin('b8f800aa','Notrre Dame de la Paix',2017,'Namur',saumur_brut,'')).
+assert(prix('b8f800aa',45,54.449999999999996)).
+assert(bouche('b8f800aa',['Delicat','et piquant ','à souhait'])).
+assert(nez('b8f800aa',[puant,enflammé])).
+assert(pour('b8f800aa',[poisson,viande_blanche,volaille])).
+assert(accompagne('b8f800aa',[poulet_rôti,steak_frites,paella,carbonnades_flamandes])).
+assert(description('b8f800aa',['Vin de bruxelles'])).
