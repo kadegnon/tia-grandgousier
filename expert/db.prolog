@@ -161,7 +161,7 @@ delete_prix(VinId) :-			retractall_prix(VinId,_,_).
 
 delete_pour(VinId) :-			retractall_pour(VinId,_).
 
-delete_avec(VinId) :-			delete_accompagne(VinId,_).
+delete_avec(VinId) :-			delete_accompagne(VinId).
 
 delete_accompagne(VinId) :-		retractall_accompagne(VinId,_).
 

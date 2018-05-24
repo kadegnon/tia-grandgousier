@@ -46,7 +46,7 @@ vino_handler(Request,Uri) :-
 	http_absolute_uri(Uri, Url), % Construis l'URl vers api/vino/
   % gspy(vino),
 	catch(
-		(vino(Method, Params, Url, Response),reply_json_dict(Response)),
+		(vino(Method, Params, Url, Response), reply_json_dict(Response)),
 		E,(send_error_reply(E))
 	).
 
@@ -59,14 +59,12 @@ vino(get, Params, Url, List) :- !,
 vino(post, Params, Url, Vino) :- !,
 	create_vino(Params, VinoID),
 	get_short_vino(VinoID, NVino),
-	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple en JSON 
+	inject_url(NVino, Url, Vino).		% Renvoie le nouveau Vino simple en JSON 
 
-vino(put, Params, Url) :- !,
+vino(put, Params, Url,  Vino) :- !,
 	update_vino(Params, NVinoID),
 	get_short_vino(NVinoID, NVino),
-	inject_url(NVino, Url, Vino),
-	reply_json_dict(Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
+	inject_url(NVino, Url, Vino).		% Renvoie le nouveau Vino simple sous forme de JSON 
 
 vino(delete, Params, _) :- !,
 	delete_vino(Params.id, DVino),
