@@ -13,6 +13,7 @@ Vue.url.options.root = process.env.API_URL;
 
 const { default:Boot} = require('./boot/index');
 
+console.log(process.env);
 
 new Vue({
   el: '#app',
