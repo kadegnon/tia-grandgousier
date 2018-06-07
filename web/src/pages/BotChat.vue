@@ -96,6 +96,12 @@ export default {
       return this.chatInputMsg.length + "/" + this.maxLimit;
     }
   },
+  watch : {
+    autoSpeak : function(val){
+      if(!val)
+        this.$bus.$emit('t2s-clear');
+    }
+  },
   methods: {
     speak (newMsg) {
       if(!this.autoSpeak)
@@ -149,6 +155,13 @@ export default {
           this.chatInputMsg = '';
           this.$refs.msgChatInput.focus();
           this.speak(newMsg);
+        })
+        .catch(e => {
+          console.error(e);
+          this.$bus.$emit(
+            'msg-warning',
+            ":-( Une erreur est survenue !\n Verifiez votre requête ..."
+        );
         });
     },
 

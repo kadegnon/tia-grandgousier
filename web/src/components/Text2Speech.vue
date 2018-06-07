@@ -36,6 +36,7 @@ export default {
     this.$bus.$on("t2s-speak", this.addText);
     this.$bus.$on("t2s-stop", this.cancelSpeak);
     this.$bus.$on("t2s-cancel", this.stop);
+    this.$bus.$on("t2s-clear", this.clear);
 
   },
   beforeDestroy() {
@@ -103,6 +104,11 @@ export default {
     stop() {
       Speech.cancel();
       this.isSpeaking = false;
+    },
+    
+    clear() {
+      this.stop();
+      this.texts.length = 0;
     }
   }
 };
