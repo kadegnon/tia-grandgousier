@@ -7,12 +7,16 @@
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
 
-regle_rep(cuisiner,61, [pour, noel, jenvisage, de, cuisiner, du, Plat | _] , Rep) :- !,
+regle_rep(cuisiner,61, [cuisiner, du, Plat | _] , Rep) :- !, rep_cuisiner_plat(Plat, Rep).
+    
+regle_rep(cuisiner,62,_,[['Plat', inconnue, dans, notre, catalogue]]).
+
+
+rep_cuisiner_plat(Plat, Rep) :-
 	findall(PlatID, get_plat(Plat, PlatID), Plats),
     db_vins_plat(Plats, LVinID),
     rep_lvins_avec(LVinID, Rep).
 
-regle_rep(cuisiner,62,_,[['Plat', inconnue, dans, notre, catalogue]]).
 
 get_plat(Plat, PlatID) :-
 	plat(PlatID, PlatNom, PlatType),
@@ -22,7 +26,7 @@ get_plat(Plat, PlatID) :-
 	).
 
 
-rep_lvins_avec([], [[aucun, vin, accompagne, pour, ce, plat]]).
+rep_lvins_avec([], [[aucun, vin, pour, accompagner, pour, ce, plat]]).
 
 rep_lvins_avec(LVinID, [ Resp | L]) :- 
     random_select(VinID, LVinID, _),
