@@ -24,7 +24,7 @@ assert(nez(beaumes_de_venise_2015,['intensément', 'parfumé'])).
 assert(bouche(beaumes_de_venise_2015,
   [  'les aromes de fraise, de violette cotoient les nuances' ,
      'de baies de genevrier, de sureau et une delicate touche' ,
-     'de fleur d\'oranger. Cette intensite se poursuit en' ,
+     'de fleur d\'oranger. Cette intensité se poursuit en' ,
      'bouche avec des saveurs juteuses, racees et très élégantes'
   ])).
 assert(description(beaumes_de_venise_2015,[ 
@@ -34,7 +34,7 @@ assert(description(beaumes_de_venise_2015,[
 assert(vin(les_chaboeufs_2013,'Nuits-Saint-Georges 1er Cru \'Les Chaboeufs\'', 2013, 'normandie' ,'bourgogne','blanc')).
 assert(prix(les_chaboeufs_2013, 35, 42.35)).
 assert(nez(les_chaboeufs_2013,['intensément', 'élégant'])).
-assert(bouche(les_chaboeufs_2013,['une belle epaisseur', 'puissant', 'riche', 'rond', 'genereux', 'longueur superbe'])).
+assert(bouche(les_chaboeufs_2013,['D\'une belle epaisseur', 'puissant', 'riche', 'rond', 'genereux',avec, 'une longueur superbe'])).
 assert(description(les_chaboeufs_2013,[ 
   'Sur une parcelle escarpée, pierreuse',
   'Belle intensité aromatique ou se mêlent, avec élégance, les notes de griotte, de sous-bois (feuilles mortes) et de champignon'
@@ -45,7 +45,7 @@ assert(prix(fleur_pomys_2012, 17.65, 21.36)).
 assert(nez(fleur_pomys_2012,[empyreumatique, annoncant, un, vin,complexe,et, 'concentré'])).
 assert(bouche(fleur_pomys_2012,
   [  'les aromes de myrtille et de cassis se mêlent à des notes glorales et à un boisé bien integré',
-     'Les saveurs sont riches et concentrees, avec beaucoup de densite' ,
+     'Les saveurs sont riches et concentrées, avec beaucoup de densité' ,
      'la finale laisse le souvenir d\' un Saint-Estephe a la fois complet, dense et race.'
   ])).
 assert(accompagne(fleur_pomys_2012,[viandes_rouges_grillées,carré_dagneau,entrecôte_grillée])).
