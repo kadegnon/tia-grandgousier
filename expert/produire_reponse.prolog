@@ -30,9 +30,9 @@ mclef(auriez,5).
 %   Response : Liste de liste de lignes correspondant à la
 %              règle définis pour le mot-clef 
 %
-produire_reponse([fin],[[merci, de, m, '\'', avoir, consulte]]) :- !.
-produire_reponse([bye],[[merci, de, m, '\'', avoir, consulte]]) :- !.
-produire_reponse([au,revoir],[[merci, de, m, '\'', avoir, consulte]]) :- !.
+produire_reponse([fin],[[merci, de, 'm\'avoir', 'consulté']]) :- !.
+produire_reponse([bye],[[merci, de, 'm\'avoir', 'consulté']]) :- !.
+produire_reponse([au,revoir],[[merci, de, 'm\'avoir', 'consulté']]) :- !.
 
 produire_reponse(L,Rep) :-
    % write(L),
