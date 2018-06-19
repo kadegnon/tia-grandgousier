@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% regle_rep(+MotClef,+NumRegle,+Question,-Reponse).
 
-regle_rep(bouche,51,[ que, donne, en , bouche, le, VinNom], Rep)
+regle_rep(bouche,51,[ que, donne, en , bouche, le, VinNom], Rep) :-
     rep_bouche(VinNom,Rep).
     
 regle_rep(bouche,51,[ que, donne, le, VinNom, en , bouche ], Rep) :-
