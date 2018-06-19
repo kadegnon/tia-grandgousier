@@ -1,6 +1,6 @@
 #!/usr/bin/swipl
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/*  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ClioPatria is prepared to be combined with the SWI-Prolog library
 library(http/http_unix_daemon).  ClioPatria is started as a deamon
 using
