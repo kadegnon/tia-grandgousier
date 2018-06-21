@@ -4,14 +4,9 @@ Projet de T.I.A, bot conseiller en vins , partie web app.
 
 ## Build Setup
 
-First, configure the API Url by 2 ways :
+First, configure the API Url by modify API_URL in `web/config/prod.env.js` with the correct URL to API
 
-* Modify API_URL in `web/config/prod.env.js` with the correct URL
-
-* or create a `.env` file at the root of ``web/`` with the following content. Change the API_URL to yours.
-```bash
-  API_URL="127.0.0.1:8081"
-```
+* ~~or create a `.env` file at the root of ``web/`` with the following content. Change the API_URL to yours.~~
 
 ``` bash
 # install dependencies
