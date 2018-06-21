@@ -18,8 +18,12 @@ It is also possible to launch the API Server as daemon.
 
 ## Project structure
 
-- ``api`` : API server written in PROLOG, receives HTTP Request through its defined routes and responds with JSON data.
+The project contains 3 main folders. You will found below a short description and a link to the corresponding README for more details.
 
-- ``expert`` : Core of Grandgousier
+- [``api``](api\README.md) : API server written in PROLOG, receives HTTP Request through its defined routes and responds with JSON data.
 
-- ``web`` : written with Vue.JS, so it has to be run on a web server.
+- [``expert``](expert\README.md) : Core of Grandgousier , contains the knowledge database, all predicates to respond to the user question.
+
+- [``web``](web/README.md) : WebApp witten in Vue.JS to interract with Grandgousier through a Web interface.
+
+
