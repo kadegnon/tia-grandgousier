@@ -165,12 +165,15 @@ export default {
     }
   },
 
-  beforeRouteUpdate(to, from, next) {
+  beforeRouteLeave (to, from, next) {
     if (to.path === "/vins/new") {
       Object.assign(this.vin, _defaultVin, to.query);
-      this.$el.querySelector("#vnom").focus();
-      next();
-    } else {
+    }
+    next();
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    if (to.path !== "/vins/new") {
       next(this.getVin(to.params.id));
     }
   },
