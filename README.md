@@ -27,3 +27,11 @@ The project contains 3 main folders. You will found below a short description an
 - [``web``](web/README.md) : WebApp witten in Vue.JS to interract with Grandgousier through a Web interface.
 
 
+## How to launch?
+
+1. Start the API Server with `swipl` or as daemon. See the [Description](##Descritipon) for details.
+    
+2. Set the API URL in the web app config.
+   Follow the build Setup in the [web/README](web/README.md). 
+
+3. Open the HTTP Server URL in Google Chrome browser.

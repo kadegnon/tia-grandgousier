@@ -15,7 +15,7 @@ npm install
 # serve locally with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
+# build for production with minification into web/dist/
 npm run build
 
 # build for production and view the bundle analyzer report
@@ -23,7 +23,7 @@ npm run build --report
 
 ```
 
-As this app was designed as web app, it requires to be deployed on a web server. Built files are meant to be served over an HTTP server. **Opening index.html over file:// won't work.**
+As this app was designed as web app, it requires to be deployed on a web server. Files built in **dist/** folder are meant to be served over an HTTP server. **Opening index.html over file:// won't work.**
 To do so, locally and for test purpose, a web server can be executed. Many solutions exist :
 
 * Use BusyBox, pre-installed in most Linux distribution
